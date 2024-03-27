@@ -1,0 +1,55 @@
+List of all important components and sub-components as per user:
+
+===============================================================================
+Auth Components
+===============================================================================
+- Login page (html template + vue setup + bootstrap styling)
+- Register page (html template + vue setup + bootstrap styling)
+- Frontend and Backend data validation for login/register
+- Frontend store JWT and delete when expired
+- Backend Create JWT and verify for each request
+- AuthAPI to handle login/register/logout
+- Methods to send notifications (google chat webhook, email)
+- Validate new users registrations 
+
+===============================================================================
+Ticket Components
+===============================================================================
+- CRUD operations with Ticket API
+- Multiple tickets request with API
+- Set up Cache for ticket request
+- Create Ticket page (html template + vue setup + bootstrap styling)
+- My tickets page (html template + vue setup + bootstrap styling)
+
+===============================================================================
+Student Components
+===============================================================================
+- Home page (html template + vue setup + bootstrap styling)
+- Update profile page (html template + vue setup + bootstrap styling)
+- Search, sort , filter tickets for frontend
+- Student API backend
+
+===============================================================================
+Support Staff Components
+===============================================================================
+- Home page (html template + vue setup + bootstrap styling)
+- My resolved tickets page (html template + vue setup + bootstrap styling)
+- Resolve Ticket page (html template + vue setup + bootstrap styling)
+- Update profile and change password page
+- Backend API for support staff
+
+===============================================================================
+Admin Components
+===============================================================================
+- Home page
+- Validate users page
+- View most upvoted tickets
+- Update profile and change password page
+- Admin api for backend
+
+===============================================================================
+FAQ Components
+===============================================================================
+- View all FAQ page (html template + vue setup + bootstrap styling)
+- Create FAQ page (html template + vue setup + bootstrap styling)
+- FAQ API for backend
