@@ -1,0 +1,424 @@
+===============================================================================
+Setting up node frontend
+===============================================================================
+
+Check NPM version: node --version
+O/P: v16.14.2
+
+Check NPM version: npm --version
+O/P: 8.5.5
+
+Change dir to code files dir and run: npm install -g @vue/cli
+
+Check vue version: vue --version
+O/P: @vue/cli 5.0.8
+
+Create vue app: vue create frontend
+
+Vue CLI v5.0.8
+? Please pick a preset: Manually select features
+? Check the features needed for your project: Babel, Router, Vuex, Linter
+? Choose a version of Vue.js that you want to start the project with 2.x
+? Use history mode for router? (Requires proper server setup for index fallback in production) Yes
+? Pick a linter / formatter config: Airbnb
+? Pick additional lint features: Lint on save
+? Where do you prefer placing config for Babel, ESLint, etc.? In package.json
+? Save this as a preset for future projects? No
+
+
+Change dir to frontend: cd frontend
+
+
+Install packages with following commands:
+npm install axios@0.21.1
+npm install bootstrap@4.6.0
+npm install bootstrap-vue@2.21.2
+npm install vuejs-logger@1.5.5
+
+Check versions of all installed packages: npm list
+
+frontend@0.1.0 D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\frontend
++-- @babel/core@7.21.0
++-- @babel/eslint-parser@7.19.1
++-- @vue/cli-plugin-babel@5.0.8
++-- @vue/cli-plugin-eslint@5.0.8
++-- @vue/cli-plugin-router@5.0.8
++-- @vue/cli-plugin-vuex@5.0.8
++-- @vue/cli-service@5.0.8
++-- @vue/eslint-config-airbnb@6.0.0
++-- axios@0.21.1
++-- bootstrap-vue@2.21.2
++-- bootstrap@4.6.0
++-- core-js@3.29.0
++-- eslint-plugin-import@2.27.5
++-- eslint-plugin-vue@8.7.1
++-- eslint-plugin-vuejs-accessibility@1.2.0
++-- eslint@7.32.0
++-- vue-router@3.6.5
++-- vue-template-compiler@2.7.14
++-- vue@2.7.14
++-- vuejs-logger@1.5.5
+`-- vuex@3.6.2
+
+
+Start the vue app: npm run serve
+  
+App running at:
+  - Local:   http://localhost:8080/
+  - Network: http://192.168.1.10:8080/
+
+
+
+
+
+
+===============================================================================
+Setting up flask backend
+===============================================================================
+install 'python' on system. (3.10.9)
+install sqlite and dbbrowser on system
+
+Check Python version: python --version
+Python 3.10.9
+
+Check Pip version: pip --version
+pip 23.0
+
+then change dir to project dir where code files will be set.
+
+Create virtual environment:
+python -m venv D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\supportTicketVenv
+
+Activate:
+D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\supportTicketVenv\Scripts\activate.bat
+
+To upgrade pip:
+python -m pip install --upgrade pip
+
+Install Packages:
+pip install -r D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\backend\requirements.txt
+
+To check installed packages: pip freeze > D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\backend\requirements.txt
+
+Deactivate:
+deactivate
+
+
+===============================================================================
+ 
+
+
+
+
+
+
+
+
+===========================  node install with output ======================================
+Microsoft Windows [Version 10.0.22000.1455]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Akash>npm --version
+8.5.5
+
+C:\Users\Akash>d:
+
+D:\>cd D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code
+
+D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code>npm install -g @vue/cli
+npm WARN deprecated source-map-url@0.4.1: See https://github.com/lydell/source-map-url#deprecated
+npm WARN deprecated urix@0.1.0: Please see https://github.com/lydell/urix#deprecated
+npm WARN deprecated apollo-datasource@3.3.2: The `apollo-datasource` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm WARN deprecated apollo-server-errors@3.3.1: The `apollo-server-errors` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm WARN deprecated source-map-resolve@0.5.3: See https://github.com/lydell/source-map-resolve#deprecated
+npm WARN deprecated apollo-server-plugin-base@3.7.1: The `apollo-server-plugin-base` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm WARN deprecated apollo-server-types@3.7.1: The `apollo-server-types` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm WARN deprecated resolve-url@0.2.1: https://github.com/lydell/resolve-url#deprecated
+npm WARN deprecated apollo-server-express@3.11.1: The `apollo-server-express` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm WARN deprecated apollo-reporting-protobuf@3.3.3: The `apollo-reporting-protobuf` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/usage-reporting-protobuf` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm WARN deprecated apollo-server-env@4.2.1: The `apollo-server-env` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/utils.fetcher` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+npm WARN deprecated subscriptions-transport-ws@0.11.0: The `subscriptions-transport-ws` package is no longer maintained. We recommend you use `graphql-ws` instead. For help migrating Apollo software to `graphql-ws`, see https://www.apollographql.com/docs/apollo-server/data/subscriptions/#switching-from-subscriptions-transport-ws    For general help using `graphql-ws`, see https://github.com/enisdenjo/graphql-ws/blob/master/README.md
+npm WARN deprecated apollo-server-core@3.11.1: The `apollo-server-core` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+
+changed 855 packages, and audited 856 packages in 2m
+
+64 packages are looking for funding
+  run `npm fund` for details
+
+6 vulnerabilities (1 moderate, 5 high)
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code>vue --version
+@vue/cli 5.0.8
+
+D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code>vue create frontend
+
+
+Vue CLI v5.0.8
+? Please pick a preset: Manually select features
+? Check the features needed for your project: Babel, Router, Vuex, Linter
+? Choose a version of Vue.js that you want to start the project with 2.x
+? Use history mode for router? (Requires proper server setup for index fallback in production) Yes
+? Pick a linter / formatter config: Airbnb
+? Pick additional lint features: Lint on save
+? Where do you prefer placing config for Babel, ESLint, etc.? In package.json
+? Save this as a preset for future projects? No
+
+
+Vue CLI v5.0.8
+✨  Creating project in D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\frontend.
+🗃  Initializing git repository...
+⚙️  Installing CLI plugins. This might take a while...
+
+
+added 857 packages, and audited 858 packages in 1m
+
+91 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+🚀  Invoking generators...
+📦  Installing additional dependencies...
+
+
+added 181 packages, and audited 1039 packages in 29s
+
+148 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+⚓  Running completion hooks...
+
+📄  Generating README.md...
+
+🎉  Successfully created project frontend.
+👉  Get started with the following commands:
+
+ $ cd frontend
+ $ npm run serve
+
+
+D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code>cd frontend
+
+D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\frontend>npm run serve
+
+> frontend@0.1.0 serve
+> vue-cli-service serve
+
+ INFO  Starting development server...
+
+
+ DONE  Compiled successfully in 8312ms                                                                        10:51:57 pm
+
+
+  App running at:
+  - Local:   http://localhost:8080/
+  - Network: http://192.168.1.10:8080/
+
+  Note that the development build is not optimized.
+  To create a production build, run npm run build.
+
+Terminate batch job (Y/N)? y
+
+D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\frontend>node --version
+v16.14.2
+
+D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\frontend>npm --version
+8.5.5
+
+D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\frontend>vue --version
+@vue/cli 5.0.8
+
+D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\frontend>npm list
+frontend@0.1.0 D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\frontend
++-- @babel/core@7.21.0
++-- @babel/eslint-parser@7.19.1
++-- @vue/cli-plugin-babel@5.0.8
++-- @vue/cli-plugin-eslint@5.0.8
++-- @vue/cli-plugin-router@5.0.8
++-- @vue/cli-plugin-vuex@5.0.8
++-- @vue/cli-service@5.0.8
++-- @vue/eslint-config-airbnb@6.0.0
++-- core-js@3.29.0
++-- eslint-plugin-import@2.27.5
++-- eslint-plugin-vue@8.7.1
++-- eslint-plugin-vuejs-accessibility@1.2.0
++-- eslint@7.32.0
++-- vue-router@3.6.5
++-- vue-template-compiler@2.7.14
++-- vue@2.7.14
+`-- vuex@3.6.2
+
+
+D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\frontend>
+D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\frontend>npm install axios@0.21.1
+
+added 1 package, and audited 1040 packages in 2s
+
+148 packages are looking for funding
+  run `npm fund` for details
+
+1 high severity vulnerability
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+
+D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\frontend>npm install bootstrap@4.6.0
+npm WARN deprecated popper.js@1.16.1: You can find the new Popper v2 at @popperjs/core, this package is dedicated to the legacy v1
+
+added 3 packages, and audited 1043 packages in 5s
+
+150 packages are looking for funding
+  run `npm fund` for details
+
+1 high severity vulnerability
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+
+D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\frontend>npm install bootstrap-vue@2.21.2
+
+added 11 packages, and audited 1054 packages in 13s
+
+150 packages are looking for funding
+  run `npm fund` for details
+
+1 high severity vulnerability
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+
+D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\frontend>npm install vuejs-logger@1.5.5
+
+added 3 packages, and audited 1057 packages in 6s
+
+150 packages are looking for funding
+  run `npm fund` for details
+
+1 high severity vulnerability
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+
+D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\frontend>npm list
+frontend@0.1.0 D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\frontend
++-- @babel/core@7.21.0
++-- @babel/eslint-parser@7.19.1
++-- @vue/cli-plugin-babel@5.0.8
++-- @vue/cli-plugin-eslint@5.0.8
++-- @vue/cli-plugin-router@5.0.8
++-- @vue/cli-plugin-vuex@5.0.8
++-- @vue/cli-service@5.0.8
++-- @vue/eslint-config-airbnb@6.0.0
++-- axios@0.21.1
++-- bootstrap-vue@2.21.2
++-- bootstrap@4.6.0
++-- core-js@3.29.0
++-- eslint-plugin-import@2.27.5
++-- eslint-plugin-vue@8.7.1
++-- eslint-plugin-vuejs-accessibility@1.2.0
++-- eslint@7.32.0
++-- vue-router@3.6.5
++-- vue-template-compiler@2.7.14
++-- vue@2.7.14
++-- vuejs-logger@1.5.5
+`-- vuex@3.6.2
+
+
+D:\IITM_exam\IITM_Term_7\SE_Project\Local_Work\My_Code\frontend>npm run serve
+
+> frontend@0.1.0 serve
+> vue-cli-service serve
+
+ INFO  Starting development server...
+
+
+ DONE  Compiled successfully in 7706ms                                                                        11:02:16 pm
+
+
+  App running at:
+  - Local:   http://localhost:8080/
+  - Network: http://192.168.1.10:8080/
+
+  Note that the development build is not optimized.
+  To create a production build, run npm run build.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+install like above
+then to disable eslint, go to package.json and inside eslintconfig add "ignorePatterns": ["**/*.vue"],
+then to enable bootstrapvue, go to main.js, replace all code with following
+------------
+import BootstrapVue from 'bootstrap-vue';
+import VueLogger from 'vuejs-logger';
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
+import 'bootstrap/dist/css/bootstrap.css';
+
+const isProduction = process.env.NODE_ENV === 'production';
+
+Vue.config.productionTip = false;
+Vue.prototype.$BASEURL = (Vue.config.productionTip) ? 'https://hostname' : 'http://127.0.0.1:5000';
+
+const options = {
+  isEnabled: true,
+  logLevel: isProduction ? 'error' : 'debug',
+  stringifyArguments: true,
+  showLogLevel: false,
+  showMethodName: false,
+  separator: '|',
+  showConsoleColors: true,
+};
+
+Vue.use(VueLogger, options); // logLevels:['debug', 'info', 'warn', 'error', 'fatal']
+Vue.use(BootstrapVue);
+
+new Vue({
+  router,
+  store,
+  render: (h) => h(App),
+}).$mount('#app');
+
+store.subscribe((mutation, state) => {
+  // cache store data
+  localStorage.setItem('store', JSON.stringify(state));
+});
+
+------------------
+
+
+
+
+
