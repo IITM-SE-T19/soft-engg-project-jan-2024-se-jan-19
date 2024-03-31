@@ -1,6 +1,14 @@
 t19venv
 supportTicketVenv
+*.bat
+*.exe
 .DS_Store
+.vscode
+.DS_Store
+node_modules
+/dist
+
+env
 
 # local env files
 .env.local
@@ -20,5 +28,6 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+*:Zone.Identifier
 *.bat
 *.exe
