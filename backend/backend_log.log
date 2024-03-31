@@ -4989,3 +4989,11 @@
 27-Mar-24 10:41:19 - [INFO] -  * Debugger PIN: 256-835-185
 27-Mar-24 10:41:46 - [INFO] - 127.0.0.1 - - [27/Mar/2024 10:41:46] "[33mGET / HTTP/1.1[0m" 404 -
 27-Mar-24 10:41:46 - [INFO] - 127.0.0.1 - - [27/Mar/2024 10:41:46] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+29-Mar-24 18:40:19 - [INFO] - Development environment configured.
+29-Mar-24 18:40:19 - [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+29-Mar-24 18:40:19 - [INFO] - [33mPress CTRL+C to quit[0m
+29-Mar-24 18:40:19 - [INFO] -  * Restarting with stat
+29-Mar-24 18:40:19 - [INFO] - Development environment configured.
+29-Mar-24 18:40:19 - [WARNING] -  * Debugger is active!
+29-Mar-24 18:40:19 - [INFO] -  * Debugger PIN: 256-835-185
