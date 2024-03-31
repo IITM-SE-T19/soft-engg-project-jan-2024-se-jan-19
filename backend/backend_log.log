@@ -5138,3 +5138,97 @@
 31-Mar-24 16:02:29 - [INFO] - All tickets found : 1
 31-Mar-24 16:02:29 - [INFO] - 200 - Custom success 200 response sent
 31-Mar-24 16:02:29 - [INFO] - 127.0.0.1 - - [31/Mar/2024 16:02:29] "GET /api/v1/ticket/all-tickets/55c0baf2793d1aa9b50941dd51feb089?filter_status=pending HTTP/1.1" 200 -
+31-Mar-24 18:36:06 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:36:06] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+31-Mar-24 18:36:06 - [INFO] - 404 - User does not exists
+31-Mar-24 18:36:06 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:36:06] "[33mPOST /api/v1/auth/login HTTP/1.1[0m" 404 -
+31-Mar-24 18:36:37 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:36:37] "OPTIONS /api/v1/auth/register HTTP/1.1" 200 -
+31-Mar-24 18:36:37 - [INFO] - New account created
+31-Mar-24 18:36:37 - [INFO] - 200 - Account created successfully. Now please login.
+31-Mar-24 18:36:37 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:36:37] "POST /api/v1/auth/register HTTP/1.1" 200 -
+31-Mar-24 18:36:49 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:36:49] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+31-Mar-24 18:36:49 - [INFO] - 401 - User is not verified by Admin.
+31-Mar-24 18:36:49 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:36:49] "[31m[1mPOST /api/v1/auth/login HTTP/1.1[0m" 401 -
+31-Mar-24 18:37:09 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:37:09] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+31-Mar-24 18:37:09 - [INFO] - 404 - User does not exists
+31-Mar-24 18:37:09 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:37:09] "[33mPOST /api/v1/auth/login HTTP/1.1[0m" 404 -
+31-Mar-24 18:37:24 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:37:24] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+31-Mar-24 18:37:24 - [INFO] - 401 - Password is incorrect
+31-Mar-24 18:37:24 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:37:24] "[31m[1mPOST /api/v1/auth/login HTTP/1.1[0m" 401 -
+31-Mar-24 18:37:31 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:37:31] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+31-Mar-24 18:37:31 - [INFO] - User logged in.
+31-Mar-24 18:37:31 - [INFO] - 200 - Custom success 200 response sent
+31-Mar-24 18:37:31 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:37:31] "POST /api/v1/auth/login HTTP/1.1" 200 -
+31-Mar-24 18:37:31 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:37:31] "OPTIONS /api/v1/admin/b334c3c61f5128c0cf907b19afb892e9 HTTP/1.1" 200 -
+31-Mar-24 18:37:31 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+31-Mar-24 18:37:31 - [INFO] - User role : admin : is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+31-Mar-24 18:37:31 - [INFO] - File path is not valid: 
+31-Mar-24 18:37:31 - [INFO] - 200 - Custom success 200 response sent
+31-Mar-24 18:37:31 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:37:31] "GET /api/v1/admin/b334c3c61f5128c0cf907b19afb892e9 HTTP/1.1" 200 -
+31-Mar-24 18:37:33 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:37:33] "OPTIONS /api/v1/auth/newUsers HTTP/1.1" 200 -
+31-Mar-24 18:37:33 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+31-Mar-24 18:37:33 - [INFO] - Admin role is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+31-Mar-24 18:37:33 - [INFO] - 200 - Custom success 200 response sent
+31-Mar-24 18:37:33 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:37:33] "GET /api/v1/auth/newUsers HTTP/1.1" 200 -
+31-Mar-24 18:37:36 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:37:36] "OPTIONS /api/v1/auth/newUsers/9afdc44129e435554634bf5cfb38947e HTTP/1.1" 200 -
+31-Mar-24 18:37:36 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+31-Mar-24 18:37:36 - [INFO] - Admin role is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+31-Mar-24 18:37:36 - [INFO] - 200 - User verified and updated in database.
+31-Mar-24 18:37:36 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:37:36] "PUT /api/v1/auth/newUsers/9afdc44129e435554634bf5cfb38947e HTTP/1.1" 200 -
+31-Mar-24 18:37:40 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:37:40] "OPTIONS /api/v1/admin/b334c3c61f5128c0cf907b19afb892e9 HTTP/1.1" 200 -
+31-Mar-24 18:37:40 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+31-Mar-24 18:37:40 - [INFO] - User role : admin : is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+31-Mar-24 18:37:40 - [INFO] - File path is not valid: 
+31-Mar-24 18:37:40 - [INFO] - 200 - Custom success 200 response sent
+31-Mar-24 18:37:40 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:37:40] "GET /api/v1/admin/b334c3c61f5128c0cf907b19afb892e9 HTTP/1.1" 200 -
+31-Mar-24 18:42:51 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:42:51] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+31-Mar-24 18:42:51 - [INFO] - User logged in.
+31-Mar-24 18:42:51 - [INFO] - 200 - Custom success 200 response sent
+31-Mar-24 18:42:51 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:42:51] "POST /api/v1/auth/login HTTP/1.1" 200 -
+31-Mar-24 18:42:51 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:42:51] "OPTIONS /api/v1/support/9afdc44129e435554634bf5cfb38947e HTTP/1.1" 200 -
+31-Mar-24 18:42:51 - [INFO] - Token is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:42:51 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:42:51] "OPTIONS /api/v1/ticket/all-tickets/9afdc44129e435554634bf5cfb38947e?query=&filter_priority=&filter_status=pending&sortby=&sortdir=&filter_tags= HTTP/1.1" 200 -
+31-Mar-24 18:42:51 - [INFO] - User role : support : is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:42:51 - [INFO] - Token is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:42:51 - [INFO] - User role : support : is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:42:51 - [INFO] - File path is not valid: 
+31-Mar-24 18:42:51 - [INFO] - 200 - Custom success 200 response sent
+31-Mar-24 18:42:51 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:42:51] "GET /api/v1/support/9afdc44129e435554634bf5cfb38947e HTTP/1.1" 200 -
+31-Mar-24 18:42:51 - [INFO] - All tickets found : 1
+31-Mar-24 18:42:51 - [INFO] - 200 - Custom success 200 response sent
+31-Mar-24 18:42:51 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:42:51] "GET /api/v1/ticket/all-tickets/9afdc44129e435554634bf5cfb38947e?query=&filter_priority=&filter_status=pending&sortby=&sortdir=&filter_tags= HTTP/1.1" 200 -
+31-Mar-24 18:43:01 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:43:01] "OPTIONS /api/v1/ticket/7942ce502048cd830afe04f80f90bbbe/55c0baf2793d1aa9b50941dd51feb089 HTTP/1.1" 200 -
+31-Mar-24 18:43:01 - [INFO] - Token is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:43:01 - [INFO] - User role : support : is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:43:01 - [INFO] - 200 - Custom success 200 response sent
+31-Mar-24 18:43:01 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:43:01] "GET /api/v1/ticket/7942ce502048cd830afe04f80f90bbbe/55c0baf2793d1aa9b50941dd51feb089 HTTP/1.1" 200 -
+31-Mar-24 18:43:19 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:43:19] "OPTIONS /api/v1/ticket/7942ce502048cd830afe04f80f90bbbe/55c0baf2793d1aa9b50941dd51feb089 HTTP/1.1" 200 -
+31-Mar-24 18:43:19 - [INFO] - Token is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:43:19 - [INFO] - User role : support : is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:43:19 - [INFO] - 200 - Custom success 200 response sent
+31-Mar-24 18:43:19 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:43:19] "GET /api/v1/ticket/7942ce502048cd830afe04f80f90bbbe/55c0baf2793d1aa9b50941dd51feb089 HTTP/1.1" 200 -
+31-Mar-24 18:43:20 - [INFO] - Token is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:43:20 - [INFO] - User role : support : is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:43:20 - [INFO] - 200 - Custom success 200 response sent
+31-Mar-24 18:43:20 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:43:20] "GET /api/v1/ticket/7942ce502048cd830afe04f80f90bbbe/55c0baf2793d1aa9b50941dd51feb089 HTTP/1.1" 200 -
+31-Mar-24 18:43:21 - [INFO] - Token is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:43:21 - [INFO] - User role : support : is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:43:21 - [INFO] - 200 - Custom success 200 response sent
+31-Mar-24 18:43:21 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:43:21] "GET /api/v1/ticket/7942ce502048cd830afe04f80f90bbbe/55c0baf2793d1aa9b50941dd51feb089 HTTP/1.1" 200 -
+31-Mar-24 18:44:03 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:44:03] "OPTIONS /api/v1/ticket/7942ce502048cd830afe04f80f90bbbe/9afdc44129e435554634bf5cfb38947e HTTP/1.1" 200 -
+31-Mar-24 18:44:03 - [INFO] - Token is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:44:03 - [INFO] - User role : support : is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:44:04 - [ERROR] - Error during mail sending: [Errno 111] Connection refused
+31-Mar-24 18:44:04 - [INFO] - 200 - Successfully resolved a ticket.
+31-Mar-24 18:44:04 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:44:04] "PUT /api/v1/ticket/7942ce502048cd830afe04f80f90bbbe/9afdc44129e435554634bf5cfb38947e HTTP/1.1" 200 -
+31-Mar-24 18:44:12 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:44:12] "OPTIONS /api/v1/support/9afdc44129e435554634bf5cfb38947e HTTP/1.1" 200 -
+31-Mar-24 18:44:12 - [INFO] - Token is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:44:12 - [INFO] - User role : support : is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:44:12 - [INFO] - File path is not valid: 
+31-Mar-24 18:44:12 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:44:12] "OPTIONS /api/v1/ticket/all-tickets/9afdc44129e435554634bf5cfb38947e?query=&filter_priority=&filter_status=pending&sortby=&sortdir=&filter_tags= HTTP/1.1" 200 -
+31-Mar-24 18:44:12 - [INFO] - 200 - Custom success 200 response sent
+31-Mar-24 18:44:12 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:44:12] "GET /api/v1/support/9afdc44129e435554634bf5cfb38947e HTTP/1.1" 200 -
+31-Mar-24 18:44:12 - [INFO] - Token is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:44:12 - [INFO] - User role : support : is verified for the user: 9afdc44129e435554634bf5cfb38947e
+31-Mar-24 18:44:12 - [INFO] - All tickets found : 0
+31-Mar-24 18:44:12 - [INFO] - 200 - Custom success 200 response sent
+31-Mar-24 18:44:12 - [INFO] - 127.0.0.1 - - [31/Mar/2024 18:44:12] "GET /api/v1/ticket/all-tickets/9afdc44129e435554634bf5cfb38947e?query=&filter_priority=&filter_status=pending&sortby=&sortdir=&filter_tags= HTTP/1.1" 200 -

@@ -1,11 +1,11 @@
 <template>
   <div class="register-form">
-    <div style="margin: 3%; padding: 3%; width: 50%">
+    <div style="margin: 3% 10%; padding: 3% 5%; width: 80%"> <!-- Adjusted margin and padding -->
       <h3 style="text-align: left">Register</h3>
       <br />
       <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-        <b-form-group
-          ><b-form-input
+        <b-form-group>
+          <b-form-input
             id="input-first-name-register"
             v-model="form.first_name"
             type="text"
@@ -19,8 +19,8 @@
           </b-form-invalid-feedback>
         </b-form-group>
 
-        <b-form-group
-          ><b-form-input
+        <b-form-group>
+          <b-form-input
             id="input-last-name-register"
             v-model="form.last_name"
             type="text"
@@ -38,8 +38,8 @@
           ></b-form-radio-group>
         </b-form-group>
 
-        <b-form-group
-          ><b-form-input
+        <b-form-group>
+          <b-form-input
             id="input-email-register"
             v-model="form.email"
             type="email"
@@ -49,8 +49,8 @@
         ></b-form-group>
 
 
-
-
+                 <!-- ##Team19_AJ -->
+                 
         <!-- Include Discourse ID field -->
         <b-form-group>
           <b-form-input
@@ -62,13 +62,8 @@
         </b-form-group>
         <!-- End of Discourse ID field -->
 
-
-
-
-
-        
-        <b-form-group
-          ><b-form-input
+        <b-form-group>
+          <b-form-input
             id="input-password-register"
             v-model="form.password"
             placeholder="Enter password"
@@ -78,13 +73,12 @@
             required
           ></b-form-input>
           <b-form-invalid-feedback id="input-live-feedback-password">
-            Password should contain letters A-Z a-z and numbers 0-9 only and should be atleast 4 and
-            atmost 8 characters long.
+            Password should contain letters A-Z a-z and numbers 0-9 only and should be at least 4 and at most 8 characters long.
           </b-form-invalid-feedback>
         </b-form-group>
 
-        <b-form-group
-          ><b-form-input
+        <b-form-group>
+          <b-form-input
             id="input-retype-password-register"
             v-model="form.retype_password"
             placeholder="Retype password"
