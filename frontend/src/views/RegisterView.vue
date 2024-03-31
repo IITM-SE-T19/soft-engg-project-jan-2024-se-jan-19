@@ -48,6 +48,25 @@
           ></b-form-input
         ></b-form-group>
 
+
+
+
+        <!-- Include Discourse ID field -->
+        <b-form-group>
+          <b-form-input
+            id="input-discourse-id-register"
+            v-model="form.discourse_id"
+            type="text"
+            placeholder="Enter Discourse ID"
+          ></b-form-input>
+        </b-form-group>
+        <!-- End of Discourse ID field -->
+
+
+
+
+
+        
         <b-form-group
           ><b-form-input
             id="input-password-register"
@@ -107,6 +126,12 @@ export default {
         last_name: "",
         role: "student",
         email: "",
+
+
+        discourse_id: "", 
+
+
+
         password: "",
         retype_password: "",
       },
@@ -155,6 +180,15 @@ export default {
       this.form.first_name = "";
       this.form.last_name = "";
       this.form.email = "";
+
+
+
+
+      this.form.discourse_id = "";
+
+
+
+      
       this.form.password = "";
       this.form.retype_password = "";
       // Trick to reset/clear native browser form validation state
