@@ -69,12 +69,10 @@
             @blur="checkUserExists"
           ></b-form-input>
           <div v-if="form.discourse_username.length >= 3">
-            <span v-if="this.discourseUserExists" style="color: green;">&#10004;</span>
-            <span v-else style="color: red;">&#10008;</span>
+            <span v-if="this.discourseUserExists" style="color: green;">&#10004; Discourse username is valid.</span>
+            <span v-else style="color: red;">&#10008; Discourse username not found.</span>
           </div>
-      <b-form-invalid-feedback id="input-live-feedback-discourse-username">
-        Enter at least 3 letters of the username
-      </b-form-invalid-feedback>
+     
     </b-form-group>
       
       
@@ -203,18 +201,13 @@ export default {
     },
     checkUserExists() {
 
-      fetch(`https://t19support.cs3001.site/u/${this.form.discourse_username}.json`, {
-        method: "GET",
-        headers: {
-          "Api-Key": "3030e413d91e5c7b3df76b994fe35f75bbf507e3701e7e7375881bc414a1454b",
-          "Api-Username": "System",
-        },
-        mode: 'no-cors' 
+      fetch(`http://localhost:5000/api/v1/discourse/user/${this.form.discourse_username}`, {
+        method: "GET", 
       })
       .then((response) => {
+      
         if (response.status === 200) {
           this.discourseUserExists = true;
-          alert('User is valid');
         } else if (response.status === 404) {
           // User does not exist (status 404)
           this.discourseUserExists = false;

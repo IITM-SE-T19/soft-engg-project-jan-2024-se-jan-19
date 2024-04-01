@@ -104,7 +104,7 @@ export default new Vuex.Store({
         alert("Token Expired. Please login again");
         context.commit('SET_STATE_AFTER_LOGOUT', payload);
         router.push("/login");
-      }, 120 * 60 * 1000);  // 1000 means 1 sec # PUNEET 21F1004363: Updated to 2 hours
+      }, 120 * 60 * 1000);  // TEAM 19 / PB: 1000 means 1 sec. Updated to 2 hours
       context.commit('SET_TIMEOUT_ID', timeout_id);
     },
   },
