@@ -28,6 +28,9 @@ FAQ_ATTACHMENTS_PATH = os.path.join(
     BACKEND_ROOT_PATH, "databases", "images", "faq_attachments"
 )
 
+# TEAM 19 - MJ
+BASE_DISCOURSE = "https://t19support.cs3001.site/latest"
+
 # Mailhog runs at http://127.0.0.1:8025/
 SMTP_SERVER_HOST = "127.0.0.1"
 SMTP_SERVER_PORT = 1025
