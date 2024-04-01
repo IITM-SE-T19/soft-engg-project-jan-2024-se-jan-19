@@ -735,6 +735,7 @@ class AllTicketsUserAPI(Resource):
         return success_200_custom(data=all_tickets)
 
 
+
 ticket_api.add_resource(
     TicketAPI,
     "/<string:ticket_id>/<string:user_id>",
@@ -742,5 +743,6 @@ ticket_api.add_resource(
 )  # path is /api/v1/ticket
 ticket_api.add_resource(AllTicketsAPI, "/all-tickets")
 ticket_api.add_resource(AllTicketsUserAPI, "/all-tickets/<string:user_id>")
+
 
 # --------------------  END  --------------------

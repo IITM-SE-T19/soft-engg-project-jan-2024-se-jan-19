@@ -34,4 +34,12 @@ SMTP_SERVER_PORT = 1025
 SENDER_ADDRESS = "osts_group_14@gmail.com"  # dummy mail and password
 SENDER_PASSWORD = "1234"
 
+# TEAM 19 / PB: Discourse API 
+DISCOURSE_HEADERS = {
+    "Api-Key": "3030e413d91e5c7b3df76b994fe35f75bbf507e3701e7e7375881bc414a1454b",
+    "Api-Username": "System"
+}
+
+DISCOURSE_URL="https://t19support.cs3001.site"
+
 # --------------------  END  --------------------
