@@ -29,7 +29,13 @@ FAQ_ATTACHMENTS_PATH = os.path.join(
 )
 
 # TEAM 19 - MJ
-BASE_DISCOURSE = "https://t19support.cs3001.site/latest"
+BASE_DISCOURSE = "https://t19support.cs3001.site"
+
+# TEAM 19 / PB: Discourse API 
+DISCOURSE_HEADERS = {
+    "Api-Key": "3030e413d91e5c7b3df76b994fe35f75bbf507e3701e7e7375881bc414a1454b",
+    "Api-Username": "System"
+}
 
 # Mailhog runs at http://127.0.0.1:8025/
 SMTP_SERVER_HOST = "127.0.0.1"
