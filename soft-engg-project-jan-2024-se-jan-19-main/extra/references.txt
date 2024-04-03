@@ -1,0 +1,8 @@
+https://flask-restful.readthedocs.io/en/latest/intermediate-usage.html
+https://dev.to/paurakhsharma/flask-rest-api-part-2-better-structure-with-blueprint-and-flask-restful-2n93
+https://betterprogramming.pub/organizing-flask-api-with-blueprint-c1c76b025d5d
+https://realpython.com/flask-blueprint/
+https://dev.to/nandamtejas/implementing-flask-application-using-object-oriented-programming-oops-5cb
+https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-v-user-logins
+IMP: https://github.com/CoreyMSchafer/code_snippets/tree/master/Python/Flask_Blog
+https://stackoverflow.com/questions/61541835/missing-userloader-or-request-loader-error
