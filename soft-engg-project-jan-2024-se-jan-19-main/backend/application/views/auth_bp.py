@@ -168,7 +168,9 @@ class Login(Resource):
                                     "first_name": user.first_name,
                                     "last_name": user.last_name,
                                     "email": user.email,
+                                    "discourse_username": user.discourse_username,
                                     "profile_photo_loc": img_base64,
+                                    
                                 }
                             )
                         else:

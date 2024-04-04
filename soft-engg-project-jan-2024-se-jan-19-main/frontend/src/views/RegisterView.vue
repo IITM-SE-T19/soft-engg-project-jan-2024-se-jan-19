@@ -206,7 +206,30 @@ export default {
         this.show = true;
       });
     },
+
+    checkUserExists() {
+
+     fetch(`http://localhost:5000/api/v1/discourse/user/${this.form.discourse_username}`, {
+      method: "GET", 
+     })
+     .then((response) => {
+
+      if (response.status === 200) {
+       this.discourseUserExists = true;
+      } else if (response.status === 404) {
+    // User does not exist (status 404)
+       this.discourseUserExists = false;
+      } else {
+    // Handle other error cases
+        console.error("Error checking user existence. Status code:", response.status);
+      }
+    })
+    .catch((error) => {
+      console.error("Error checking user existence:", error);
+    });
   },
+
+},
   computed: {
     check_name() {
       return this.form.first_name.length > 2 ? true : false;

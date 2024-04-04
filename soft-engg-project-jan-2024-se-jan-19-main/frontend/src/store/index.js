@@ -36,6 +36,11 @@ export default new Vuex.Store({
     get_user_profile_pic: function (state) {
       return state.user.profile_photo_loc
     },
+
+    // #TEAM19-AJ
+    get_user_discourse_username: function(state){
+      return state.user.discourse_username
+    },
     get_web_token: function (state) {
       return state.web_token
     },
@@ -84,6 +89,7 @@ export default new Vuex.Store({
       state.token_expiry_on = 0;
       state.user.profile_photo_loc = "";
       state.logged_status = false;
+      state.user.discourse_username="";
       clearTimeout(state.timeout_id);
     },
     SET_STATE_AFTER_PROFILE_UPDATE(state, payload) {

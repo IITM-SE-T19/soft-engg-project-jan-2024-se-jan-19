@@ -52,7 +52,7 @@
                   id="input-discourse-username-change"
                   v-model="form.discourse_username"
                   type="text"
-                  disabled
+                  readonly
                 ></b-form-input
               ></b-form-group>
 
@@ -151,7 +151,8 @@ export default {
 
     // #TEAM19-AJ
     this.form.discourse_username = user.discourse_username;
-
+    // this.form.discourse_username = this.$store.getters.get_user.discourse_username;
+    console.log("Discourse Username:", this.form.discourse_username);
 
     if (this.user_role === "student") {
       this.user_url_to_fetch_data = common.STUDENT_API + `/${this.user_id}`;

@@ -5440,3 +5440,422 @@
 03-Apr-24 12:30:12 - [INFO] - 127.0.0.1 - - [03/Apr/2024 12:30:12] "GET /api/v1/student/0f86ad780d7374b0f3b3e11c668b9616 HTTP/1.1" 200 -
 03-Apr-24 12:30:12 - [INFO] - 200 - Custom success 200 response sent
 03-Apr-24 12:30:12 - [INFO] - 127.0.0.1 - - [03/Apr/2024 12:30:12] "GET /api/v1/ticket/all-tickets/0f86ad780d7374b0f3b3e11c668b9616?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 17:08:23 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:08:23] "OPTIONS /api/v1/auth/register HTTP/1.1" 200 -
+03-Apr-24 17:08:23 - [INFO] - New account created
+03-Apr-24 17:08:23 - [INFO] - 200 - Account created successfully. Now please login.
+03-Apr-24 17:08:23 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:08:23] "POST /api/v1/auth/register HTTP/1.1" 200 -
+03-Apr-24 17:08:35 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:08:35] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 17:08:35 - [INFO] - User logged in.
+03-Apr-24 17:08:35 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:08:35 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:08:35] "POST /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 17:08:35 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:08:35] "OPTIONS /api/v1/admin/b334c3c61f5128c0cf907b19afb892e9 HTTP/1.1" 200 -
+03-Apr-24 17:08:35 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 17:08:35 - [INFO] - User role : admin : is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 17:08:35 - [INFO] - File path is not valid: 
+03-Apr-24 17:08:35 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:08:35 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:08:35] "GET /api/v1/admin/b334c3c61f5128c0cf907b19afb892e9 HTTP/1.1" 200 -
+03-Apr-24 17:08:36 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:08:36] "OPTIONS /api/v1/auth/newUsers HTTP/1.1" 200 -
+03-Apr-24 17:08:36 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 17:08:36 - [INFO] - Admin role is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 17:08:36 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:08:36 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:08:36] "GET /api/v1/auth/newUsers HTTP/1.1" 200 -
+03-Apr-24 17:08:38 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:08:38] "OPTIONS /api/v1/auth/newUsers/9999a35a093355570204e460eba5d7ec HTTP/1.1" 200 -
+03-Apr-24 17:08:38 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 17:08:38 - [INFO] - Admin role is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 17:08:38 - [INFO] - 200 - User verified and updated in database.
+03-Apr-24 17:08:38 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:08:38] "PUT /api/v1/auth/newUsers/9999a35a093355570204e460eba5d7ec HTTP/1.1" 200 -
+03-Apr-24 17:08:54 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:08:54] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 17:08:54 - [INFO] - User logged in.
+03-Apr-24 17:08:54 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:08:54 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:08:54] "POST /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 17:08:54 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:08:54] "OPTIONS /api/v1/student/9999a35a093355570204e460eba5d7ec HTTP/1.1" 200 -
+03-Apr-24 17:08:54 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:08:54] "OPTIONS /api/v1/ticket/all-tickets/9999a35a093355570204e460eba5d7ec?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 17:08:54 - [INFO] - Token is verified for the user: 9999a35a093355570204e460eba5d7ec
+03-Apr-24 17:08:54 - [INFO] - User role : student : is verified for the user: 9999a35a093355570204e460eba5d7ec
+03-Apr-24 17:08:54 - [INFO] - Token is verified for the user: 9999a35a093355570204e460eba5d7ec
+03-Apr-24 17:08:54 - [INFO] - File path is not valid: 
+03-Apr-24 17:08:54 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:08:54 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:08:54] "GET /api/v1/student/9999a35a093355570204e460eba5d7ec HTTP/1.1" 200 -
+03-Apr-24 17:08:54 - [INFO] - User role : student : is verified for the user: 9999a35a093355570204e460eba5d7ec
+03-Apr-24 17:08:54 - [INFO] - All tickets found : 0
+03-Apr-24 17:08:54 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:08:54 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:08:54] "GET /api/v1/ticket/all-tickets/9999a35a093355570204e460eba5d7ec?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 17:34:53 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:34:53] "OPTIONS /api/v1/auth/register HTTP/1.1" 200 -
+03-Apr-24 17:34:53 - [INFO] - New account created
+03-Apr-24 17:34:53 - [INFO] - 200 - Account created successfully. Now please login.
+03-Apr-24 17:34:53 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:34:53] "POST /api/v1/auth/register HTTP/1.1" 200 -
+03-Apr-24 17:35:00 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:00] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 17:35:00 - [INFO] - User logged in.
+03-Apr-24 17:35:00 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:35:00 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:00] "POST /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 17:35:00 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:00] "OPTIONS /api/v1/admin/b334c3c61f5128c0cf907b19afb892e9 HTTP/1.1" 200 -
+03-Apr-24 17:35:00 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 17:35:00 - [INFO] - User role : admin : is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 17:35:00 - [INFO] - File path is not valid: 
+03-Apr-24 17:35:00 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:35:00 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:00] "GET /api/v1/admin/b334c3c61f5128c0cf907b19afb892e9 HTTP/1.1" 200 -
+03-Apr-24 17:35:02 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:02] "OPTIONS /api/v1/auth/newUsers HTTP/1.1" 200 -
+03-Apr-24 17:35:02 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 17:35:02 - [INFO] - Admin role is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 17:35:02 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:35:02 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:02] "GET /api/v1/auth/newUsers HTTP/1.1" 200 -
+03-Apr-24 17:35:03 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:03] "OPTIONS /api/v1/auth/newUsers/a3c518050c0acbee40f342f0cd9b6448 HTTP/1.1" 200 -
+03-Apr-24 17:35:03 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 17:35:03 - [INFO] - Admin role is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 17:35:03 - [INFO] - 200 - User verified and updated in database.
+03-Apr-24 17:35:03 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:03] "PUT /api/v1/auth/newUsers/a3c518050c0acbee40f342f0cd9b6448 HTTP/1.1" 200 -
+03-Apr-24 17:35:04 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:04] "OPTIONS /api/v1/auth/newUsers/b21c63f8cf21ca959a10cdbbe7c38b87 HTTP/1.1" 200 -
+03-Apr-24 17:35:04 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 17:35:04 - [INFO] - Admin role is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 17:35:04 - [INFO] - 200 - Verification failed so user deleted in database.
+03-Apr-24 17:35:04 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:04] "DELETE /api/v1/auth/newUsers/b21c63f8cf21ca959a10cdbbe7c38b87 HTTP/1.1" 200 -
+03-Apr-24 17:35:19 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:19] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 17:35:19 - [INFO] - User logged in.
+03-Apr-24 17:35:19 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:35:19 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:19] "POST /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 17:35:19 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:19] "OPTIONS /api/v1/student/a3c518050c0acbee40f342f0cd9b6448 HTTP/1.1" 200 -
+03-Apr-24 17:35:19 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:19] "OPTIONS /api/v1/ticket/all-tickets/a3c518050c0acbee40f342f0cd9b6448?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 17:35:19 - [INFO] - Token is verified for the user: a3c518050c0acbee40f342f0cd9b6448
+03-Apr-24 17:35:19 - [INFO] - Token is verified for the user: a3c518050c0acbee40f342f0cd9b6448
+03-Apr-24 17:35:19 - [INFO] - User role : student : is verified for the user: a3c518050c0acbee40f342f0cd9b6448
+03-Apr-24 17:35:19 - [INFO] - User role : student : is verified for the user: a3c518050c0acbee40f342f0cd9b6448
+03-Apr-24 17:35:19 - [INFO] - File path is not valid: 
+03-Apr-24 17:35:19 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:35:19 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:19] "GET /api/v1/student/a3c518050c0acbee40f342f0cd9b6448 HTTP/1.1" 200 -
+03-Apr-24 17:35:19 - [INFO] - All tickets found : 0
+03-Apr-24 17:35:19 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:35:19 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:19] "GET /api/v1/ticket/all-tickets/a3c518050c0acbee40f342f0cd9b6448?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 17:35:40 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:40] "OPTIONS /api/v1/student/a3c518050c0acbee40f342f0cd9b6448 HTTP/1.1" 200 -
+03-Apr-24 17:35:40 - [INFO] - Token is verified for the user: a3c518050c0acbee40f342f0cd9b6448
+03-Apr-24 17:35:40 - [INFO] - User role : student : is verified for the user: a3c518050c0acbee40f342f0cd9b6448
+03-Apr-24 17:35:40 - [INFO] - User details Updated successfully.
+03-Apr-24 17:35:40 - [INFO] - 200 - User details Updated successfully.
+03-Apr-24 17:35:40 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:35:40] "PUT /api/v1/student/a3c518050c0acbee40f342f0cd9b6448 HTTP/1.1" 200 -
+03-Apr-24 17:36:23 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:36:23] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 17:36:23 - [INFO] - User logged in.
+03-Apr-24 17:36:23 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:36:23 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:36:23] "POST /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 17:36:23 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:36:23] "OPTIONS /api/v1/student/d1713fdf6f36a4eddab53607f22e0086 HTTP/1.1" 200 -
+03-Apr-24 17:36:23 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:36:23] "OPTIONS /api/v1/ticket/all-tickets/d1713fdf6f36a4eddab53607f22e0086?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 17:36:23 - [INFO] - Token is verified for the user: d1713fdf6f36a4eddab53607f22e0086
+03-Apr-24 17:36:23 - [INFO] - Token is verified for the user: d1713fdf6f36a4eddab53607f22e0086
+03-Apr-24 17:36:23 - [INFO] - User role : student : is verified for the user: d1713fdf6f36a4eddab53607f22e0086
+03-Apr-24 17:36:23 - [INFO] - User role : student : is verified for the user: d1713fdf6f36a4eddab53607f22e0086
+03-Apr-24 17:36:23 - [INFO] - All tickets found : 0
+03-Apr-24 17:36:23 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:36:23 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:36:23 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:36:23] "GET /api/v1/student/d1713fdf6f36a4eddab53607f22e0086 HTTP/1.1" 200 -
+03-Apr-24 17:36:23 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:36:23] "GET /api/v1/ticket/all-tickets/d1713fdf6f36a4eddab53607f22e0086?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 17:36:41 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:36:41] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 17:36:42 - [INFO] - User logged in.
+03-Apr-24 17:36:42 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:36:42 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:36:42] "POST /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 17:36:42 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:36:42] "OPTIONS /api/v1/student/d1713fdf6f36a4eddab53607f22e0086 HTTP/1.1" 200 -
+03-Apr-24 17:36:42 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:36:42] "OPTIONS /api/v1/ticket/all-tickets/d1713fdf6f36a4eddab53607f22e0086?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 17:36:42 - [INFO] - Token is verified for the user: d1713fdf6f36a4eddab53607f22e0086
+03-Apr-24 17:36:42 - [INFO] - Token is verified for the user: d1713fdf6f36a4eddab53607f22e0086
+03-Apr-24 17:36:42 - [INFO] - User role : student : is verified for the user: d1713fdf6f36a4eddab53607f22e0086
+03-Apr-24 17:36:42 - [INFO] - User role : student : is verified for the user: d1713fdf6f36a4eddab53607f22e0086
+03-Apr-24 17:36:42 - [INFO] - All tickets found : 0
+03-Apr-24 17:36:42 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:36:42 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:36:42] "GET /api/v1/ticket/all-tickets/d1713fdf6f36a4eddab53607f22e0086?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 17:36:42 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:36:42 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:36:42] "GET /api/v1/student/d1713fdf6f36a4eddab53607f22e0086 HTTP/1.1" 200 -
+03-Apr-24 17:37:29 - [INFO] - Development environment configured.
+03-Apr-24 17:37:29 - [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+03-Apr-24 17:37:29 - [INFO] - [33mPress CTRL+C to quit[0m
+03-Apr-24 17:37:29 - [INFO] -  * Restarting with stat
+03-Apr-24 17:37:36 - [INFO] - Development environment configured.
+03-Apr-24 17:37:36 - [WARNING] -  * Debugger is active!
+03-Apr-24 17:37:36 - [INFO] -  * Debugger PIN: 253-502-534
+03-Apr-24 17:50:04 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:50:04] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 17:50:04 - [INFO] - User logged in.
+03-Apr-24 17:50:04 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:50:04 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:50:04] "POST /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 17:50:04 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:50:04] "OPTIONS /api/v1/student/a3c518050c0acbee40f342f0cd9b6448 HTTP/1.1" 200 -
+03-Apr-24 17:50:04 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:50:04] "OPTIONS /api/v1/ticket/all-tickets/a3c518050c0acbee40f342f0cd9b6448?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 17:50:04 - [INFO] - Token is verified for the user: a3c518050c0acbee40f342f0cd9b6448
+03-Apr-24 17:50:04 - [INFO] - User role : student : is verified for the user: a3c518050c0acbee40f342f0cd9b6448
+03-Apr-24 17:50:04 - [INFO] - Token is verified for the user: a3c518050c0acbee40f342f0cd9b6448
+03-Apr-24 17:50:04 - [INFO] - User role : student : is verified for the user: a3c518050c0acbee40f342f0cd9b6448
+03-Apr-24 17:50:04 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:50:04 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:50:04] "GET /api/v1/student/a3c518050c0acbee40f342f0cd9b6448 HTTP/1.1" 200 -
+03-Apr-24 17:50:04 - [INFO] - All tickets found : 0
+03-Apr-24 17:50:04 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 17:50:04 - [INFO] - 127.0.0.1 - - [03/Apr/2024 17:50:04] "GET /api/v1/ticket/all-tickets/a3c518050c0acbee40f342f0cd9b6448?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 18:31:20 - [INFO] - Development environment configured.
+03-Apr-24 18:31:20 - [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+03-Apr-24 18:31:20 - [INFO] - [33mPress CTRL+C to quit[0m
+03-Apr-24 18:31:20 - [INFO] -  * Restarting with stat
+03-Apr-24 18:31:22 - [INFO] - Development environment configured.
+03-Apr-24 18:31:22 - [WARNING] -  * Debugger is active!
+03-Apr-24 18:31:22 - [INFO] -  * Debugger PIN: 253-502-534
+03-Apr-24 18:34:48 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:34:48] "[33mPOST /register HTTP/1.1[0m" 404 -
+03-Apr-24 18:35:26 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:35:26] "[33mPOST /register HTTP/1.1[0m" 404 -
+03-Apr-24 18:42:51 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:42:51] "OPTIONS /api/v1/auth/register HTTP/1.1" 200 -
+03-Apr-24 18:42:52 - [INFO] - New account created
+03-Apr-24 18:42:52 - [INFO] - 200 - Account created successfully. Now please login.
+03-Apr-24 18:42:52 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:42:52] "POST /api/v1/auth/register HTTP/1.1" 200 -
+03-Apr-24 18:42:59 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:42:59] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 18:42:59 - [INFO] - User logged in.
+03-Apr-24 18:42:59 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 18:42:59 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:42:59] "POST /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 18:42:59 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:42:59] "OPTIONS /api/v1/admin/b334c3c61f5128c0cf907b19afb892e9 HTTP/1.1" 200 -
+03-Apr-24 18:42:59 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 18:42:59 - [INFO] - User role : admin : is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 18:42:59 - [INFO] - File path is not valid: 
+03-Apr-24 18:42:59 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 18:42:59 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:42:59] "GET /api/v1/admin/b334c3c61f5128c0cf907b19afb892e9 HTTP/1.1" 200 -
+03-Apr-24 18:43:01 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:43:01] "OPTIONS /api/v1/auth/newUsers HTTP/1.1" 200 -
+03-Apr-24 18:43:01 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 18:43:01 - [INFO] - Admin role is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 18:43:01 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 18:43:01 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:43:01] "GET /api/v1/auth/newUsers HTTP/1.1" 200 -
+03-Apr-24 18:43:02 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:43:02] "OPTIONS /api/v1/auth/newUsers/f978cc98e8469d7e742a8ebc5c76424e HTTP/1.1" 200 -
+03-Apr-24 18:43:02 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 18:43:02 - [INFO] - Admin role is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 18:43:02 - [INFO] - 200 - User verified and updated in database.
+03-Apr-24 18:43:02 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:43:02] "PUT /api/v1/auth/newUsers/f978cc98e8469d7e742a8ebc5c76424e HTTP/1.1" 200 -
+03-Apr-24 18:43:13 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:43:13] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 18:43:13 - [INFO] - User logged in.
+03-Apr-24 18:43:13 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 18:43:13 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:43:13] "POST /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 18:43:13 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:43:13] "OPTIONS /api/v1/student/f978cc98e8469d7e742a8ebc5c76424e HTTP/1.1" 200 -
+03-Apr-24 18:43:13 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:43:13] "OPTIONS /api/v1/ticket/all-tickets/f978cc98e8469d7e742a8ebc5c76424e?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 18:43:13 - [INFO] - Token is verified for the user: f978cc98e8469d7e742a8ebc5c76424e
+03-Apr-24 18:43:13 - [INFO] - User role : student : is verified for the user: f978cc98e8469d7e742a8ebc5c76424e
+03-Apr-24 18:43:13 - [INFO] - File path is not valid: 
+03-Apr-24 18:43:13 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 18:43:13 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:43:13] "GET /api/v1/student/f978cc98e8469d7e742a8ebc5c76424e HTTP/1.1" 200 -
+03-Apr-24 18:43:13 - [INFO] - Token is verified for the user: f978cc98e8469d7e742a8ebc5c76424e
+03-Apr-24 18:43:13 - [INFO] - User role : student : is verified for the user: f978cc98e8469d7e742a8ebc5c76424e
+03-Apr-24 18:43:13 - [INFO] - All tickets found : 0
+03-Apr-24 18:43:13 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 18:43:13 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:43:13] "GET /api/v1/ticket/all-tickets/f978cc98e8469d7e742a8ebc5c76424e?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 18:44:56 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:44:56] "[33mPOST /auth/v1/register HTTP/1.1[0m" 404 -
+03-Apr-24 18:45:02 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:45:02] "[33mPOST /register HTTP/1.1[0m" 404 -
+03-Apr-24 18:45:46 - [INFO] - New account created
+03-Apr-24 18:45:46 - [INFO] - 200 - Account created successfully. Now please login.
+03-Apr-24 18:45:46 - [INFO] - 127.0.0.1 - - [03/Apr/2024 18:45:46] "POST /api/v1/auth/register HTTP/1.1" 200 -
+03-Apr-24 20:07:29 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:07:29] "OPTIONS /api/v1/auth/register HTTP/1.1" 200 -
+03-Apr-24 20:07:29 - [INFO] - New account created
+03-Apr-24 20:07:29 - [INFO] - 200 - Account created successfully. Now please login.
+03-Apr-24 20:07:29 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:07:29] "POST /api/v1/auth/register HTTP/1.1" 200 -
+03-Apr-24 20:07:38 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:07:38] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 20:07:38 - [INFO] - User logged in.
+03-Apr-24 20:07:38 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 20:07:38 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:07:38] "POST /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 20:07:38 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:07:38] "OPTIONS /api/v1/admin/b334c3c61f5128c0cf907b19afb892e9 HTTP/1.1" 200 -
+03-Apr-24 20:07:38 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 20:07:38 - [INFO] - User role : admin : is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 20:07:38 - [INFO] - File path is not valid: 
+03-Apr-24 20:07:38 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 20:07:38 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:07:38] "GET /api/v1/admin/b334c3c61f5128c0cf907b19afb892e9 HTTP/1.1" 200 -
+03-Apr-24 20:07:40 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:07:40] "OPTIONS /api/v1/auth/newUsers HTTP/1.1" 200 -
+03-Apr-24 20:07:40 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 20:07:40 - [INFO] - Admin role is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 20:07:40 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 20:07:40 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:07:40] "GET /api/v1/auth/newUsers HTTP/1.1" 200 -
+03-Apr-24 20:07:41 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:07:41] "OPTIONS /api/v1/auth/newUsers/adeadc4fec9efed8b86e45e07df7a9e9 HTTP/1.1" 200 -
+03-Apr-24 20:07:41 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 20:07:41 - [INFO] - Admin role is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+03-Apr-24 20:07:41 - [INFO] - 200 - User verified and updated in database.
+03-Apr-24 20:07:41 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:07:41] "PUT /api/v1/auth/newUsers/adeadc4fec9efed8b86e45e07df7a9e9 HTTP/1.1" 200 -
+03-Apr-24 20:07:53 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:07:53] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 20:07:53 - [INFO] - User logged in.
+03-Apr-24 20:07:53 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 20:07:53 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:07:53] "POST /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 20:07:53 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:07:53] "OPTIONS /api/v1/student/adeadc4fec9efed8b86e45e07df7a9e9 HTTP/1.1" 200 -
+03-Apr-24 20:07:53 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:07:53] "OPTIONS /api/v1/ticket/all-tickets/adeadc4fec9efed8b86e45e07df7a9e9?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 20:07:54 - [INFO] - Token is verified for the user: adeadc4fec9efed8b86e45e07df7a9e9
+03-Apr-24 20:07:54 - [INFO] - User role : student : is verified for the user: adeadc4fec9efed8b86e45e07df7a9e9
+03-Apr-24 20:07:54 - [INFO] - Token is verified for the user: adeadc4fec9efed8b86e45e07df7a9e9
+03-Apr-24 20:07:54 - [INFO] - User role : student : is verified for the user: adeadc4fec9efed8b86e45e07df7a9e9
+03-Apr-24 20:07:54 - [INFO] - File path is not valid: 
+03-Apr-24 20:07:54 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 20:07:54 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:07:54] "GET /api/v1/student/adeadc4fec9efed8b86e45e07df7a9e9 HTTP/1.1" 200 -
+03-Apr-24 20:07:54 - [INFO] - All tickets found : 0
+03-Apr-24 20:07:54 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 20:07:54 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:07:54] "GET /api/v1/ticket/all-tickets/adeadc4fec9efed8b86e45e07df7a9e9?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 20:19:18 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:19:18] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 20:19:19 - [INFO] - User logged in.
+03-Apr-24 20:19:19 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 20:19:19 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:19:19] "POST /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 20:19:19 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:19:19] "OPTIONS /api/v1/student/adeadc4fec9efed8b86e45e07df7a9e9 HTTP/1.1" 200 -
+03-Apr-24 20:19:19 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:19:19] "OPTIONS /api/v1/ticket/all-tickets/adeadc4fec9efed8b86e45e07df7a9e9?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 20:19:19 - [INFO] - Token is verified for the user: adeadc4fec9efed8b86e45e07df7a9e9
+03-Apr-24 20:19:19 - [INFO] - User role : student : is verified for the user: adeadc4fec9efed8b86e45e07df7a9e9
+03-Apr-24 20:19:19 - [INFO] - File path is not valid: 
+03-Apr-24 20:19:19 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 20:19:19 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:19:19] "GET /api/v1/student/adeadc4fec9efed8b86e45e07df7a9e9 HTTP/1.1" 200 -
+03-Apr-24 20:19:19 - [INFO] - Token is verified for the user: adeadc4fec9efed8b86e45e07df7a9e9
+03-Apr-24 20:19:19 - [INFO] - User role : student : is verified for the user: adeadc4fec9efed8b86e45e07df7a9e9
+03-Apr-24 20:19:19 - [INFO] - All tickets found : 0
+03-Apr-24 20:19:19 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 20:19:19 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:19:19] "GET /api/v1/ticket/all-tickets/adeadc4fec9efed8b86e45e07df7a9e9?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 20:24:52 - [INFO] -  * Detected change in '/home/javeedahmadahanger/Project/SE2/soft-engg-project-jan-2024-se-jan-19-main/soft-engg-project-jan-2024-se-jan-19-main/backend/application/views/auth_bp.py', reloading
+03-Apr-24 20:24:54 - [INFO] -  * Restarting with stat
+03-Apr-24 20:27:36 - [INFO] - Development environment configured.
+03-Apr-24 20:27:36 - [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+03-Apr-24 20:27:36 - [INFO] - [33mPress CTRL+C to quit[0m
+03-Apr-24 20:27:36 - [INFO] -  * Restarting with stat
+03-Apr-24 20:27:41 - [INFO] - Development environment configured.
+03-Apr-24 20:27:41 - [WARNING] -  * Debugger is active!
+03-Apr-24 20:27:41 - [INFO] -  * Debugger PIN: 253-502-534
+03-Apr-24 20:27:43 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:27:43] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 20:27:43 - [INFO] - 401 - Password is incorrect
+03-Apr-24 20:27:43 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:27:43] "[31m[1mPOST /api/v1/auth/login HTTP/1.1[0m" 401 -
+03-Apr-24 20:27:48 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:27:48] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 20:27:48 - [INFO] - User logged in.
+03-Apr-24 20:27:48 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 20:27:48 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:27:48] "POST /api/v1/auth/login HTTP/1.1" 200 -
+03-Apr-24 20:27:49 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:27:49] "OPTIONS /api/v1/student/adeadc4fec9efed8b86e45e07df7a9e9 HTTP/1.1" 200 -
+03-Apr-24 20:27:49 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:27:49] "OPTIONS /api/v1/ticket/all-tickets/adeadc4fec9efed8b86e45e07df7a9e9?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 20:27:49 - [INFO] - Token is verified for the user: adeadc4fec9efed8b86e45e07df7a9e9
+03-Apr-24 20:27:49 - [INFO] - User role : student : is verified for the user: adeadc4fec9efed8b86e45e07df7a9e9
+03-Apr-24 20:27:49 - [INFO] - Token is verified for the user: adeadc4fec9efed8b86e45e07df7a9e9
+03-Apr-24 20:27:49 - [INFO] - User role : student : is verified for the user: adeadc4fec9efed8b86e45e07df7a9e9
+03-Apr-24 20:27:49 - [INFO] - File path is not valid: 
+03-Apr-24 20:27:49 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 20:27:49 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:27:49] "GET /api/v1/student/adeadc4fec9efed8b86e45e07df7a9e9 HTTP/1.1" 200 -
+03-Apr-24 20:27:49 - [INFO] - All tickets found : 0
+03-Apr-24 20:27:49 - [INFO] - 200 - Custom success 200 response sent
+03-Apr-24 20:27:49 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:27:49] "GET /api/v1/ticket/all-tickets/adeadc4fec9efed8b86e45e07df7a9e9?filter_status=pending HTTP/1.1" 200 -
+03-Apr-24 20:54:30 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+03-Apr-24 20:54:31 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+03-Apr-24 20:54:31 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:54:31] "GET /api/v1/discourse/user/javeedahmadahanger HTTP/1.1" 200 -
+03-Apr-24 20:54:41 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+03-Apr-24 20:54:42 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+03-Apr-24 20:54:42 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:54:42] "[33mGET /api/v1/discourse/user/test_5 HTTP/1.1[0m" 404 -
+03-Apr-24 20:54:50 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+03-Apr-24 20:54:51 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+03-Apr-24 20:54:51 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:54:51] "GET /api/v1/discourse/user/muskanjindal HTTP/1.1" 200 -
+03-Apr-24 20:55:00 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+03-Apr-24 20:55:01 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+03-Apr-24 20:55:01 - [INFO] - 127.0.0.1 - - [03/Apr/2024 20:55:01] "[33mGET /api/v1/discourse/user/test_10 HTTP/1.1[0m" 404 -
+03-Apr-24 22:04:06 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+03-Apr-24 22:04:09 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+03-Apr-24 22:04:09 - [INFO] - 127.0.0.1 - - [03/Apr/2024 22:04:09] "[33mGET /api/v1/discourse/user/puneetbhagat HTTP/1.1[0m" 404 -
+03-Apr-24 22:04:19 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+03-Apr-24 22:04:19 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+03-Apr-24 22:04:19 - [INFO] - 127.0.0.1 - - [03/Apr/2024 22:04:19] "GET /api/v1/discourse/user/javeedahmadahanger HTTP/1.1" 200 -
+03-Apr-24 22:04:24 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+03-Apr-24 22:04:25 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+03-Apr-24 22:04:25 - [INFO] - 127.0.0.1 - - [03/Apr/2024 22:04:25] "GET /api/v1/discourse/user/javeedahmadahanger HTTP/1.1" 200 -
+04-Apr-24 12:01:45 - [INFO] - Development environment configured.
+04-Apr-24 12:01:46 - [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+04-Apr-24 12:01:46 - [INFO] - [33mPress CTRL+C to quit[0m
+04-Apr-24 12:01:46 - [INFO] -  * Restarting with stat
+04-Apr-24 12:01:50 - [INFO] - Development environment configured.
+04-Apr-24 12:01:50 - [WARNING] -  * Debugger is active!
+04-Apr-24 12:01:50 - [INFO] -  * Debugger PIN: 253-502-534
+04-Apr-24 13:49:04 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:49:04] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+04-Apr-24 13:49:05 - [INFO] - 401 - Password is incorrect
+04-Apr-24 13:49:05 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:49:05] "[31m[1mPOST /api/v1/auth/login HTTP/1.1[0m" 401 -
+04-Apr-24 13:49:11 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:49:11] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+04-Apr-24 13:49:11 - [INFO] - User logged in.
+04-Apr-24 13:49:11 - [INFO] - 200 - Custom success 200 response sent
+04-Apr-24 13:49:11 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:49:11] "POST /api/v1/auth/login HTTP/1.1" 200 -
+04-Apr-24 13:49:11 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:49:11] "OPTIONS /api/v1/student/d4fee4b3cdef0a596fc341fdb06b72df HTTP/1.1" 200 -
+04-Apr-24 13:49:11 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:49:11] "OPTIONS /api/v1/ticket/all-tickets/d4fee4b3cdef0a596fc341fdb06b72df?filter_status=pending HTTP/1.1" 200 -
+04-Apr-24 13:49:11 - [INFO] - Token is verified for the user: d4fee4b3cdef0a596fc341fdb06b72df
+04-Apr-24 13:49:11 - [INFO] - User role : student : is verified for the user: d4fee4b3cdef0a596fc341fdb06b72df
+04-Apr-24 13:49:11 - [INFO] - Token is verified for the user: d4fee4b3cdef0a596fc341fdb06b72df
+04-Apr-24 13:49:11 - [INFO] - User role : student : is verified for the user: d4fee4b3cdef0a596fc341fdb06b72df
+04-Apr-24 13:49:11 - [INFO] - All tickets found : 0
+04-Apr-24 13:49:11 - [INFO] - 200 - Custom success 200 response sent
+04-Apr-24 13:49:11 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:49:11] "GET /api/v1/ticket/all-tickets/d4fee4b3cdef0a596fc341fdb06b72df?filter_status=pending HTTP/1.1" 200 -
+04-Apr-24 13:49:11 - [INFO] - File path is not valid: 
+04-Apr-24 13:49:11 - [INFO] - 200 - Custom success 200 response sent
+04-Apr-24 13:49:11 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:49:11] "GET /api/v1/student/d4fee4b3cdef0a596fc341fdb06b72df HTTP/1.1" 200 -
+04-Apr-24 13:51:16 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+04-Apr-24 13:51:22 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+04-Apr-24 13:51:39 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+04-Apr-24 13:51:39 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:51:39] "[33mGET /api/v1/discourse/user/support1 HTTP/1.1[0m" 404 -
+04-Apr-24 13:51:44 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+04-Apr-24 13:51:44 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:51:44] "GET /api/v1/discourse/user/muskanjindal HTTP/1.1" 200 -
+04-Apr-24 13:51:44 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+04-Apr-24 13:51:44 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+04-Apr-24 13:51:44 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:51:44] "GET /api/v1/discourse/user/javeedahmadahanger HTTP/1.1" 200 -
+04-Apr-24 13:51:53 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+04-Apr-24 13:51:59 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+04-Apr-24 13:52:15 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+04-Apr-24 13:52:15 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:52:15] "GET /api/v1/discourse/user/muskanjindal HTTP/1.1" 200 -
+04-Apr-24 13:52:22 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+04-Apr-24 13:52:36 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+04-Apr-24 13:52:36 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:52:36] "[33mGET /api/v1/discourse/user/support1 HTTP/1.1[0m" 404 -
+04-Apr-24 13:52:45 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+04-Apr-24 13:52:45 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+04-Apr-24 13:52:45 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:52:45] "[33mGET /api/v1/discourse/user/support HTTP/1.1[0m" 404 -
+04-Apr-24 13:52:51 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+04-Apr-24 13:52:51 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:52:51] "[33mGET /api/v1/discourse/user/support133 HTTP/1.1[0m" 404 -
+04-Apr-24 13:52:51 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+04-Apr-24 13:52:52 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+04-Apr-24 13:52:52 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:52:52] "GET /api/v1/discourse/user/muskanjindal HTTP/1.1" 200 -
+04-Apr-24 13:52:57 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+04-Apr-24 13:52:58 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+04-Apr-24 13:52:58 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:52:58] "[33mGET /api/v1/discourse/user/support1 HTTP/1.1[0m" 404 -
+04-Apr-24 13:53:01 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:53:01] "OPTIONS /api/v1/auth/register HTTP/1.1" 200 -
+04-Apr-24 13:53:02 - [INFO] - New account created
+04-Apr-24 13:53:02 - [INFO] - 200 - Account created successfully. Now please login.
+04-Apr-24 13:53:02 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:53:02] "POST /api/v1/auth/register HTTP/1.1" 200 -
+04-Apr-24 13:53:11 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:53:11] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+04-Apr-24 13:53:11 - [INFO] - User logged in.
+04-Apr-24 13:53:11 - [INFO] - 200 - Custom success 200 response sent
+04-Apr-24 13:53:11 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:53:11] "POST /api/v1/auth/login HTTP/1.1" 200 -
+04-Apr-24 13:53:11 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:53:11] "OPTIONS /api/v1/admin/b334c3c61f5128c0cf907b19afb892e9 HTTP/1.1" 200 -
+04-Apr-24 13:53:11 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+04-Apr-24 13:53:11 - [INFO] - User role : admin : is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+04-Apr-24 13:53:11 - [INFO] - File path is not valid: 
+04-Apr-24 13:53:11 - [INFO] - 200 - Custom success 200 response sent
+04-Apr-24 13:53:11 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:53:11] "GET /api/v1/admin/b334c3c61f5128c0cf907b19afb892e9 HTTP/1.1" 200 -
+04-Apr-24 13:53:12 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:53:12] "OPTIONS /api/v1/auth/newUsers HTTP/1.1" 200 -
+04-Apr-24 13:53:12 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+04-Apr-24 13:53:12 - [INFO] - Admin role is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+04-Apr-24 13:53:12 - [INFO] - 200 - Custom success 200 response sent
+04-Apr-24 13:53:12 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:53:12] "GET /api/v1/auth/newUsers HTTP/1.1" 200 -
+04-Apr-24 13:53:17 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:53:17] "OPTIONS /api/v1/auth/newUsers/b0c798600d853e7cf26e96b95445db98 HTTP/1.1" 200 -
+04-Apr-24 13:53:17 - [INFO] - Token is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+04-Apr-24 13:53:17 - [INFO] - Admin role is verified for the user: b334c3c61f5128c0cf907b19afb892e9
+04-Apr-24 13:53:17 - [INFO] - 200 - User verified and updated in database.
+04-Apr-24 13:53:17 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:53:17] "PUT /api/v1/auth/newUsers/b0c798600d853e7cf26e96b95445db98 HTTP/1.1" 200 -
+04-Apr-24 13:53:32 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:53:32] "OPTIONS /api/v1/auth/login HTTP/1.1" 200 -
+04-Apr-24 13:53:32 - [INFO] - User logged in.
+04-Apr-24 13:53:32 - [INFO] - 200 - Custom success 200 response sent
+04-Apr-24 13:53:32 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:53:32] "POST /api/v1/auth/login HTTP/1.1" 200 -
+04-Apr-24 13:53:32 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:53:32] "OPTIONS /api/v1/support/b0c798600d853e7cf26e96b95445db98 HTTP/1.1" 200 -
+04-Apr-24 13:53:32 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:53:32] "OPTIONS /api/v1/ticket/all-tickets/b0c798600d853e7cf26e96b95445db98?query=&filter_priority=&filter_status=pending&sortby=&sortdir=&filter_tags= HTTP/1.1" 200 -
+04-Apr-24 13:53:32 - [INFO] - Token is verified for the user: b0c798600d853e7cf26e96b95445db98
+04-Apr-24 13:53:32 - [INFO] - Token is verified for the user: b0c798600d853e7cf26e96b95445db98
+04-Apr-24 13:53:32 - [INFO] - User role : support : is verified for the user: b0c798600d853e7cf26e96b95445db98
+04-Apr-24 13:53:32 - [INFO] - User role : support : is verified for the user: b0c798600d853e7cf26e96b95445db98
+04-Apr-24 13:53:32 - [INFO] - File path is not valid: 
+04-Apr-24 13:53:32 - [INFO] - 200 - Custom success 200 response sent
+04-Apr-24 13:53:32 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:53:32] "GET /api/v1/support/b0c798600d853e7cf26e96b95445db98 HTTP/1.1" 200 -
+04-Apr-24 13:53:32 - [INFO] - All tickets found : 0
+04-Apr-24 13:53:32 - [INFO] - 200 - Custom success 200 response sent
+04-Apr-24 13:53:32 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:53:32] "GET /api/v1/ticket/all-tickets/b0c798600d853e7cf26e96b95445db98?query=&filter_priority=&filter_status=pending&sortby=&sortdir=&filter_tags= HTTP/1.1" 200 -
+04-Apr-24 13:54:47 - [INFO] - New account created
+04-Apr-24 13:54:47 - [INFO] - 200 - Account created successfully. Now please login.
+04-Apr-24 13:54:47 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:54:47] "POST /api/v1/auth/register HTTP/1.1" 200 -
+04-Apr-24 13:55:23 - [INFO] - New account created
+04-Apr-24 13:55:23 - [INFO] - 200 - Account created successfully. Now please login.
+04-Apr-24 13:55:23 - [INFO] - 127.0.0.1 - - [04/Apr/2024 13:55:23] "POST /api/v1/auth/register HTTP/1.1" 200 -
+04-Apr-24 21:40:18 - [INFO] - Development environment configured.
+04-Apr-24 21:40:19 - [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+04-Apr-24 21:40:19 - [INFO] - [33mPress CTRL+C to quit[0m
+04-Apr-24 21:40:19 - [INFO] -  * Restarting with stat
+04-Apr-24 21:40:23 - [INFO] - Development environment configured.
+04-Apr-24 21:40:23 - [WARNING] -  * Debugger is active!
+04-Apr-24 21:40:23 - [INFO] -  * Debugger PIN: 253-502-534
+04-Apr-24 21:50:03 - [INFO] - 127.0.0.1 - - [04/Apr/2024 21:50:03] "[33mPOST /api/v1/discourse/user HTTP/1.1[0m" 404 -
+04-Apr-24 21:54:28 - [INFO] - 127.0.0.1 - - [04/Apr/2024 21:54:28] "[33mGET /api/v1/discourse/user HTTP/1.1[0m" 404 -
+04-Apr-24 21:57:24 - [INFO] - 127.0.0.1 - - [04/Apr/2024 21:57:24] "[33mGET /api/v1/discourse/user HTTP/1.1[0m" 404 -
+04-Apr-24 22:19:02 - [INFO] - 127.0.0.1 - - [04/Apr/2024 22:19:02] "[33mGET /api/v1/discourse/user HTTP/1.1[0m" 404 -
+04-Apr-24 22:26:25 - [INFO] - 127.0.0.1 - - [04/Apr/2024 22:26:25] "[33mGET /api/v1/discourse/user HTTP/1.1[0m" 404 -
+04-Apr-24 22:35:49 - [INFO] - 127.0.0.1 - - [04/Apr/2024 22:35:49] "[33mGET /api/v1/discourse/user HTTP/1.1[0m" 404 -
