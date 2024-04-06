@@ -4997,3 +4997,76 @@
 29-Mar-24 18:40:19 - [INFO] - Development environment configured.
 29-Mar-24 18:40:19 - [WARNING] -  * Debugger is active!
 29-Mar-24 18:40:19 - [INFO] -  * Debugger PIN: 256-835-185
+04-Apr-24 20:09:03 - [INFO] - Development environment configured.
+04-Apr-24 20:09:03 - [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+04-Apr-24 20:09:03 - [INFO] - [33mPress CTRL+C to quit[0m
+04-Apr-24 20:09:03 - [INFO] -  * Restarting with stat
+04-Apr-24 20:09:03 - [INFO] - Development environment configured.
+04-Apr-24 20:09:03 - [WARNING] -  * Debugger is active!
+04-Apr-24 20:09:03 - [INFO] -  * Debugger PIN: 256-835-185
+04-Apr-24 22:30:11 - [INFO] -  * Detected change in '/Users/muskanjindal/Projects/soft-engg-project-jan-2024-se-jan-19/backend/tests/unit/test_notification_gchat.py', reloading
+04-Apr-24 22:30:12 - [INFO] -  * Restarting with stat
+04-Apr-24 22:30:12 - [INFO] - Development environment configured.
+04-Apr-24 22:30:13 - [WARNING] -  * Debugger is active!
+04-Apr-24 22:30:13 - [INFO] -  * Debugger PIN: 256-835-185
+04-Apr-24 22:32:00 - [INFO] -  * Detected change in '/Users/muskanjindal/Projects/soft-engg-project-jan-2024-se-jan-19/backend/tests/unit/test_team19.py', reloading
+04-Apr-24 22:32:00 - [INFO] -  * Restarting with stat
+04-Apr-24 22:32:01 - [INFO] - Development environment configured.
+04-Apr-24 22:32:01 - [WARNING] -  * Debugger is active!
+04-Apr-24 22:32:01 - [INFO] -  * Debugger PIN: 256-835-185
+04-Apr-24 22:40:51 - [INFO] -  * Detected change in '/Users/muskanjindal/Projects/soft-engg-project-jan-2024-se-jan-19/backend/tests/unit/test_team19.py', reloading
+04-Apr-24 22:40:51 - [INFO] -  * Restarting with stat
+04-Apr-24 22:40:52 - [INFO] - Development environment configured.
+04-Apr-24 22:40:52 - [WARNING] -  * Debugger is active!
+04-Apr-24 22:40:52 - [INFO] -  * Debugger PIN: 256-835-185
+04-Apr-24 22:42:42 - [INFO] -  * Detected change in '/Users/muskanjindal/Projects/soft-engg-project-jan-2024-se-jan-19/backend/tests/unit/test_team19.py', reloading
+04-Apr-24 22:42:42 - [INFO] -  * Restarting with stat
+04-Apr-24 22:42:43 - [INFO] - Development environment configured.
+04-Apr-24 22:42:43 - [WARNING] -  * Debugger is active!
+04-Apr-24 22:42:43 - [INFO] -  * Debugger PIN: 256-835-185
+04-Apr-24 22:48:43 - [INFO] -  * Detected change in '/Users/muskanjindal/Projects/soft-engg-project-jan-2024-se-jan-19/backend/tests/unit/test_team19.py', reloading
+04-Apr-24 22:48:43 - [INFO] -  * Restarting with stat
+04-Apr-24 22:48:44 - [INFO] - Development environment configured.
+04-Apr-24 22:48:44 - [WARNING] -  * Debugger is active!
+04-Apr-24 22:48:44 - [INFO] -  * Debugger PIN: 256-835-185
+04-Apr-24 22:51:15 - [INFO] -  * Detected change in '/Users/muskanjindal/Projects/soft-engg-project-jan-2024-se-jan-19/backend/tests/unit/test_team19.py', reloading
+04-Apr-24 22:51:15 - [INFO] -  * Restarting with stat
+04-Apr-24 22:51:16 - [INFO] - Development environment configured.
+04-Apr-24 22:51:16 - [WARNING] -  * Debugger is active!
+04-Apr-24 22:51:16 - [INFO] -  * Debugger PIN: 256-835-185
+04-Apr-24 23:01:22 - [INFO] -  * Detected change in '/Users/muskanjindal/Projects/soft-engg-project-jan-2024-se-jan-19/backend/tests/unit/test_team19.py', reloading
+04-Apr-24 23:01:22 - [INFO] -  * Restarting with stat
+04-Apr-24 23:01:23 - [INFO] - Development environment configured.
+04-Apr-24 23:01:23 - [WARNING] -  * Debugger is active!
+04-Apr-24 23:01:23 - [INFO] -  * Debugger PIN: 256-835-185
+04-Apr-24 23:07:43 - [INFO] -  * Detected change in '/Users/muskanjindal/Projects/soft-engg-project-jan-2024-se-jan-19/backend/tests/unit/test_team19.py', reloading
+04-Apr-24 23:07:43 - [INFO] -  * Restarting with stat
+04-Apr-24 23:07:43 - [INFO] - Development environment configured.
+04-Apr-24 23:07:43 - [WARNING] -  * Debugger is active!
+04-Apr-24 23:07:43 - [INFO] -  * Debugger PIN: 256-835-185
+04-Apr-24 23:11:08 - [INFO] -  * Detected change in '/Users/muskanjindal/Projects/soft-engg-project-jan-2024-se-jan-19/backend/tests/unit/test_notification_gchat.py', reloading
+04-Apr-24 23:11:08 - [INFO] -  * Restarting with stat
+04-Apr-24 23:11:09 - [INFO] - Development environment configured.
+04-Apr-24 23:11:09 - [WARNING] -  * Debugger is active!
+04-Apr-24 23:11:09 - [INFO] -  * Debugger PIN: 256-835-185
+04-Apr-24 23:14:51 - [INFO] -  * Detected change in '/Users/muskanjindal/Projects/soft-engg-project-jan-2024-se-jan-19/backend/tests/unit/test_team19.py', reloading
+04-Apr-24 23:14:51 - [INFO] -  * Restarting with stat
+04-Apr-24 23:14:52 - [INFO] - Development environment configured.
+04-Apr-24 23:14:52 - [WARNING] -  * Debugger is active!
+04-Apr-24 23:14:52 - [INFO] -  * Debugger PIN: 256-835-185
+04-Apr-24 23:15:03 - [INFO] -  * Detected change in '/Users/muskanjindal/Projects/soft-engg-project-jan-2024-se-jan-19/backend/tests/conftest.py', reloading
+04-Apr-24 23:15:03 - [INFO] -  * Restarting with stat
+04-Apr-24 23:15:04 - [INFO] - Development environment configured.
+04-Apr-24 23:15:04 - [WARNING] -  * Debugger is active!
+04-Apr-24 23:15:04 - [INFO] -  * Debugger PIN: 256-835-185
+04-Apr-24 23:23:14 - [INFO] -  * Detected change in '/Users/muskanjindal/Projects/soft-engg-project-jan-2024-se-jan-19/backend/tests/unit/test_team19.py', reloading
+04-Apr-24 23:23:14 - [INFO] -  * Restarting with stat
+04-Apr-24 23:23:15 - [INFO] - Development environment configured.
+04-Apr-24 23:23:15 - [WARNING] -  * Debugger is active!
+04-Apr-24 23:23:15 - [INFO] -  * Debugger PIN: 256-835-185
+04-Apr-24 23:23:48 - [INFO] -  * Detected change in '/Users/muskanjindal/Projects/soft-engg-project-jan-2024-se-jan-19/backend/tests/unit/test_team19.py', reloading
+04-Apr-24 23:23:48 - [INFO] -  * Restarting with stat
+04-Apr-24 23:23:49 - [INFO] - Development environment configured.
+04-Apr-24 23:23:49 - [WARNING] -  * Debugger is active!
+04-Apr-24 23:23:49 - [INFO] -  * Debugger PIN: 256-835-185
