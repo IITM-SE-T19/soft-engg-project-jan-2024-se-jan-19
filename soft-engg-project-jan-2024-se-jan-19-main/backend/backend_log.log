@@ -5859,3 +5859,27 @@
 04-Apr-24 22:19:02 - [INFO] - 127.0.0.1 - - [04/Apr/2024 22:19:02] "[33mGET /api/v1/discourse/user HTTP/1.1[0m" 404 -
 04-Apr-24 22:26:25 - [INFO] - 127.0.0.1 - - [04/Apr/2024 22:26:25] "[33mGET /api/v1/discourse/user HTTP/1.1[0m" 404 -
 04-Apr-24 22:35:49 - [INFO] - 127.0.0.1 - - [04/Apr/2024 22:35:49] "[33mGET /api/v1/discourse/user HTTP/1.1[0m" 404 -
+04-Apr-24 22:54:09 - [INFO] - 127.0.0.1 - - [04/Apr/2024 22:54:09] "[33mGET /api/v1/discourse/user HTTP/1.1[0m" 404 -
+04-Apr-24 22:54:39 - [INFO] - 127.0.0.1 - - [04/Apr/2024 22:54:39] "[33mGET /api/v1/discourse/user HTTP/1.1[0m" 404 -
+04-Apr-24 22:54:44 - [INFO] - 127.0.0.1 - - [04/Apr/2024 22:54:44] "[33mGET /api/v1/discourse/user HTTP/1.1[0m" 404 -
+06-Apr-24 20:35:17 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+06-Apr-24 20:35:19 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+06-Apr-24 20:35:19 - [INFO] - 127.0.0.1 - - [06/Apr/2024 20:35:19] "[33mGET /api/v1/discourse/user/test_12 HTTP/1.1[0m" 404 -
+06-Apr-24 21:06:15 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+06-Apr-24 21:06:16 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+06-Apr-24 21:06:16 - [INFO] - 127.0.0.1 - - [06/Apr/2024 21:06:16] "GET /api/v1/discourse/user/javeedahmadahanger HTTP/1.1" 200 -
+06-Apr-24 21:06:26 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+06-Apr-24 21:06:27 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+06-Apr-24 21:06:27 - [INFO] - 127.0.0.1 - - [06/Apr/2024 21:06:27] "[33mGET /api/v1/discourse/user/javeedahmadahanger1 HTTP/1.1[0m" 404 -
+06-Apr-24 21:06:57 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+06-Apr-24 21:06:57 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+06-Apr-24 21:06:57 - [INFO] - 127.0.0.1 - - [06/Apr/2024 21:06:57] "GET /api/v1/discourse/user/muskanjindal HTTP/1.1" 200 -
+06-Apr-24 21:07:01 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+06-Apr-24 21:07:02 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+06-Apr-24 21:07:02 - [INFO] - 127.0.0.1 - - [06/Apr/2024 21:07:02] "[33mGET /api/v1/discourse/user/muskanjindals HTTP/1.1[0m" 404 -
+06-Apr-24 21:07:33 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+06-Apr-24 21:07:34 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+06-Apr-24 21:07:34 - [INFO] - 127.0.0.1 - - [06/Apr/2024 21:07:34] "GET /api/v1/discourse/user/javeedahmadahanger HTTP/1.1" 200 -
+06-Apr-24 21:07:40 - [DEBUG] - Starting new HTTPS connection (1): t19support.cs3001.site:443
+06-Apr-24 21:07:40 - [DEBUG] - https://t19support.cs3001.site:443 "GET /admin/users/list/all.json HTTP/1.1" 200 None
+06-Apr-24 21:07:40 - [INFO] - 127.0.0.1 - - [06/Apr/2024 21:07:40] "[33mGET /api/v1/discourse/user/javeedahmadahanger1 HTTP/1.1[0m" 404 -

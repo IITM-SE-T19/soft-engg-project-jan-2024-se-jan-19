@@ -111,7 +111,9 @@
           </b-form-invalid-feedback>
         </b-form-group>
         <br />
-        <b-button style="margin: 10px" type="submit" variant="primary">Submit</b-button>
+        <!-- <b-button style="margin: 10px" type="submit" variant="primary">Submit</b-button> -->
+        <b-button style="margin: 10px" type="submit" variant="primary" :disabled="!discourseUserExists">Submit</b-button>
+
         <b-button style="margin: 10px" type="reset" variant="danger">Reset</b-button>
       </b-form>
       <br />
@@ -234,6 +236,7 @@ export default {
     check_name() {
       return this.form.first_name.length > 2 ? true : false;
     },
+    
     check_password() {
       let password = this.form.password;
       if (password.length < 4 || password.length > 9) {
