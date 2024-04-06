@@ -7,7 +7,7 @@
 
 import hashlib
 import time
-from flask import Blueprint, request
+from flask import Blueprint, jsonify, request
 from flask_restful import Api, Resource
 from application.logger import logger
 from application.common_utils import (
@@ -605,6 +605,16 @@ class TicketAPI(Resource):
                     )
             else:
                 raise NotFoundError(status_msg="Ticket does not exists")
+            
+     # Add a search method to TicketAPI class
+    def search(self):
+        query = request.args.get('query', '')
+        if query:
+            tickets = Ticket.search(query)
+            return jsonify([ticket_utils.convert_ticket_to_dict(ticket) for ticket in tickets]), 200
+        else:
+            return jsonify({"message": "No query provided"}), 400
+
 
 
 class AllTicketsAPI(Resource):
@@ -661,7 +671,8 @@ class AllTicketsAPI(Resource):
         logger.info(f"All tickets found : {len(all_tickets)}")
 
         return success_200_custom(data=all_tickets)
-
+    
+   
 
 class AllTicketsUserAPI(Resource):
     @token_required
@@ -735,12 +746,21 @@ class AllTicketsUserAPI(Resource):
         return success_200_custom(data=all_tickets)
 
 
-ticket_api.add_resource(
-    TicketAPI,
-    "/<string:ticket_id>/<string:user_id>",
-    "/<string:user_id>",
-)  # path is /api/v1/ticket
+# You should add the endpoint for search as a separate class method
+# and not as a separate resource to avoid the conflict.
+ticket_api.add_resource(TicketAPI, 
+                        "/<string:ticket_id>/<string:user_id>",
+                        endpoint='ticketapi_with_ids')
+ticket_api.add_resource(TicketAPI, 
+                        "/<string:user_id>",
+                        endpoint='ticketapi_with_user')
+ticket_api.add_resource(TicketAPI, 
+                        "/search",
+                        endpoint='ticketapi_search',
+                        methods=['GET'])
+
 ticket_api.add_resource(AllTicketsAPI, "/all-tickets")
 ticket_api.add_resource(AllTicketsUserAPI, "/all-tickets/<string:user_id>")
+
 
 # --------------------  END  --------------------

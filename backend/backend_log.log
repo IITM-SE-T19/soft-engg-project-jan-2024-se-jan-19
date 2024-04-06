@@ -4997,3 +4997,41 @@
 29-Mar-24 18:40:19 - [INFO] - Development environment configured.
 29-Mar-24 18:40:19 - [WARNING] -  * Debugger is active!
 29-Mar-24 18:40:19 - [INFO] -  * Debugger PIN: 256-835-185
+06-Apr-24 18:23:32 - [INFO] - Development environment configured.
+06-Apr-24 18:23:32 - [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+06-Apr-24 18:23:32 - [INFO] - [33mPress CTRL+C to quit[0m
+06-Apr-24 18:23:32 - [INFO] -  * Restarting with stat
+06-Apr-24 18:23:32 - [INFO] - Development environment configured.
+06-Apr-24 18:23:32 - [WARNING] -  * Debugger is active!
+06-Apr-24 18:23:32 - [INFO] -  * Debugger PIN: 645-023-844
+06-Apr-24 18:27:27 - [INFO] -  * Detected change in '/Users/shashwatmookherjee/Documents/IIT MADRAS/Degree Level /Team 19 - Shashwat/soft-engg-project-jan-2024-se-jan-19/backend/application/views/discourse_bp.py', reloading
+06-Apr-24 18:27:27 - [INFO] -  * Restarting with stat
+06-Apr-24 18:27:29 - [INFO] - Development environment configured.
+06-Apr-24 18:27:29 - [WARNING] -  * Debugger is active!
+06-Apr-24 18:27:29 - [INFO] -  * Debugger PIN: 645-023-844
+06-Apr-24 18:27:59 - [INFO] -  * Detected change in '/Users/shashwatmookherjee/Documents/IIT MADRAS/Degree Level /Team 19 - Shashwat/soft-engg-project-jan-2024-se-jan-19/backend/application/views/faq_bp.py', reloading
+06-Apr-24 18:27:59 - [INFO] -  * Restarting with stat
+06-Apr-24 18:28:00 - [INFO] - Development environment configured.
+06-Apr-24 18:29:52 - [INFO] - Development environment configured.
+06-Apr-24 18:34:06 - [INFO] - Development environment configured.
+06-Apr-24 18:34:06 - [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+06-Apr-24 18:34:06 - [INFO] - [33mPress CTRL+C to quit[0m
+06-Apr-24 18:34:06 - [INFO] -  * Restarting with stat
+06-Apr-24 18:34:06 - [INFO] - Development environment configured.
+06-Apr-24 18:34:06 - [WARNING] -  * Debugger is active!
+06-Apr-24 18:34:06 - [INFO] -  * Debugger PIN: 645-023-844
+06-Apr-24 18:36:39 - [INFO] -  * Detected change in '/Users/shashwatmookherjee/Documents/IIT MADRAS/Degree Level /Team 19 - Shashwat/soft-engg-project-jan-2024-se-jan-19/backend/application/views/discourse_bp.py', reloading
+06-Apr-24 18:36:39 - [INFO] -  * Restarting with stat
+06-Apr-24 18:36:40 - [INFO] - Development environment configured.
+06-Apr-24 18:36:40 - [WARNING] -  * Debugger is active!
+06-Apr-24 18:36:40 - [INFO] -  * Debugger PIN: 645-023-844
+06-Apr-24 18:37:35 - [INFO] - Development environment configured.
+06-Apr-24 18:37:35 - [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+06-Apr-24 18:37:35 - [INFO] - [33mPress CTRL+C to quit[0m
+06-Apr-24 18:37:35 - [INFO] -  * Restarting with stat
+06-Apr-24 18:37:36 - [INFO] - Development environment configured.
+06-Apr-24 18:37:36 - [WARNING] -  * Debugger is active!
+06-Apr-24 18:37:36 - [INFO] -  * Debugger PIN: 645-023-844

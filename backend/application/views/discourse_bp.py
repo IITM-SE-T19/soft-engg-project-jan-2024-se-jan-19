@@ -39,6 +39,18 @@ class DiscourseUtils():
         else:
             # If there was an error with the request
             return {'error': 'Resource not found'}, 404
+    
+
+    # Add a new method to search Discourse topics
+    def search_discourse_topics(self, query):
+        api_url = f"{BASE_DISCOURSE}/search.json"
+        params = {'q': query}
+        response = requests.get(api_url, headers=DISCOURSE_HEADERS, params=params)
+        if response.status_code == 200:
+            return response.json()['topics'], 200
+        else:
+            return {'error': 'Failed to fetch topics from Discourse'}, response.status_code
+
 
 
 class DiscourseTicketAPI(Resource):
@@ -104,6 +116,7 @@ class DiscourseTicketAPI(Resource):
         string = f"{title}_{ts}"
         ticket_id = hashlib.md5(string.encode()).hexdigest()
         return ticket_id
+    
 
 discourse_bp = Blueprint("discourse_bp", __name__)
 discourse_api = Api(discourse_bp)
@@ -120,5 +133,16 @@ class DiscourseUser(Resource):
         return(discourseUser)
         
 
-discourse_api.add_resource(DiscourseTicketAPI, "/posts")
-discourse_api.add_resource(DiscourseUser, "/user/<string:username>")
+# Create a new resource for searching Discourse topics
+class SearchDiscourseTopics(Resource):
+    def get(self):
+        query = request.args.get('query', '')
+        if not query:
+            return {"message": "Query parameter 'query' is required"}, 400
+        return Discourse_utils.search_discourse_topics(query)
+
+
+# Register the resources with unique endpoints
+discourse_api.add_resource(DiscourseTicketAPI, "/posts", endpoint='discourse_ticket_api')
+discourse_api.add_resource(DiscourseUser, "/user/<string:username>", endpoint='discourse_user_api')
+discourse_api.add_resource(SearchDiscourseTopics, "/search_topics", endpoint='search_discourse_topics')

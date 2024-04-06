@@ -60,6 +60,15 @@ class Ticket(db.Model):
         return f"Ticket object for: {self.ticket_id} | {self.title}"
 
 
+    @classmethod
+    def search(cls, search_query):
+        return cls.query.filter(
+            (cls.title.ilike(f'%{search_query}%')) |
+            (cls.description.ilike(f'%{search_query}%'))
+        ).all()
+    
+
+
 class TicketAttachment(db.Model):
     __tablename__ = "ticketattachment"
     ticket_id = db.Column(
@@ -95,6 +104,13 @@ class FAQ(db.Model):
 
     def __repr__(self):
         return f"FAQ object for: {self.FAQ_id}"
+    
+    @classmethod
+    def search(cls, search_query):
+        return cls.query.filter(
+            (cls.question.ilike(f'%{search_query}%')) |
+            (cls.solution.ilike(f'%{search_query}%'))
+        ).all()
 
 
 class FAQAttachment(db.Model):
