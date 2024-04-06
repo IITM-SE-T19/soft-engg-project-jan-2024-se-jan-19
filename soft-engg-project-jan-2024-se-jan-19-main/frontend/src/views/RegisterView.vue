@@ -111,7 +111,7 @@
           </b-form-invalid-feedback>
         </b-form-group>
         <br />
-        <!-- <b-button style="margin: 10px" type="submit" variant="primary">Submit</b-button> -->
+        <!-- #Team19-AJ -->
         <b-button style="margin: 10px" type="submit" variant="primary" :disabled="!discourseUserExists">Submit</b-button>
 
         <b-button style="margin: 10px" type="reset" variant="danger">Reset</b-button>
