@@ -118,7 +118,46 @@ class DiscourseUser(Resource):
         
         discourseUser = Discourse_utils.search_discourse_user_by_username(username)
         return(discourseUser)
-        
 
-discourse_api.add_resource(DiscourseTicketAPI, "/posts")
+# Create a POST route for creating a post on Discourse
+class CreateDiscoursePost(Resource):
+    def post(self):
+        """
+        Create a post on Discourse.
+
+        Parameters
+        ----------
+        JSON payload containing the post details.
+
+        Returns
+        -------
+        Success message if the post is successfully created.
+        """
+        try:
+            post_data = request.json
+            # Extract the required fields from the post_data
+            title = post_data.get('title')
+            raw = post_data.get('raw')
+            category_id = post_data.get('category_id')
+
+            # Make a POST request to the Discourse API to create the post
+            api_url = f"{BASE_DISCOURSE}/posts.json"
+            headers = deepcopy(DISCOURSE_HEADERS)
+            headers['Content-Type'] = 'application/json'
+            payload = {
+                'title': title,
+                'raw': raw,
+                'category': category_id
+            }
+            response = requests.post(api_url, headers=headers, json=payload)
+
+            if response.status_code == 200:
+                return {"message": "Post created successfully."}, 201
+            else:
+                return {"error": response.json()}, 500
+        except Exception as e:
+            print(e)
+            return {"error": str(e)}, 500
+
+discourse_api.add_resource(CreateDiscoursePost, "/create-post")
 discourse_api.add_resource(DiscourseUser, "/user/<string:username>")

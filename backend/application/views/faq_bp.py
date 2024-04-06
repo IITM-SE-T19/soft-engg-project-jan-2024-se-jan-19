@@ -23,6 +23,7 @@ from application.views.user_utils import UserUtils
 from application.responses import *
 from application.models import *
 from application.globals import *
+import requests
 
 # --------------------  Code  --------------------
 
@@ -169,6 +170,7 @@ class FAQAPI(Resource):
             "tag_2": "",
             "tag_3": "",
             "created_by": "",
+            "post_to_discourse": ""
         }
         try:
             form = request.get_json()
@@ -189,17 +191,43 @@ class FAQAPI(Resource):
             faq_id = faq_util.generate_faq_id(details["question"])
             details["faq_id"] = faq_id
             # details["created_by"] = user_id
-            faq = FAQ(**details)
+            faq = FAQ(**{key: details[key] for key in ["faq_id","question", "solution", "tag_1", "tag_2", "tag_3", "created_by"]})
+            error_message="Error occured while creating a new faq"
             try:
                 db.session.add(faq)
                 db.session.commit()
+                # if post_to_discourse is equal to post_to_discourse then create a post on discourse using the /create-post endpoint
+                if details["post_to_discourse"] == "post_to_discourse":
+                    # create a post on discourse using the /create-post endpoint
+                    api_url = f"{BASE}/api/v1/discourse/create-post"
+                    request_body = {
+                        "title": details["question"],
+                        "raw": details["solution"],
+                        "category_id": 5
+                    }
+                    response = requests.post(api_url, json=request_body)
+                    if response.status_code == 201:
+                        # Post created successfully
+                        logger.info("FAQ created successfully on Discourse.")
+                    elif response.status_code == 500:
+                        # Handle error
+                        errors = response.json().get("error", {}).get("errors", [])
+                        error_message = ", ".join(errors)
+                        raise InternalServerError(
+                                status_msg=error_message
+                            )
+                    else:
+                        raise InternalServerError(
+                                status_msg="Error occured while creating a post on Discourse."+str(response.status_code)
+                            )    
+                 
             except Exception as e:
                 logger.error(
                     f"FAQAPI->post : Error occured while creating a new faq : {e}"
                 )
 
                 raise InternalServerError(
-                    status_msg="Error occured while creating a new faq"
+                    status_msg="Discourse Error: "+error_message
                 )
             else:
                 logger.info("FAQ created successfully.")
