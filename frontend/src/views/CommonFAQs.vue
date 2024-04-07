@@ -35,6 +35,7 @@
                 :question="faq.question"
                 :answer="faq.solution"
                 :attachments="faq.attachments"
+                :topic_id="faq.topic_id"
               ></FAQCard>
             </div>
           </div>

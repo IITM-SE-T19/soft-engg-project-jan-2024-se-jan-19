@@ -92,6 +92,7 @@ class FAQ(db.Model):
     tag_2 = db.Column(db.String, nullable=True, default="")
     tag_3 = db.Column(db.String, nullable=True, default="")
     created_by = db.Column(db.String, nullable=False)
+    topic_id = db.Column(db.String, nullable=True, default="")
 
     def __repr__(self):
         return f"FAQ object for: {self.FAQ_id}"

@@ -119,8 +119,9 @@ class DiscourseUser(Resource):
         discourseUser = Discourse_utils.search_discourse_user_by_username(username)
         return(discourseUser)
 
-# Create a POST route for creating a post on Discourse
+# Create a POST route for creating a post on Discourse and lock them (This is for FAQ)
 class CreateDiscoursePost(Resource):
+
     def post(self):
         """
         Create a post on Discourse.
@@ -139,6 +140,9 @@ class CreateDiscoursePost(Resource):
             title = post_data.get('title')
             raw = post_data.get('raw')
             category_id = post_data.get('category_id')
+            # Get the tags as an array from the post_data
+            tags = post_data.get('tags', [])
+            print("TAGS:", tags)
 
             # Make a POST request to the Discourse API to create the post
             api_url = f"{BASE_DISCOURSE}/posts.json"
@@ -151,13 +155,102 @@ class CreateDiscoursePost(Resource):
             }
             response = requests.post(api_url, headers=headers, json=payload)
 
+            print("TAGS:", tags)
+
             if response.status_code == 200:
-                return {"message": "Post created successfully."}, 201
+                topic_id = response.json().get('topic_id')
+
+                # Add tags to the topic
+                for tag in tags:
+                    # /topic/<string:topic_id>/tag/<string:tag_id>
+                    tag_url = f"http://127.0.0.1:5000/api/v1/discourse/topic/{topic_id}/tag/{tag}"
+                    tag_response = requests.put(tag_url)
+                    if tag_response.status_code == 200:
+                        print("Tag added successfully.")
+                    else:
+                        print("Failed to add tag to topic.")
+                
+
+                # In order to make FAQ read only, lock the topic
+                lock_url = f"{BASE_DISCOURSE}/t/{topic_id}/status"
+                lock_payload = {                    
+                    "status": "closed",
+                    "enabled": "true"
+                }
+                lock_response = requests.put(lock_url, headers=headers, json=lock_payload)
+
+                if lock_response.status_code == 200:
+                    return {"message": "Topic created and locked successfully.","topic_id":topic_id}, 201
+                else:
+                    return {"message": "Topic created but not locked","error": lock_response.json()}, 500
+                
             else:
                 return {"error": response.json()}, 500
         except Exception as e:
             print(e)
             return {"error": str(e)}, 500
 
+
+class AddTagToTopic(Resource):
+    def put(self, topic_id, tag_id):
+        """
+        Add a tag to a topic.
+
+        Parameters
+        ----------
+        topic_id : str
+            The ID of the topic.
+        tag_id : str
+            The ID of the tag.
+
+        Returns
+        -------
+        Success message if the tag is successfully added to the topic.
+        """
+        api_url = f"{BASE_DISCOURSE}/t/{topic_id}"
+        headers = deepcopy(DISCOURSE_HEADERS)
+        headers['Content-Type'] = 'application/json'
+        payload = {
+            'tags': [tag_id]
+        }
+        response = requests.put(api_url, headers=headers, json=payload)
+        if response.status_code == 200:
+            return {"message": "Tag added to topic successfully."}, 200
+        else:
+            return {"error": "Failed to add tag to topic."}, 500
+
+
+class CategoryTags(Resource):
+    def get(self, category_id):
+        """
+        Get the tags for a given category ID.
+
+        Parameters
+        ----------
+        category_id : str
+            The ID of the category.
+
+        Returns
+        -------
+        List[str]
+            The tags associated with the category.
+        """
+        api_url = f"{BASE_DISCOURSE}/tags/filter/search.json?q=&categoryId={category_id}&filterForInput=true"
+        # https://t19support.cs3001.site/tags/filter/search?q=&limit=5&categoryId=5&filterForInput=true
+        response = requests.get(api_url, headers=DISCOURSE_HEADERS)
+        if response.status_code == 200:
+            try:                
+                tags = response.json()["results"]
+                tag_names = [tag["name"] for tag in tags]
+
+                return tag_names
+            except Exception as e:
+                return {"error": str(e)}, 500
+
+
+discourse_api.add_resource(AddTagToTopic, "/topic/<string:topic_id>/tag/<string:tag_id>")
+discourse_api.add_resource(CategoryTags, "/category/<string:category_id>/tags")        
+
 discourse_api.add_resource(CreateDiscoursePost, "/create-post")
 discourse_api.add_resource(DiscourseUser, "/user/<string:username>")
+

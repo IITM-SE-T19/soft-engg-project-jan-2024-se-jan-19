@@ -18,11 +18,11 @@
         </b-col>
         <b-col class="col" cols="11" lg="11" sm="11">
           <p>{{ answer }}</p>
-          <div v-show="attachments.length > 0">
-            <p>Attachments:</p>
-            <div v-for="(attach, imageIndex) in attachments" :key="imageIndex">
-              <img :src="attach.attachment_loc" class="img-fluid" />
-            </div>
+          <div v-if="topic_id">
+            <p>Link to Topic in Discourse:</p>
+            <a :href="'https://t19support.cs3001.site/t/' + topic_id" target="_blank">{{
+              "https://t19support.cs3001.site/t/" + topic_id
+            }}</a>
           </div>
         </b-col>
       </b-row>
@@ -33,7 +33,7 @@
 <script>
 export default {
   name: "FAQCard",
-  props: ["faq_id", "question", "answer", "attachments"],
+  props: ["faq_id", "question", "answer", "attachments", "topic_id"],
   components: {},
   data() {
     return {

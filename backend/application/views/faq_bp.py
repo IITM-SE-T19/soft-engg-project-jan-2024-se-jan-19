@@ -203,19 +203,28 @@ class FAQAPI(Resource):
                     request_body = {
                         "title": details["question"],
                         "raw": details["solution"],
-                        "category_id": 5
+                        "category_id": 5,
+                        "tags": [details["tag_1"], details["tag_2"], details["tag_3"]]
                     }
                     response = requests.post(api_url, json=request_body)
+                    # If created, add the topic_id to the FAQ object
                     if response.status_code == 201:
                         # Post created successfully
+                        topic_id = response.json().get('topic_id')
+                        faq.topic_id = topic_id
+                        db.session.add(faq)
+                        db.session.commit()
                         logger.info("FAQ created successfully on Discourse.")
+                    # If received 500 from discourse, use the error message from discourse and raise InternalServerError
                     elif response.status_code == 500:
                         # Handle error
                         errors = response.json().get("error", {}).get("errors", [])
                         error_message = ", ".join(errors)
+                        error_message="Discourse Error: "+error_message
                         raise InternalServerError(
-                                status_msg=error_message
+                                status_msg="Discourse Error: "+error_message
                             )
+                    # For any other status code, raise InternalServerError and use the default error message
                     else:
                         raise InternalServerError(
                                 status_msg="Error occured while creating a post on Discourse."+str(response.status_code)
@@ -227,7 +236,7 @@ class FAQAPI(Resource):
                 )
 
                 raise InternalServerError(
-                    status_msg="Discourse Error: "+error_message
+                    status_msg=error_message
                 )
             else:
                 logger.info("FAQ created successfully.")
