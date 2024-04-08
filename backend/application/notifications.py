@@ -25,9 +25,11 @@ from email.utils import formatdate
 from email.mime.application import MIMEApplication
 from application.globals import *
 
+# Team 19 - MJ
+import requests 
+
 
 # --------------------  Code  --------------------
-
 
 notification_template = """
 <!DOCTYPE html>
@@ -93,6 +95,88 @@ def send_email(
             )
         else:
             logger.error("No internet connection to send mail")
+
+# Team 19 - MJ  (send chat message function to gchat)         
+def send_chat_message(message):
+    message_body = {
+        "text": message
+    }
+
+    response = requests.post(
+        url=GCHAT_WEBHOOKS,
+        json=message_body,
+        headers={'Content-Type': 'application/json'}
+    )
+
+    if response.status_code == 200:
+        logger.info("Message sent successfully!")
+    else:
+        error_response = response.text
+        logger.info(error_response)
+
+# Team 19 - MJ (send chat card function to gchat)
+def send_card_message(message, discourselink, ostslink):
+
+    card_data = {
+  "text": "",
+  "cards": [
+    {
+      "header": {
+        "title": "Team 19 Ticket System Alert",
+        "subtitle": message,
+        "imageUrl": "http://localhost:5050/static/_logo.png",
+        "imageStyle": "IMAGE"
+      },
+      "sections": [
+        {
+          "widgets": [
+            {
+              "textParagraph": {
+                "text": ""
+              }
+            },
+            {
+              "buttons": [
+                {
+                  "textButton": {
+                    "text": "View on Discourse",
+                    "onClick": {
+                      "openLink": {
+                        "url": discourselink
+                      }
+                    }
+                  }
+                },
+                {
+                  "textButton": {
+                    "text": "View on OSTS",
+                    "onClick": {
+                      "openLink": {
+                        "url": ostslink
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+    response = requests.post(
+        url=GCHAT_WEBHOOKS,
+        json=card_data,
+        headers={'Content-Type': 'application/json'}
+    )
+
+    if response.status_code == 200:
+        logger.info("Message sent successfully!")
+    else:
+        error_response = response.text
+        logger.info(error_response)
 
 
 # --------------------  END  --------------------

@@ -35,3 +35,4 @@ pnpm-debug.log*
 *:Zone.Identifier
 *.bat
 *.exe
+*.pyc

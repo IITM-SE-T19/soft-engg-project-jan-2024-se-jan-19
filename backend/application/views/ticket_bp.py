@@ -24,7 +24,7 @@ from application.responses import *
 from application.models import *
 from copy import deepcopy
 from application.globals import *
-from application.notifications import send_email
+from application.notifications import send_email, send_card_message, send_chat_message # Team 19 - MJ (import for gchat notifications)
 
 # --------------------  Code  --------------------
 
