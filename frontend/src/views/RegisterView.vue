@@ -61,7 +61,7 @@
             </span>
         
         </b-form-group>
-
+<!-- #TEAM19-AJ -->
         <b-form-group
           ><b-form-input
             id="input-discourse-username"
@@ -79,9 +79,6 @@
           </div>
      
     </b-form-group>
-      
-      
-        
 
         <b-form-group
           ><b-form-input
@@ -114,7 +111,9 @@
           </b-form-invalid-feedback>
         </b-form-group>
         <br />
-        <b-button style="margin: 10px" type="submit" variant="primary">Submit</b-button>
+        <!-- #Team19-AJ -->
+        <b-button style="margin: 10px" type="submit" variant="primary" :disabled="!discourseUserExists">Submit</b-button>
+
         <b-button style="margin: 10px" type="reset" variant="danger">Reset</b-button>
       </b-form>
       <br />
@@ -145,11 +144,15 @@ export default {
         email: "",
         password: "",
         retype_password: "",
-        discourse_username: "",
+
+        // #TEAM19-AJ
+        discourse_username: "",  
       },
+
+    // #TEAM19-AJ
       userExists: false,
       discourseUserExists: false,
-      
+
       show: true,
     };
   },
@@ -197,6 +200,8 @@ export default {
       this.form.email = "";
       this.form.password = "";
       this.form.retype_password = "";
+
+      // #TEAM19-AJ
       this.form.discourse_username= "",
       // Trick to reset/clear native browser form validation state
       this.show = false;
@@ -204,28 +209,30 @@ export default {
         this.show = true;
       });
     },
+
     checkUserExists() {
 
-      fetch(`http://localhost:5000/api/v1/discourse/user/${this.form.discourse_username}`, {
-        method: "GET", 
-      })
-      .then((response) => {
-      
-        if (response.status === 200) {
-          this.discourseUserExists = true;
-        } else if (response.status === 404) {
-          // User does not exist (status 404)
-          this.discourseUserExists = false;
-        } else {
-          // Handle other error cases
-          console.error("Error checking user existence. Status code:", response.status);
-        }
-      })
-      .catch((error) => {
-        console.error("Error checking user existence:", error);
-      });
-    },
+     fetch(`http://localhost:5000/api/v1/discourse/user/${this.form.discourse_username}`, {
+      method: "GET", 
+     })
+     .then((response) => {
+
+      if (response.status === 200) {
+       this.discourseUserExists = true;
+      } else if (response.status === 404) {
+    // User does not exist (status 404)
+       this.discourseUserExists = false;
+      } else {
+    // Handle other error cases
+        console.error("Error checking user existence. Status code:", response.status);
+      }
+    })
+    .catch((error) => {
+      console.error("Error checking user existence:", error);
+    });
   },
+
+},
   computed: {
     check_name() {
       return this.form.first_name.length > 2 ? true : false;

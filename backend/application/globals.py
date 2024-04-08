@@ -28,6 +28,8 @@ FAQ_ATTACHMENTS_PATH = os.path.join(
     BACKEND_ROOT_PATH, "databases", "images", "faq_attachments"
 )
 
+# TEAM 19 - MJ
+GCHAT_WEBHOOKS = "https://chat.googleapis.com/v1/spaces/AAAAkq1KEsM/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=A_UdVqn5bmNXirnCMCzkH1TirPAZ3hrR4SfL5ZNPWfk"
 
 # TEAM 19 / PB: Discourse API 
 DISCOURSE_HEADERS = {
