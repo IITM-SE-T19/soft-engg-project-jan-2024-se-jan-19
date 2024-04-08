@@ -32,7 +32,7 @@ def test_post_faq_api_with_fixture(test_client):
         "user_id": '1aedb8d9dc4751e229a335e371db8058',
     }
     data = {'question': '"title": "test neeed a help, please help", 22', 'solution': '"title": "test neeed a help, please help", 20', 'tags': ['graded-assignment'], 'tag_1': 'graded-assignment', 'tag_2': '', 'tag_3': '', 'attachments': [], 'created_by': '1aedb8d9dc4751e229a335e371db8058', 'post_to_discourse': 'post_to_discourse'}
-    # Modify the above data : the number after please help should be different with every test
+    # Modify the above data : the number after please help should be different with every test,keep incrementing until the test passes
     response = test_client.post(f"/api/{API_VERSION}/faq/", headers=headers, json=data)
     assert response.status_code == 200
 
