@@ -7,7 +7,7 @@ supportTicketVenv
 .DS_Store
 node_modules
 /dist
-
+/__pycache__
 env
 
 # local env files
