@@ -119,8 +119,12 @@ class DiscourseUser(Resource):
         discourseUser = Discourse_utils.search_discourse_user_by_username(username)
         return(discourseUser)
 
-# Create a POST route for creating a post on Discourse and lock them (This is for FAQ)
+# SE Team 19 - SV
+# Create a POST route for creating a topic on Discourse and lock it (This is for FAQ)
 class CreateDiscoursePost(Resource):
+    """
+    Represents a resource for creating a post on Discourse.
+    """
 
     def post(self):
         """
@@ -132,7 +136,15 @@ class CreateDiscoursePost(Resource):
 
         Returns
         -------
-        Success message if the post is successfully created.
+        dict
+            A dictionary containing the response message and topic ID.
+        int
+            The HTTP status code.
+
+        Raises
+        ------
+        Exception
+            If an error occurs during the post creation process.
         """
         try:
             post_data = request.json
@@ -190,7 +202,7 @@ class CreateDiscoursePost(Resource):
             print(e)
             return {"error": str(e)}, 500
 
-
+# SE Team 19 - SV
 class AddTagToTopic(Resource):
     def put(self, topic_id, tag_id):
         """
@@ -205,7 +217,13 @@ class AddTagToTopic(Resource):
 
         Returns
         -------
-        Success message if the tag is successfully added to the topic.
+        dict
+            A dictionary containing the response message.
+
+        Raises
+        ------
+        HTTPError
+            If there is an error while adding the tag to the topic.
         """
         api_url = f"{BASE_DISCOURSE}/t/{topic_id}"
         headers = deepcopy(DISCOURSE_HEADERS)
@@ -217,9 +235,9 @@ class AddTagToTopic(Resource):
         if response.status_code == 200:
             return {"message": "Tag added to topic successfully."}, 200
         else:
-            return {"error": "Failed to add tag to topic."}, 500
+            raise requests.HTTPError("Failed to add tag to topic.")
 
-
+# SE Team 19 - SV
 class CategoryTags(Resource):
     def get(self, category_id):
         """
@@ -234,6 +252,12 @@ class CategoryTags(Resource):
         -------
         List[str]
             The tags associated with the category.
+
+        Raises
+        ------
+        Exception
+            If an error occurs while retrieving the tags.
+
         """
         api_url = f"{BASE_DISCOURSE}/tags/filter/search.json?q=&categoryId={category_id}&filterForInput=true"
         # https://t19support.cs3001.site/tags/filter/search?q=&limit=5&categoryId=5&filterForInput=true
@@ -248,8 +272,8 @@ class CategoryTags(Resource):
                 return {"error": str(e)}, 500
 
 
-discourse_api.add_resource(AddTagToTopic, "/topic/<string:topic_id>/tag/<string:tag_id>")
-discourse_api.add_resource(CategoryTags, "/category/<string:category_id>/tags")        
+discourse_api.add_resource(AddTagToTopic, "/topic/<string:topic_id>/tag/<string:tag_id>") # SE Team 19 - SV
+discourse_api.add_resource(CategoryTags, "/category/<string:category_id>/tags") # SE Team 19 - SV        
 
 discourse_api.add_resource(CreateDiscoursePost, "/create-post")
 discourse_api.add_resource(DiscourseUser, "/user/<string:username>")

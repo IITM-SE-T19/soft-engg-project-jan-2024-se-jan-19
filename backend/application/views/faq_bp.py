@@ -163,6 +163,23 @@ class FAQAPI(Resource):
     @token_required
     @users_required(users=["admin"])
     def post(self):
+        """
+        Create a new FAQ post.
+
+        This function is used to create a new FAQ post. It takes the form data from the request,
+        validates the required fields, generates a unique FAQ ID, and saves the FAQ post to the database.
+        If the 'post_to_discourse' field is set to 'post_to_discourse', it also creates a post on Discourse
+        using the '/create-post' endpoint.
+
+        Returns:
+            If the FAQ post is created successfully, it returns a Success_200 response with a success message.
+            If there is an error during the creation process, it raises an InternalServerError with an error message.
+
+        Raises:
+            BadRequest: If the 'question' or 'tag_1' field is missing or empty.
+            InternalServerError: If there is an error while getting the form data, creating the FAQ post,
+                or creating a post on Discourse.
+        """
         details = {
             "question": "",
             "solution": "",
@@ -170,7 +187,7 @@ class FAQAPI(Resource):
             "tag_2": "",
             "tag_3": "",
             "created_by": "",
-            "post_to_discourse": ""
+            "post_to_discourse": "" # SE Team 19 - SV
         }
         try:
             form = request.get_json()
@@ -181,7 +198,7 @@ class FAQAPI(Resource):
                     value = ""
                 details[key] = value
         except Exception as e:
-            logger.error(f"FAQAPI->post : Error occured while getting form data : {e}")
+            logger.error(f"FAQAPI->post : Error occurred while getting form data : {e}")
             raise InternalServerError
         else:
             if details["question"] == "" or details["tag_1"] == "":
@@ -192,10 +209,12 @@ class FAQAPI(Resource):
             details["faq_id"] = faq_id
             # details["created_by"] = user_id
             faq = FAQ(**{key: details[key] for key in ["faq_id","question", "solution", "tag_1", "tag_2", "tag_3", "created_by"]})
-            error_message="Error occured while creating a new faq"
+            error_message="Error occurred while creating a new faq"
             try:
                 db.session.add(faq)
                 db.session.commit()
+                
+                # SE Team 19 - SV
                 # if post_to_discourse is equal to post_to_discourse then create a post on discourse using the /create-post endpoint
                 if details["post_to_discourse"] == "post_to_discourse":
                     # create a post on discourse using the /create-post endpoint
@@ -227,12 +246,12 @@ class FAQAPI(Resource):
                     # For any other status code, raise InternalServerError and use the default error message
                     else:
                         raise InternalServerError(
-                                status_msg="Error occured while creating a post on Discourse."+str(response.status_code)
+                                status_msg="Error occurred while creating a post on Discourse."+str(response.status_code)
                             )    
                  
             except Exception as e:
                 logger.error(
-                    f"FAQAPI->post : Error occured while creating a new faq : {e}"
+                    f"FAQAPI->post : Error occurred while creating a new faq : {e}"
                 )
 
                 raise InternalServerError(

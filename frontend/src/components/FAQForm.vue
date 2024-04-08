@@ -41,7 +41,7 @@
       value="post_to_discourse"
       unchecked-value="do_not_post_to_discourse"
     >
-      Post to discourse
+      Post to discourse <!-- SE Team 19 - SV -->
     </b-form-checkbox>
 
       <Tagging @tags_changed="onTagsChanged"></Tagging>
@@ -82,7 +82,7 @@ export default {
         tag_3: "",
         attachments: [],
         created_by: "",
-        post_to_discourse: "do_not_post_to_discourse"
+        post_to_discourse: "do_not_post_to_discourse"  // SE Team 19 - SV
       },
       show: true,
       user_id: this.$store.getters.get_user_id,

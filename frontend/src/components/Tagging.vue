@@ -98,14 +98,14 @@ export default {
   },
   mounted() {
     // Fetch tags for a given category
-    this.setTags(5);
+    this.setTags(5); //SE Team 19 - SV
   },
   methods: {
     onOptionClick({ option, addTag }) {
       addTag(option);
       this.search = "";
     },
-    setTags(category_id) {
+    setTags(category_id) { //SE Team 19 - SV
       // Fetch tags for a given category
       fetch(`http://127.0.0.1:5000/api/v1/discourse/category/${category_id}/tags`)
         .then((response) => response.json())
