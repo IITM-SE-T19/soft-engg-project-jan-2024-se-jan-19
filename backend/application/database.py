@@ -5,12 +5,9 @@
 
 # --------------------  Imports  --------------------
 
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> 2eeaea72f74c9a04b6610ef01cceb303e00067a2
 from flask_sqlalchemy import SQLAlchemy
 
 # --------------------  Code  --------------------

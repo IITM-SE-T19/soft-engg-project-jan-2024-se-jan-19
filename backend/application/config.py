@@ -17,10 +17,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2eeaea72f74c9a04b6610ef01cceb303e00067a2
 class ProductionConfig(Config):
     db_path = os.path.join(
         BACKEND_ROOT_PATH, "databases", "supportTicketDB_Prod.sqlite3"
@@ -49,9 +46,5 @@ class DevelopmentConfig(Config):
     DEBUG = True
 
 
-<<<<<<< HEAD
 # --------------------  END  --------------------
-=======
 
-# --------------------  END  --------------------
->>>>>>> 2eeaea72f74c9a04b6610ef01cceb303e00067a2
