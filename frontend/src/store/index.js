@@ -1,6 +1,6 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import router from '../router';
+import Vue from "vue";
+import Vuex from "vuex";
+import router from "../router";
 
 Vue.use(Vuex);
 
@@ -13,6 +13,9 @@ export default new Vuex.Store({
       last_name: "",
       email: "",
       profile_photo_loc: "",
+
+      // #TEAM19- AJ
+      discourse_username: "",
     },
     web_token: "",
     token_expiry_on: 0,
@@ -21,37 +24,39 @@ export default new Vuex.Store({
   },
   getters: {
     get_user: function (state) {
-      return state.user
+      return state.user;
     },
     get_user_id: function (state) {
-      return state.user.user_id
+      return state.user.user_id;
     },
     get_user_role: function (state) {
-      return state.user.role
+      return state.user.role;
     },
     get_user_profile_pic: function (state) {
-      return state.user.profile_photo_loc
-    },
-    get_web_token: function (state) {
-      return state.web_token
-    },
-    get_token_expiry_on: function (state) {
-      return state.token_expiry_on
-    },
-    get_logged_status: function (state) {
-      return state.logged_status
+      return state.user.profile_photo_loc;
     },
 
+    // #TEAM19-AJ
+    get_user_discourse_username: function (state) {
+      return state.user.discourse_username;
+    },
+    get_web_token: function (state) {
+      return state.web_token;
+    },
+    get_token_expiry_on: function (state) {
+      return state.token_expiry_on;
+    },
+    get_logged_status: function (state) {
+      return state.logged_status;
+    },
   },
   mutations: {
     initialiseStore(state) {
       // Check if the ID exists
-      if (localStorage.getItem('store')) {
-        console.log('App creating. Store available in local storage');
+      if (localStorage.getItem("store")) {
+        console.log("App creating. Store available in local storage");
         // Replace the state object with the stored item
-        this.replaceState(
-          Object.assign(state, JSON.parse(localStorage.getItem('store')))
-        );
+        this.replaceState(Object.assign(state, JSON.parse(localStorage.getItem("store"))));
       }
     },
 
@@ -64,6 +69,10 @@ export default new Vuex.Store({
       state.web_token = payload.web_token;
       state.token_expiry_on = payload.token_expiry_on;
       state.user.profile_photo_loc = payload.profile_photo_loc;
+
+      // #TEAM19-AJ
+      state.user.discourse_username = payload.discourse_username;
+
       state.logged_status = true;
     },
     SET_STATE_AFTER_LOGOUT(state, payload) {
@@ -76,6 +85,7 @@ export default new Vuex.Store({
       state.token_expiry_on = 0;
       state.user.profile_photo_loc = "";
       state.logged_status = false;
+      state.user.discourse_username = "";
       clearTimeout(state.timeout_id);
     },
     SET_STATE_AFTER_PROFILE_UPDATE(state, payload) {
@@ -86,28 +96,27 @@ export default new Vuex.Store({
     },
     SET_TIMEOUT_ID(state, payload) {
       state.timeout_id = payload;
-    }
+    },
   },
   actions: {
     set_state_after_login(context, payload) {
-      context.commit('SET_STATE_AFTER_LOGIN', payload);
+      context.commit("SET_STATE_AFTER_LOGIN", payload);
     },
     set_state_after_logout(context, payload) {
-      context.commit('SET_STATE_AFTER_LOGOUT', payload);
+      context.commit("SET_STATE_AFTER_LOGOUT", payload);
     },
     set_state_after_profile_update(context, payload) {
-      context.commit('SET_STATE_AFTER_PROFILE_UPDATE', payload);
+      context.commit("SET_STATE_AFTER_PROFILE_UPDATE", payload);
     },
     token_timeout_fn: async function (context, payload) {
       // delete token after timeout
       const timeout_id = setTimeout(function () {
         alert("Token Expired. Please login again");
-        context.commit('SET_STATE_AFTER_LOGOUT', payload);
+        context.commit("SET_STATE_AFTER_LOGOUT", payload);
         router.push("/login");
-      }, 1 * 60 * 1000);  // 1000 means 1 sec
-      context.commit('SET_TIMEOUT_ID', timeout_id);
+      }, 120 * 60 * 1000); // 1000 means 1 sec
+      context.commit("SET_TIMEOUT_ID", timeout_id);
     },
   },
-  modules: {
-  },
+  modules: {},
 });

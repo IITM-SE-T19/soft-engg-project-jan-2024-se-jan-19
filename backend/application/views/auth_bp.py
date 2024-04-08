@@ -60,6 +60,9 @@ class AuthUtils(UserUtils):
                 role=details["role"],
                 first_name=details["first_name"],
                 last_name=details["last_name"],
+                 
+                #TEAM19- AJ 
+                discourse_username=details["discourse_username"],
             )
             db.session.add(user)
             db.session.commit()
@@ -165,7 +168,9 @@ class Login(Resource):
                                     "first_name": user.first_name,
                                     "last_name": user.last_name,
                                     "email": user.email,
+                                    "discourse_username": user.discourse_username,
                                     "profile_photo_loc": img_base64,
+                                    
                                 }
                             )
                         else:
@@ -198,7 +203,7 @@ class Register(Resource):
         ----------
         form data sent with request
         data format {'first_name':'', 'last_name':'', 'email':'',
-                    'password':'', 'retype_password':'', 'role':''}
+                    'password':'', 'retype_password':'', 'role':'','discourse_username':''}
         'last_name' is optional
 
         Returns
@@ -214,6 +219,7 @@ class Register(Resource):
             "password": "",
             "retype_password": "",
             "role": "",
+            "discourse_username": "",   #TEAM19-AJ
         }
 
         # get form data
@@ -245,11 +251,21 @@ class Register(Resource):
 
                     # create new user in Auth table
                     details["user_id"] = user_id
+
+
+
+                    #TEAM19-AJ
+                    details["discourse_username"] = form.get("discourse_username")
+
                     user = auth_utils.update_auth_table(details=details)
 
                     # Redirect to login page in frontend
                     # No need to create web_token as during login it will
                     # be created
+
+                    #TEAM-19 AJ
+                    db.session.commit()
+
 
                     logger.info("New account created")
                     raise Success_200(
