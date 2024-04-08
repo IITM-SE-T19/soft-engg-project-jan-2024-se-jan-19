@@ -30,6 +30,7 @@ FAQ_ATTACHMENTS_PATH = os.path.join(
 
 # TEAM 19 - MJ
 BASE_DISCOURSE = "https://t19support.cs3001.site"
+GCHAT_WEBHOOKS = "https://chat.googleapis.com/v1/spaces/AAAAkq1KEsM/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=A_UdVqn5bmNXirnCMCzkH1TirPAZ3hrR4SfL5ZNPWfk"
 
 # TEAM 19 / PB: Discourse API 
 DISCOURSE_HEADERS = {
