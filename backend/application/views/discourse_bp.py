@@ -21,6 +21,7 @@ from application.models import Auth, Ticket
 
 
 # --------------------  Code  --------------------
+# TEAM 19 / PB: INTERNAL FUNCTIONS
 
 class DiscourseUtils():
 
@@ -40,6 +41,25 @@ class DiscourseUtils():
             # If there was an error with the request
             return {'error': 'Resource not found'}, 404
 
+    def generate_ticket_id(self, title: str) -> str:
+        """
+        Generate a unique ticket ID based on the title and current timestamp.
+        """
+        ts = str(int(time.time()))
+        string = f"{title}_{ts}"
+        ticket_id = hashlib.md5(string.encode()).hexdigest()
+        return ticket_id
+
+discourse_bp = Blueprint("discourse_bp", __name__)
+discourse_api = Api(discourse_bp)
+Discourse_utils = DiscourseUtils()
+
+
+# - - - - - - - - - - - - - - - - - - - - -
+# TEAM 19 / PB: API IMPLEMENTATION
+
+# - - - - - - - - - - - - - - - - - - - - -
+# API: DiscourseTicket
 
 class DiscourseTicketAPI(Resource):
     def get(self):
@@ -96,19 +116,8 @@ class DiscourseTicketAPI(Resource):
             print(e)
             return {"error": str(e)}, 500
 
-    def generate_ticket_id(self, title: str) -> str:
-        """
-        Generate a unique ticket ID based on the title and current timestamp.
-        """
-        ts = str(int(time.time()))
-        string = f"{title}_{ts}"
-        ticket_id = hashlib.md5(string.encode()).hexdigest()
-        return ticket_id
-
-discourse_bp = Blueprint("discourse_bp", __name__)
-discourse_api = Api(discourse_bp)
-Discourse_utils = DiscourseUtils()
-
+# - - - - - - - - - - - - - - - - - - - - -
+# API: DiscourseUser
 class DiscourseUser(Resource):
     def get(self, username=""):
         # tickets retrieved based on user role.
@@ -120,5 +129,12 @@ class DiscourseUser(Resource):
         return(discourseUser)
         
 
+# - - - - - - - - - - - - - - - - - - - - -
+# TEAM 19 / PB: API RESOURCE ENDPOINTS
+
 discourse_api.add_resource(DiscourseTicketAPI, "/posts")
 discourse_api.add_resource(DiscourseUser, "/user/<string:username>")
+
+
+
+# - - - - - -   E N D   - - - - - - -

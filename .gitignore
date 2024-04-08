@@ -1,4 +1,5 @@
 # Exclude node_modules directory
+extra/
 frontend/node_modules/
 .vscode/
 t19/
@@ -8,3 +9,9 @@ backend/application/views/__pycache__/
 backend/tests/unit/__pycache__/
 backend/tests/__pycache__/
 backend/databases
+*.log
+*.exe
+*.bat
+*.bak
+*.csv
+

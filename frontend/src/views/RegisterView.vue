@@ -1,3 +1,8 @@
+<!-- TEAM 19 - PB Updated UI for OSTS V2 and Team 19  -->
+<!-- TEAM 19 - JA Updated User Registration Form to include Discourse Username -->
+
+<!-- Registration Page: Register New User -->
+
 <template>
   <div>
     <div class="login-div">
