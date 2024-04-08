@@ -1,4 +1,13 @@
+<!-- TEAM 19 - PB Updated UI for OSTS V2 and Team 19  -->
+<!-- TEAM 19 - JA Updated User Registration Form to include Discourse Username -->
+
+<!-- Registration Page: Register New User -->
+
 <template>
+  <div>
+    <div class="login-div">
+    <h1 style="text-align: left">Register</h1>
+    </div>
   <div class="register-form">
     <div style="margin: 3%; padding: 3%; width: 50%">
       <h3 style="text-align: left">Register</h3>
@@ -45,8 +54,34 @@
             type="email"
             placeholder="Enter email"
             required
-          ></b-form-input
-        ></b-form-group>
+            
+          ></b-form-input>
+          <span v-if="userExists">
+              User with email {{ form.email }} exists with username {{ discourseUsername }}
+            </span>
+        
+        </b-form-group>
+
+        <b-form-group
+          ><b-form-input
+            id="input-discourse-username"
+            v-model="form.discourse_username"
+            type="text"
+            placeholder="Enter Discourse Username"
+            :state="check_name"
+            aria-describedby="input-live-feedback-discourse-username"
+            required
+            @blur="checkUserExists"
+          ></b-form-input>
+          <div v-if="form.discourse_username.length >= 3">
+            <span v-if="this.discourseUserExists" style="color: green;">&#10004; Discourse username is valid.</span>
+            <span v-else style="color: red;">&#10008; Discourse username not found.</span>
+          </div>
+     
+    </b-form-group>
+      
+      
+        
 
         <b-form-group
           ><b-form-input
@@ -87,6 +122,7 @@
       <p>Go to <b-link href="/home">Home Page</b-link></p>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -109,7 +145,11 @@ export default {
         email: "",
         password: "",
         retype_password: "",
+        discourse_username: "",
       },
+      userExists: false,
+      discourseUserExists: false,
+      
       show: true,
     };
   },
@@ -157,10 +197,32 @@ export default {
       this.form.email = "";
       this.form.password = "";
       this.form.retype_password = "";
+      this.form.discourse_username= "",
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
         this.show = true;
+      });
+    },
+    checkUserExists() {
+
+      fetch(`http://localhost:5000/api/v1/discourse/user/${this.form.discourse_username}`, {
+        method: "GET", 
+      })
+      .then((response) => {
+      
+        if (response.status === 200) {
+          this.discourseUserExists = true;
+        } else if (response.status === 404) {
+          // User does not exist (status 404)
+          this.discourseUserExists = false;
+        } else {
+          // Handle other error cases
+          console.error("Error checking user existence. Status code:", response.status);
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking user existence:", error);
       });
     },
   },
@@ -188,5 +250,22 @@ export default {
       return this.form.password === this.form.retype_password && this.check_password ? true : false;
     },
   },
+  
 };
 </script>
+
+<style>
+.login-div {
+  background-image: url("../assets/osts_logo.png");
+  background-color: #D2FFC6;
+  height: 9vh;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: auto;
+  margin-right:8px;
+  margin-top:8px;
+  padding-left:8px;
+  padding-top:18px;
+  vertical-align: middle;
+}
+</style>
