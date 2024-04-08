@@ -252,8 +252,6 @@ class Register(Resource):
                     # create new user in Auth table
                     details["user_id"] = user_id
 
-
-
                     #TEAM19-AJ
                     details["discourse_username"] = form.get("discourse_username")
 

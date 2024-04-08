@@ -8,6 +8,13 @@
           </b-button>
         </b-col>
         <b-col class="col" cols="11" lg="11" sm="11">{{ question }}</b-col>
+<<<<<<< HEAD
+=======
+        <!-- Add the button here -->
+        <b-col v-if="discourse_post_id === 0" class="col" cols="1" lg="1" sm="1">
+          <b-button @click="callApiToUpdateRecord" variant="primary">Update Record</b-button>
+        </b-col>
+>>>>>>> 2eeaea72f74c9a04b6610ef01cceb303e00067a2
       </b-row>
 
       <b-row class="row" v-show="show_answer" @click="questionClicked">
@@ -33,7 +40,11 @@
 <script>
 export default {
   name: "FAQCard",
+<<<<<<< HEAD
   props: ["faq_id", "question", "answer", "attachments"],
+=======
+  props: ["faq_id", "question", "answer", "attachments","discourse_post_id"],
+>>>>>>> 2eeaea72f74c9a04b6610ef01cceb303e00067a2
   components: {},
   data() {
     return {
@@ -45,6 +56,11 @@ export default {
     questionClicked() {
       this.show_answer = !this.show_answer;
     },
+<<<<<<< HEAD
+=======
+    callApiToUpdateRecord() {
+    },
+>>>>>>> 2eeaea72f74c9a04b6610ef01cceb303e00067a2
   },
   computed: {},
 };

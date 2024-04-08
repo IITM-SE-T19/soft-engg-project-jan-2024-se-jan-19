@@ -1,4 +1,13 @@
+<!-- TEAM 19 - PB Updated UI for OSTS V2 and Team 19  -->
+<!-- TEAM 19 - JA Updated User Registration Form to include Discourse Username -->
+
+<!-- Registration Page: Register New User -->
+
 <template>
+  <div>
+    <div class="login-div">
+    <h1 style="text-align: left">Register</h1>
+    </div>
   <div class="register-form">
     <div style="margin: 3%; padding: 3%; width: 50%">
       <h3 style="text-align: left">Register</h3>
@@ -45,13 +54,14 @@
             type="email"
             placeholder="Enter email"
             required
-          ></b-form-input
-        ></b-form-group>
-
-
-
-
-        <!-- #TEAM19-AJ -->
+            
+          ></b-form-input>
+          <span v-if="userExists">
+              User with email {{ form.email }} exists with username {{ discourseUsername }}
+            </span>
+        
+        </b-form-group>
+<!-- #TEAM19-AJ -->
         <b-form-group
           ><b-form-input
             id="input-discourse-username"
@@ -70,7 +80,6 @@
      
     </b-form-group>
 
-
         <b-form-group
           ><b-form-input
             id="input-password-register"
@@ -86,15 +95,6 @@
             atmost 8 characters long.
           </b-form-invalid-feedback>
         </b-form-group>
-
-
-
-        
-      
-
-
-
-
 
         <b-form-group
           ><b-form-input
@@ -121,6 +121,7 @@
       <p>Go to <b-link href="/home">Home Page</b-link></p>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -236,7 +237,6 @@ export default {
     check_name() {
       return this.form.first_name.length > 2 ? true : false;
     },
-    
     check_password() {
       let password = this.form.password;
       if (password.length < 4 || password.length > 9) {
@@ -257,5 +257,22 @@ export default {
       return this.form.password === this.form.retype_password && this.check_password ? true : false;
     },
   },
+  
 };
 </script>
+
+<style>
+.login-div {
+  background-image: url("../assets/osts_logo.png");
+  background-color: #D2FFC6;
+  height: 9vh;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: auto;
+  margin-right:8px;
+  margin-top:8px;
+  padding-left:8px;
+  padding-top:18px;
+  vertical-align: middle;
+}
+</style>

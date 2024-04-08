@@ -1,7 +1,11 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="light" variant="light">
+<<<<<<< HEAD
       <b-navbar-brand href="#">OSTS</b-navbar-brand>
+=======
+      <b-navbar-brand href="#"><img src="../assets/osts_logo.png"></b-navbar-brand>
+>>>>>>> 2eeaea72f74c9a04b6610ef01cceb303e00067a2
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>

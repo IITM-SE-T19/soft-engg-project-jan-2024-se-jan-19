@@ -175,11 +175,14 @@ class UserUtils:
                     value = ""
                 details[key] = value
             user = Auth.query.filter_by(user_id=user_id).first()
+<<<<<<< HEAD
 
 
             #TEAM19-AJ
             print(details)
 
+=======
+>>>>>>> 2eeaea72f74c9a04b6610ef01cceb303e00067a2
         except Exception as e:
             logger.error(f"UserUtils : Error occured while getting form data : {e}")
             raise InternalServerError
@@ -238,11 +241,14 @@ class UserUtils:
                         # successfully image saved and now add entry to database
                         user.profile_photo_loc = file_path
 
+<<<<<<< HEAD
             #TEAM-19 AJ
             user.discourse_username = details["discourse_username"]
             print(f"Updated discourse_username: {user.discourse_username}") 
 
 
+=======
+>>>>>>> 2eeaea72f74c9a04b6610ef01cceb303e00067a2
             try:
                 db.session.add(user)
                 db.session.commit()

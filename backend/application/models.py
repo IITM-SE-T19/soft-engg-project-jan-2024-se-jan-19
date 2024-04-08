@@ -44,6 +44,7 @@ class Ticket(db.Model):
     priority = db.Column(
         db.String, nullable=False, default="low"
     )  # low (default), medium, high
+    discourse_category = db.Column(db.Integer, nullable=False, default=-1)
     tag_1 = db.Column(db.String, nullable=False)
     tag_2 = db.Column(db.String, nullable=True, default="")
     tag_3 = db.Column(db.String, nullable=True, default="")
@@ -96,6 +97,7 @@ class FAQ(db.Model):
     tag_2 = db.Column(db.String, nullable=True, default="")
     tag_3 = db.Column(db.String, nullable=True, default="")
     created_by = db.Column(db.String, nullable=False)
+    discourse_post_id=db.Column(db.Integer, nullable=True, default=0)
 
     def __repr__(self):
         return f"FAQ object for: {self.FAQ_id}"

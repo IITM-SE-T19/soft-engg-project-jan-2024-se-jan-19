@@ -53,10 +53,12 @@ export default new Vuex.Store({
   mutations: {
     initialiseStore(state) {
       // Check if the ID exists
-      if (localStorage.getItem("store")) {
-        console.log("App creating. Store available in local storage");
+      if (localStorage.getItem('store')) {
+        console.log('App creating. Store available in local storage');
         // Replace the state object with the stored item
-        this.replaceState(Object.assign(state, JSON.parse(localStorage.getItem("store"))));
+        this.replaceState(
+          Object.assign(state, JSON.parse(localStorage.getItem('store')))
+        );
       }
     },
 
@@ -112,11 +114,12 @@ export default new Vuex.Store({
       // delete token after timeout
       const timeout_id = setTimeout(function () {
         alert("Token Expired. Please login again");
-        context.commit("SET_STATE_AFTER_LOGOUT", payload);
+        context.commit('SET_STATE_AFTER_LOGOUT', payload);
         router.push("/login");
-      }, 120 * 60 * 1000); // 1000 means 1 sec
-      context.commit("SET_TIMEOUT_ID", timeout_id);
+      }, 120 * 60 * 1000);  // TEAM 19 / PB: 1000 means 1 sec. Updated to 2 hours
+      context.commit('SET_TIMEOUT_ID', timeout_id);
     },
   },
-  modules: {},
+  modules: {
+  },
 });

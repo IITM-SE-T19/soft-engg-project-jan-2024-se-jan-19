@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 t19venv
 supportTicketVenv
 *.bat
@@ -35,3 +36,22 @@ pnpm-debug.log*
 *:Zone.Identifier
 *.bat
 *.exe
+=======
+# Exclude node_modules directory
+extra/
+frontend/node_modules/
+.vscode/
+t19/
+__pycache__/**
+backend/application/__pycache__/
+backend/application/views/__pycache__/
+backend/tests/unit/__pycache__/
+backend/tests/__pycache__/
+backend/databases
+*.log
+*.exe
+*.bat
+*.bak
+*.csv
+
+>>>>>>> 2eeaea72f74c9a04b6610ef01cceb303e00067a2
