@@ -1,7 +1,17 @@
+t19venv
+supportTicketVenv
+*.bat
+*.exe
+.DS_Store
+.vscode
 .DS_Store
 node_modules
+extra
+__pycache__
+*.pyc
 /dist
 
+env
 
 # local env files
 .env.local
@@ -12,6 +22,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+*.log
 
 # Editor directories and files
 .idea
@@ -21,3 +32,6 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+*:Zone.Identifier
+*.bat
+*.exe

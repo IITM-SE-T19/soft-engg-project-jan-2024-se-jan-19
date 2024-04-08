@@ -1,7 +1,13 @@
+<!-- TEAM 19 - PB Updated UI for OSTS V2 and Team 19  -->
+
 <template>
+  <div>
+    <div class="login-div">
+    <h1 style="text-align: left">Login</h1>
+    </div>
   <div class="login-form">
     <div style="margin: 3%; padding: 3%; width: 50%">
-      <h3 style="text-align: left">Login</h3>
+      
       <br />
       <b-form @submit="onSubmit" @reset="onReset" v-if="show">
         <b-form-group
@@ -33,6 +39,7 @@
       <p>Go to <b-link href="/home">Home Page</b-link></p>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -101,4 +108,18 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.login-div {
+  background-image: url("../assets/osts_logo.png");
+  background-color: #D2FFC6;
+  height: 9vh;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: auto;
+  margin-right:8px;
+  margin-top:8px;
+  padding-left:8px;
+  padding-top:18px;
+  vertical-align: middle;
+}
+</style>
