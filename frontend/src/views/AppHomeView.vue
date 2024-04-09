@@ -1,8 +1,5 @@
 <template>
   <div class="home-div">
-    <h1 style="text-align: center">
-      <span>Welcome to</span><br /><span>Online Support Ticket System</span>
-    </h1>
     <b-row align-h="end">
       <b-button
         style="margin: 10px; margin-right: 50px"
