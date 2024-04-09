@@ -10,8 +10,7 @@
         variant="primary"
         :to="{ path: '/login' }"
         >Login</b-button
-      ></b-row
-    >
+      ></b-row>
   </div>
 </template>
 

@@ -45,6 +45,25 @@
                 ></b-form-input
               ></b-form-group>
 
+            <!-- #TEAM19 - AJ -->
+
+            <b-form-group label="Discourse Username:" label-for="input-discourse-username-change"
+                ><b-form-input
+                  id="input-discourse-username-change"
+                  v-model="form.discourse_username"
+                  type="text"
+                  readonly
+                ></b-form-input
+              ></b-form-group>
+
+
+
+
+
+
+
+
+
               <b-form-group label="Password:" label-for="input-password-change"
                 ><b-form-input
                   id="input-password-change"
@@ -116,6 +135,9 @@ export default {
         password: "",
         retype_password: "",
         profile_photo_loc: "",
+
+        // #TEAM19-AJ
+        discourse_username: "",
       },
       show: true,
     };
@@ -126,6 +148,12 @@ export default {
     this.form.last_name = user.last_name;
     this.form.email = user.email;
     this.form.profile_photo_loc = this.$store.getters.get_user_profile_pic;
+
+    // #TEAM19-AJ
+    this.form.discourse_username = user.discourse_username;
+    // this.form.discourse_username = this.$store.getters.get_user.discourse_username;
+    console.log("Discourse Username:", this.form.discourse_username);
+
     if (this.user_role === "student") {
       this.user_url_to_fetch_data = common.STUDENT_API + `/${this.user_id}`;
     }
@@ -184,6 +212,11 @@ export default {
       this.form.first_name = user.first_name;
       this.form.last_name = user.last_name;
       this.form.email = user.email;
+
+
+      // #TEAM19-AJ
+      this.form.discourse_username= user.discourse_username;
+
       this.form.password = "";
       this.form.retype_password = "";
       this.form.profile_photo_loc = this.$store.getters.get_user_profile_pic;

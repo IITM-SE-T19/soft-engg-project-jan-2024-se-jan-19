@@ -162,6 +162,9 @@ class UserUtils:
             "password": "",
             "retype_password": "",
             "profile_photo_loc": "",
+             
+             #TEAM19- AJ
+            "discourse_username": "",
         }
 
         # checks form data
@@ -172,6 +175,11 @@ class UserUtils:
                     value = ""
                 details[key] = value
             user = Auth.query.filter_by(user_id=user_id).first()
+
+
+            #TEAM19-AJ
+            print(details)
+
         except Exception as e:
             logger.error(f"UserUtils : Error occured while getting form data : {e}")
             raise InternalServerError
@@ -229,6 +237,11 @@ class UserUtils:
                     if convert_base64_to_img(file_path, encoded_data):
                         # successfully image saved and now add entry to database
                         user.profile_photo_loc = file_path
+
+            #TEAM-19 AJ
+            user.discourse_username = details["discourse_username"]
+            print(f"Updated discourse_username: {user.discourse_username}") 
+
 
             try:
                 db.session.add(user)

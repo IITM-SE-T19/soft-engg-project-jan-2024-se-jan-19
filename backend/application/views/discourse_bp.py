@@ -21,11 +21,11 @@ from application.models import Auth, Ticket
 
 
 # --------------------  Code  --------------------
-
+# TEAM 19 / PB: INTERNAL FUNCTIONS
 class DiscourseUtils():
 
     def search_discourse_user_by_username(self, username):
-        apiURL = f"{BASE_DISCOURSE}/admin/users/list/all.json" # Team 19 - MJ, Edited
+        apiURL = f"{DISCOURSE_URL}/admin/users/list/all.json"
 
         response = requests.get(apiURL, headers=DISCOURSE_HEADERS)
         if response.status_code == 200:
@@ -43,7 +43,7 @@ class DiscourseUtils():
 
     # Add a new method to search Discourse topics
     def search_discourse_topics(self, query):
-        api_url = f"{BASE_DISCOURSE}/search.json"
+        api_url = f"{DISCOURSE_URL}/search.json"
         params = {'q': query}
         response = requests.get(api_url, headers=DISCOURSE_HEADERS, params=params)
         if response.status_code == 200:
@@ -52,6 +52,25 @@ class DiscourseUtils():
             return {'error': 'Failed to fetch topics from Discourse'}, response.status_code
 
 
+    def generate_ticket_id(self, title: str) -> str:
+        """
+        Generate a unique ticket ID based on the title and current timestamp.
+        """
+        ts = str(int(time.time()))
+        string = f"{title}_{ts}"
+        ticket_id = hashlib.md5(string.encode()).hexdigest()
+        return ticket_id
+
+discourse_bp = Blueprint("discourse_bp", __name__)
+discourse_api = Api(discourse_bp)
+Discourse_utils = DiscourseUtils()
+
+
+# - - - - - - - - - - - - - - - - - - - - -
+# TEAM 19 / PB: API IMPLEMENTATION
+
+# - - - - - - - - - - - - - - - - - - - - -
+# API: DiscourseTicket
 
 class DiscourseTicketAPI(Resource):
     def get(self):
@@ -122,6 +141,8 @@ discourse_bp = Blueprint("discourse_bp", __name__)
 discourse_api = Api(discourse_bp)
 Discourse_utils = DiscourseUtils()
 
+# - - - - - - - - - - - - - - - - - - - - -
+# API: DiscourseUser
 class DiscourseUser(Resource):
     def get(self, username=""):
         # tickets retrieved based on user role.
@@ -132,7 +153,6 @@ class DiscourseUser(Resource):
         discourseUser = Discourse_utils.search_discourse_user_by_username(username)
         return(discourseUser)
         
-
 # Create a new resource for searching Discourse topics
 class SearchDiscourseTopics(Resource):
     def get(self):
@@ -143,6 +163,11 @@ class SearchDiscourseTopics(Resource):
 
 
 # Register the resources with unique endpoints
+# TEAM 19 / PB: API RESOURCE ENDPOINTS
 discourse_api.add_resource(DiscourseTicketAPI, "/posts", endpoint='discourse_ticket_api')
 discourse_api.add_resource(DiscourseUser, "/user/<string:username>", endpoint='discourse_user_api')
 discourse_api.add_resource(SearchDiscourseTopics, "/search_topics", endpoint='search_discourse_topics')
+
+
+
+# - - - - - -   E N D   - - - - - - -

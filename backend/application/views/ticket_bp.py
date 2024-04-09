@@ -24,7 +24,7 @@ from application.responses import *
 from application.models import *
 from copy import deepcopy
 from application.globals import *
-from application.notifications import send_email
+from application.notifications import send_email, send_card_message, send_chat_message # Team 19 - MJ (import for gchat notifications)
 
 # --------------------  Code  --------------------
 
@@ -750,7 +750,7 @@ class AllTicketsUserAPI(Resource):
 # and not as a separate resource to avoid the conflict.
 ticket_api.add_resource(TicketAPI, 
                         "/<string:ticket_id>/<string:user_id>",
-                        endpoint='ticketapi_with_ids')
+                        endpoint='ticketapi_with_ids') # path is /api/v1/ticket
 ticket_api.add_resource(TicketAPI, 
                         "/<string:user_id>",
                         endpoint='ticketapi_with_user')
