@@ -13,6 +13,9 @@ export default new Vuex.Store({
       last_name: "",
       email: "",
       profile_photo_loc: "",
+
+      // #TEAM19- AJ
+      discourse_username: "",
     },
     web_token: "",
     token_expiry_on: 0,
@@ -31,6 +34,10 @@ export default new Vuex.Store({
     },
     get_user_profile_pic: function (state) {
       return state.user.profile_photo_loc;
+    },
+    // #TEAM19-AJ
+    get_user_discourse_username: function (state) {
+      return state.user.discourse_username;
     },
     get_web_token: function (state) {
       return state.web_token;
@@ -61,6 +68,10 @@ export default new Vuex.Store({
       state.web_token = payload.web_token;
       state.token_expiry_on = payload.token_expiry_on;
       state.user.profile_photo_loc = payload.profile_photo_loc;
+
+      // #TEAM19-AJ
+      state.user.discourse_username = payload.discourse_username;
+
       state.logged_status = true;
     },
     SET_STATE_AFTER_LOGOUT(state, payload) {
@@ -73,6 +84,7 @@ export default new Vuex.Store({
       state.token_expiry_on = 0;
       state.user.profile_photo_loc = "";
       state.logged_status = false;
+      state.user.discourse_username = "";
       clearTimeout(state.timeout_id);
     },
     SET_STATE_AFTER_PROFILE_UPDATE(state, payload) {
@@ -101,7 +113,7 @@ export default new Vuex.Store({
         alert("Token Expired. Please login again");
         context.commit("SET_STATE_AFTER_LOGOUT", payload);
         router.push("/login");
-      }, 1200 * 60 * 1000); // 1000 means 1 sec
+      }, 120 * 60 * 1000); // TEAM 19 / PB: 1000 means 1 sec. Updated to 2 hours
       context.commit("SET_TIMEOUT_ID", timeout_id);
     },
   },

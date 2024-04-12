@@ -24,7 +24,7 @@ from application.responses import *
 from application.models import *
 from copy import deepcopy
 from application.globals import *
-from application.notifications import send_email
+from application.notifications import send_email, send_card_message, send_chat_message # Team 19 - MJ (import for gchat notifications)
 
 # --------------------  Code  --------------------
 
@@ -735,6 +735,7 @@ class AllTicketsUserAPI(Resource):
         return success_200_custom(data=all_tickets)
 
 
+
 ticket_api.add_resource(
     TicketAPI,
     "/<string:ticket_id>/<string:user_id>",
@@ -742,5 +743,6 @@ ticket_api.add_resource(
 )  # path is /api/v1/ticket
 ticket_api.add_resource(AllTicketsAPI, "/all-tickets")
 ticket_api.add_resource(AllTicketsUserAPI, "/all-tickets/<string:user_id>")
+
 
 # --------------------  END  --------------------
