@@ -9,8 +9,10 @@ import os
 
 # --------------------  Code  --------------------
 
+
+
 BACKEND_ROOT_PATH = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
-HOST = "0.0.0.0"
+HOST = "127.0.0.1"
 PORT = 5000
 DEBUG = True
 ENV_TYPE = "dev"  # "test"
@@ -27,6 +29,9 @@ TICKET_ATTACHMENTS_PATH = os.path.join(
 FAQ_ATTACHMENTS_PATH = os.path.join(
     BACKEND_ROOT_PATH, "databases", "images", "faq_attachments"
 )
+
+BASE = f"http://{HOST}:{PORT}"
+BASE_DISCOURSE = "https://t19support.cs3001.site"
 
 # TEAM 19 - MJ
 GCHAT_WEBHOOKS = "https://chat.googleapis.com/v1/spaces/AAAAkq1KEsM/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=A_UdVqn5bmNXirnCMCzkH1TirPAZ3hrR4SfL5ZNPWfk"
