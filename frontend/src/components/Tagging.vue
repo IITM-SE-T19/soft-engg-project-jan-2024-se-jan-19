@@ -67,19 +67,7 @@ export default {
   props: [],
   data() {
     return {
-      options: [
-        "Help",
-        "Portal Down",
-        "Not Submitted",
-        "Subject",
-        "Graded Assignment",
-        "Practice Assignment",
-        "Live Session",
-        "SE Course",
-        "ST Course",
-        "OPPE",
-        "Activity Question",
-      ],
+      options: [],
       search: "",
       value: [],
       limit: 3,
@@ -108,11 +96,27 @@ export default {
       return "";
     },
   },
+  mounted() {
+    // Fetch tags for a given category
+    this.setTags(5); //SE Team 19 - SV
+  },
   methods: {
     onOptionClick({ option, addTag }) {
       addTag(option);
       this.search = "";
     },
+    setTags(category_id) { //SE Team 19 - SV
+      // Fetch tags for a given category
+      fetch(`http://127.0.0.1:5000/api/v1/discourse/category/${category_id}/tags`)
+        .then((response) => response.json())
+        .then((data) => {
+          this.options = data;
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+    
   },
   watch: {
     value: {

@@ -34,6 +34,16 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
+      <b-form-checkbox
+      id="checkbox-post_to_discourse"
+      v-model="form.post_to_discourse"
+      name="checkbox-post_to_discourse"
+      value="post_to_discourse"
+      unchecked-value="do_not_post_to_discourse"
+    >
+      Post to discourse <!-- SE Team 19 - SV -->
+    </b-form-checkbox>
+
       <Tagging @tags_changed="onTagsChanged"></Tagging>
 
       <FileUpload @file_uploading="onFileUpload"></FileUpload>
@@ -72,6 +82,7 @@ export default {
         tag_3: "",
         attachments: [],
         created_by: "",
+        post_to_discourse: "do_not_post_to_discourse"  // SE Team 19 - SV
       },
       show: true,
       user_id: this.$store.getters.get_user_id,
