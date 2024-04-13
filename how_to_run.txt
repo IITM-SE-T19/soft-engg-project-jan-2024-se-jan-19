@@ -1,0 +1,5 @@
+start 'mailhog' exe file
+then start 'backend.bat' file
+then start 'frontend.bat' file
+then visit 'http://127.0.0.1:8080/' for app frontend
+and visit 'http://127.0.0.1:8025/' for mailhog 
