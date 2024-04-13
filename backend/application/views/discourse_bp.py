@@ -30,7 +30,7 @@ class DiscourseUtils():
         response = requests.get(apiURL, headers=DISCOURSE_HEADERS)
         if response.status_code == 200:
             users = response.json()
-            print(users)
+            # print(users)
             for user in users:
                 if user['username'] == username:
                     return user
@@ -133,7 +133,7 @@ Discourse_utils = DiscourseUtils()
 class DiscourseUser(Resource):
     def get(self, username=""):
         # tickets retrieved based on user role.
-        print("SEARCH EMAIL:", username)
+        print("SEARCH DISCOURSE USERNAME:", username)
         if username=="":
             raise BadRequest(status_msg="Email ID is missing.")
         

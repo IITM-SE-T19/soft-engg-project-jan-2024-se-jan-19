@@ -61,25 +61,27 @@
             </span>
         
         </b-form-group>
-<!-- #TEAM19-AJ -->
+        
+        <!-- --------------------------------------- -->
+             <!-- #TEAM19-AJ -->
         <b-form-group
           ><b-form-input
             id="input-discourse-username"
             v-model="form.discourse_username"
             type="text"
             placeholder="Enter Discourse Username"
-            :state="check_name"
+           
             aria-describedby="input-live-feedback-discourse-username"
             required
             @blur="checkUserExists"
           ></b-form-input>
-          <div v-if="form.discourse_username.length >= 3">
+          <div v-if="form.discourse_username.length >= 5">
             <span v-if="this.discourseUserExists" style="color: green;">&#10004; Discourse username is valid.</span>
             <span v-else style="color: red;">&#10008; Discourse username not found.</span>
           </div>
      
     </b-form-group>
-
+<!-- ---------------------------------------------------------------------- -->
         <b-form-group
           ><b-form-input
             id="input-password-register"
@@ -203,7 +205,7 @@ export default {
 
       // #TEAM19-AJ
       this.form.discourse_username= "",
-      // Trick to reset/clear native browser form validation state
+      
       this.show = false;
       this.$nextTick(() => {
         this.show = true;
@@ -211,6 +213,7 @@ export default {
     },
 
     checkUserExists() {
+      
 
      fetch(`http://localhost:5000/api/v1/discourse/user/${this.form.discourse_username}`, {
       method: "GET", 
