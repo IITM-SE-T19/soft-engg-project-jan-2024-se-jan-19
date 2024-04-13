@@ -3,15 +3,40 @@ extra/
 frontend/node_modules/
 .vscode/
 t19/
-__pycache__/**
-backend/application/__pycache__/
-backend/application/views/__pycache__/
-backend/tests/unit/__pycache__/
-backend/tests/__pycache__/
-backend/databases
-*.log
-*.exe
+supportTicketVenv
 *.bat
-*.bak
-*.csv
+*.exe
+.DS_Store
+.vscode
+.DS_Store
+node_modules
+extra
+__pycache__
+*.pyc
+/dist
+git 
+backend/env
 
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*:Zone.Identifier
+*.bat
+*.exe
+*.pyc

@@ -508,6 +508,9 @@ class TicketAPI(Resource):
                     db.session.add(ticket)
                     db.session.commit()
 
+                    # Team 19 - PB: Close ticket on Discourse
+                    
+
                     # send notification to user who created as well as voted
                     try:
                         _from = user.email
