@@ -19,6 +19,7 @@ class Auth(db.Model):
     web_token = db.Column(db.String, unique=True, nullable=True)
     is_verified = db.Column(db.Boolean, default=False, nullable=False)
     is_logged = db.Column(db.Boolean, default=False, nullable=False)
+    discourse_username = db.Column(db.String)
     token_created_on = db.Column(
         db.Integer, nullable=True, default=0
     )  # time is stored as a timestamp

@@ -20,11 +20,13 @@ from application.common_utils import (
     get_encoded_file_details,
 )
 from application.views.user_utils import UserUtils
+from application.views.discourse_bp import DiscourseUtils
 from application.responses import *
 from application.models import *
 from copy import deepcopy
 from application.globals import *
 from application.notifications import send_email
+
 
 # --------------------  Code  --------------------
 
@@ -349,6 +351,7 @@ class TicketAPI(Resource):
 
             ticket_id = ticket_utils.generate_ticket_id(details["title"], user_id)
             details["ticket_id"] = ticket_id
+            print(ticket_id)
             details["created_by"] = user_id
             details["created_on"] = int(time.time())
             ticket = Ticket(**details)
@@ -356,7 +359,7 @@ class TicketAPI(Resource):
             try:
                 db.session.add(ticket)
                 db.session.commit()
-                
+
             except Exception as e:
                 logger.error(
                     f"TicketAPI->post : Error occured while creating a new ticket : {e}"
@@ -371,6 +374,13 @@ class TicketAPI(Resource):
                 status, message = ticket_utils.save_ticket_attachments(
                     attachments, ticket_id, user_id, operation="create_ticket"
                 )
+                # Team 19 / RP
+                discourse_status = DiscourseUtils.post(ticket.ticket_id)
+                if discourse_status == 200:
+                    print("Discourse Ticket Created")
+                else:
+                    logger.error("Discourse Ticket not created")
+                    exit(1)
                 raise Success_200(status_msg=f"Ticket created successfully. {message}")
 
     @token_required
@@ -599,6 +609,7 @@ class TicketAPI(Resource):
                     # delete ticket
                     db.session.delete(ticket)
                     db.session.commit()
+                    DiscourseUtils.delete_post(ticket_id)
                     raise Success_200(status_msg="Ticket deleted successfully")
                 else:
                     raise PermissionDenied(
