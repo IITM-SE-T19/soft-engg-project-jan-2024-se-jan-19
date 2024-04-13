@@ -24,6 +24,7 @@ from application.responses import *
 from application.models import *
 from application.globals import *
 import requests
+from application.globals import CATEGORY_ID
 
 # --------------------  Code  --------------------
 
@@ -210,19 +211,16 @@ class FAQAPI(Resource):
             # details["created_by"] = user_id
             faq = FAQ(**{key: details[key] for key in ["faq_id","question", "solution", "tag_1", "tag_2", "tag_3", "created_by"]})
             error_message="Error occurred while creating a new faq"
-            try:
-                db.session.add(faq)
-                db.session.commit()
-                
+            try:                
                 # SE Team 19 - SV
-                # if post_to_discourse is equal to post_to_discourse then create a post on discourse using the /create-post endpoint
+                # if post_to_discourse is equal to post_to_discourse then create a post on discourse using the /create-faq-topic endpoint
                 if details["post_to_discourse"] == "post_to_discourse":
-                    # create a post on discourse using the /create-post endpoint
-                    api_url = f"{BASE}/api/v1/discourse/create-post"
+                    # create a post on discourse using the /create-faq-topic endpoint
+                    api_url = f"{BASE}/api/v1/discourse/create-faq-topic"
                     request_body = {
                         "title": details["question"],
                         "raw": details["solution"],
-                        "category_id": 5,
+                        "category_id": CATEGORY_ID,
                         "tags": [details["tag_1"], details["tag_2"], details["tag_3"]]
                     }
                     response = requests.post(api_url, json=request_body)
@@ -248,6 +246,9 @@ class FAQAPI(Resource):
                         raise InternalServerError(
                                 status_msg="Error occurred while creating a post on Discourse."+str(response.status_code)
                             )    
+                else:
+                    db.session.add(faq)
+                    db.session.commit()
                  
             except Exception as e:
                 logger.error(

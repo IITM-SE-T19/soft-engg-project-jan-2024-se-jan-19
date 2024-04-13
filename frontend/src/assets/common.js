@@ -2,6 +2,7 @@
 
 const BASEURL = "http://127.0.0.1:5000";
 const VERSION = "v1";
+const CATEGORY_ID = 7; // TEAM19-SV
 
 const AUTH_API_PREFIX = `/api/${VERSION}/auth`;
 const STUDENT_API_PREFIX = `/api/${VERSION}/student`;
@@ -70,5 +71,7 @@ export {
   ADMIN_ROUTES,
   STUDENT_NAV_BUTTONS,
   SUPPORT_NAV_BUTTONS,
-  ADMIN_NAV_BUTTONS
+  ADMIN_NAV_BUTTONS,
+  CATEGORY_ID // TEAM19-SV
 };
+

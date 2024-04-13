@@ -49,4 +49,8 @@ SENDER_ADDRESS = "osts_group_14@gmail.com"  # dummy mail and password
 SENDER_PASSWORD = "1234"
 DISCOURSE_URL="https://t19support.cs3001.site"
 
+# TEAM 19 - SV
+CATEGORY_ID=7 # Category ID for Discourse
+
+
 # --------------------  END  --------------------

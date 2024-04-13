@@ -62,6 +62,8 @@
 </template>
 
 <script>
+import { CATEGORY_ID } from '@/assets/common';
+
 export default {
   name: "Tagging",
   props: [],
@@ -98,7 +100,7 @@ export default {
   },
   mounted() {
     // Fetch tags for a given category
-    this.setTags(5); //SE Team 19 - SV
+    this.setTags(CATEGORY_ID); //SE Team 19 - SV
   },
   methods: {
     onOptionClick({ option, addTag }) {

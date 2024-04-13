@@ -172,7 +172,7 @@ class DiscourseUser(Resource):
 
 # SE Team 19 - SV
 # Create a POST route for creating a topic on Discourse and lock it (This is for FAQ)
-class CreateDiscoursePost(Resource):
+class CreateFAQTopic(Resource):
     """
     Represents a resource for creating a post on Discourse.
     """
@@ -205,7 +205,6 @@ class CreateDiscoursePost(Resource):
             category_id = post_data.get('category_id')
             # Get the tags as an array from the post_data
             tags = post_data.get('tags', [])
-            print("TAGS:", tags)
 
             # Make a POST request to the Discourse API to create the post
             api_url = f"{BASE_DISCOURSE}/posts.json"
@@ -214,25 +213,13 @@ class CreateDiscoursePost(Resource):
             payload = {
                 'title': title,
                 'raw': raw,
-                'category': category_id
+                'category': category_id,
+                'tags': tags
             }
             response = requests.post(api_url, headers=headers, json=payload)
+            topic_id = response.json().get('topic_id')
 
-            print("TAGS:", tags)
-
-            if response.status_code == 200:
-                topic_id = response.json().get('topic_id')
-
-                # Add tags to the topic
-                for tag in tags:
-                    # /topic/<string:topic_id>/tag/<string:tag_id>
-                    tag_url = f"http://127.0.0.1:5000/api/v1/discourse/topic/{topic_id}/tag/{tag}"
-                    tag_response = requests.put(tag_url)
-                    if tag_response.status_code == 200:
-                        print("Tag added successfully.")
-                    else:
-                        print("Failed to add tag to topic.")
-                
+            if response.status_code == 200:            
 
                 # In order to make FAQ read only, lock the topic
                 lock_url = f"{BASE_DISCOURSE}/t/{topic_id}/status"
@@ -243,12 +230,13 @@ class CreateDiscoursePost(Resource):
                 lock_response = requests.put(lock_url, headers=headers, json=lock_payload)
 
                 if lock_response.status_code == 200:
-                    return {"message": "Topic created and locked successfully.","topic_id":topic_id}, 201
+                    return {"message": "Topic created successfully.","topic_id":topic_id}, 201
                 else:
-                    return {"message": "Topic created but not locked","error": lock_response.json()}, 500
+                    return {"message": "Topic creation error","error": lock_response.json()}, 500
                 
             else:
                 return {"error": response.json()}, 500
+            
         except Exception as e:
             print(e)
             return {"error": str(e)}, 500
@@ -326,7 +314,7 @@ class CategoryTags(Resource):
 discourse_api.add_resource(AddTagToTopic, "/topic/<string:topic_id>/tag/<string:tag_id>") # SE Team 19 - SV
 discourse_api.add_resource(CategoryTags, "/category/<string:category_id>/tags") # SE Team 19 - SV        
 
-discourse_api.add_resource(CreateDiscoursePost, "/create-post")
+discourse_api.add_resource(CreateFAQTopic, "/create-faq-topic") # SE Team 19 - SV
 discourse_api.add_resource(DiscourseUser, "/user/<string:username>")
 
 
