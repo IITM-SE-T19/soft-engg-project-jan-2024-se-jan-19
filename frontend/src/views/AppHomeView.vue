@@ -1,6 +1,5 @@
 <template>
   <div class="home-div">
-
     <b-row align-h="end">
       <b-button
         style="margin: 10px; margin-right: 50px"

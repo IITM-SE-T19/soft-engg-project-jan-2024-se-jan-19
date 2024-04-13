@@ -28,11 +28,8 @@ FAQ_ATTACHMENTS_PATH = os.path.join(
     BACKEND_ROOT_PATH, "databases", "images", "faq_attachments"
 )
 
-# Mailhog runs at http://127.0.0.1:8025/
-SMTP_SERVER_HOST = "127.0.0.1"
-SMTP_SERVER_PORT = 1025
-SENDER_ADDRESS = "osts_group_14@gmail.com"  # dummy mail and password
-SENDER_PASSWORD = "1234"
+# TEAM 19 - MJ
+GCHAT_WEBHOOKS = "https://chat.googleapis.com/v1/spaces/AAAAkq1KEsM/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=A_UdVqn5bmNXirnCMCzkH1TirPAZ3hrR4SfL5ZNPWfk"
 
 # TEAM 19 / PB: Discourse API 
 DISCOURSE_HEADERS = {
@@ -40,6 +37,11 @@ DISCOURSE_HEADERS = {
     "Api-Username": "System"
 }
 
+# Mailhog runs at http://127.0.0.1:8025/
+SMTP_SERVER_HOST = "127.0.0.1"
+SMTP_SERVER_PORT = 1025
+SENDER_ADDRESS = "osts_group_14@gmail.com"  # dummy mail and password
+SENDER_PASSWORD = "1234"
 DISCOURSE_URL="https://t19support.cs3001.site"
 
 # --------------------  END  --------------------
