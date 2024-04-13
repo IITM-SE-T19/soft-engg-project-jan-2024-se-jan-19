@@ -161,6 +161,9 @@ export default {
               if (this.user_role == "support") {
                 this.$emit("ticketResolved");
               }
+              if (this.user_role == "student"){
+                this.$router.go()
+              }
             }
             if (data.category == "error") {
               this.flashMessage.error({

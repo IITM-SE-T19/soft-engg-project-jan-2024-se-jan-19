@@ -27,7 +27,6 @@ from copy import deepcopy
 from application.globals import *
 from application.notifications import send_email
 
-
 # --------------------  Code  --------------------
 
 
@@ -518,7 +517,8 @@ class TicketAPI(Resource):
 
                     db.session.add(ticket)
                     db.session.commit()
-
+                    # Team 19 - RP
+                    DiscourseUtils.solve_ticket(ticket_id, sol)
                     # send notification to user who created as well as voted
                     try:
                         _from = user.email

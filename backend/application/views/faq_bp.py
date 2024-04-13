@@ -24,7 +24,7 @@ from application.responses import *
 from application.models import *
 from application.globals import *
 import requests
-from application.globals import CATEGORY_ID
+from application.globals import DISCOURSE_FAQ_CATEGORY_ID
 
 # --------------------  Code  --------------------
 
@@ -220,7 +220,7 @@ class FAQAPI(Resource):
                     request_body = {
                         "title": details["question"],
                         "raw": details["solution"],
-                        "category_id": CATEGORY_ID,
+                        "category_id": DISCOURSE_FAQ_CATEGORY_ID,
                         "tags": [details["tag_1"], details["tag_2"], details["tag_3"]]
                     }
                     response = requests.post(api_url, json=request_body)

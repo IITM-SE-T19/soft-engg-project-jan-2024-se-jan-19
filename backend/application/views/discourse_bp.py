@@ -48,7 +48,7 @@ class DiscourseUtils():
         ticket_id = hashlib.md5(string.encode()).hexdigest()
         return ticket_id
 
-    # TEAM 19 / RP
+    # TEAM 19 / RP ----------------------------START----------------------
     def post(ticketid):
         print("DATA: ", ticketid)
         apiURL = f"{DISCOURSE_URL}/posts.json"
@@ -56,9 +56,18 @@ class DiscourseUtils():
         if TicketAttachment.query.filter_by(ticket_id=ticketid).first():
             attachment_loc = TicketAttachment.query.filter_by(ticket_id=ticketid).first().attachment_loc
             uploaded_attachment = DiscourseUtils.upload_attachment(ticketid, attachment_loc)
-            json = {"title": ticket_data.title, "raw": f"ATTACHMENT: {ticket_data.description} ![image]({uploaded_attachment})", "category": 6}
+            json = {"title": ticket_data.title, 
+            "raw": f"ATTACHMENT: {ticket_data.description} ![image]({uploaded_attachment})", 
+            "category": DISCOURSE_TICKET_CATEGORY_ID, 
+            "tags": ["priority_" + ticket_data.priority, ticket_data.tag_1, ticket_data.tag_2, ticket_data.tag_3]
+            }
         else:
-            json = {"title": ticket_data.title, "raw": ticket_data.description, "category": 6}
+            json = {
+            "title": ticket_data.title, 
+            "raw": ticket_data.description,
+            "category": DISCOURSE_TICKET_CATEGORY_ID, 
+            "tags": ["priority_" + ticket_data.priority, ticket_data.tag_1, ticket_data.tag_2, ticket_data.tag_3]
+            }
         response = requests.post(apiURL, headers=DISCOURSE_HEADERS, json=json)
         if response.status_code == 200:
             logging.info("Discourse post created successfully")
@@ -72,7 +81,7 @@ class DiscourseUtils():
         json = {
             "type": "composer",
             "user_id": 1,
-            "file": attachment  # Include content type
+            "file": attachment,
         }
         print("ATTACHMENT location: ", json['file'])
         response = requests.post(apiURL, headers=DISCOURSE_HEADERS, json=json)
@@ -91,6 +100,35 @@ class DiscourseUtils():
             return 200
         else:
             return {'error': 'Resource not found'}, 404
+
+    def solve_ticket(ticketid, solution):
+        apiURL = f"{DISCOURSE_URL}/posts.json"
+        ticket_data = Ticket.query.filter_by(ticket_id=ticketid).first()
+        print(ticket_data)
+        json = {
+            "raw": solution,
+            "topic_id": ticket_data.discourse_ticket_id,
+        }
+        response = requests.post(apiURL, headers=DISCOURSE_HEADERS, json=json)
+        if response.status_code == 200:
+            logging.info("Solution sent to Discourse successfully")
+        else:
+            return {'error': 'Resource not found'}, 404
+        payload = {                    
+                    "status": "closed",
+                    "enabled": "true"
+                }
+        url = f"{DISCOURSE_URL}/t/{ticket_data.discourse_ticket_id}/status"
+        close_topic = requests.put(url, headers=DISCOURSE_HEADERS, json=payload)
+        if close_topic.status_code == 200:
+            logging.info("Topic closed on Discourse.")
+            return 200
+        else:
+            return {'error': 'Resource not found'}, 404
+            
+
+# TEAM 19 / RP---------------- END-------------------
+
 
 discourse_bp = Blueprint("discourse_bp", __name__)
 discourse_api = Api(discourse_bp)

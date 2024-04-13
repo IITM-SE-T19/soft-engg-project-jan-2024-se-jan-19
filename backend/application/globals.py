@@ -50,7 +50,10 @@ SENDER_PASSWORD = "1234"
 DISCOURSE_URL="https://t19support.cs3001.site"
 
 # TEAM 19 - SV
-CATEGORY_ID=7 # Category ID for Discourse
+DISCOURSE_FAQ_CATEGORY_ID = 14 # Category ID for Discourse FAQs
+
+#TEAM 19 - RP
+DISCOURSE_TICKET_CATEGORY_ID = 13 # Category ID for DISCOURSE Ticket
 
 
 # --------------------  END  --------------------

@@ -165,7 +165,6 @@
           </div>
         </div>
       </div>
-
       <template #modal-footer="{ cancel }">
         <b-button size="sm" variant="danger" @click="cancel()"> Cancel </b-button>
       </template>
