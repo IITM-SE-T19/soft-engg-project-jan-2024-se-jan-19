@@ -1,18 +1,18 @@
 <template>
   <div class="home-div">
-    <div class="vertical-menu">
+    <div class="home-menu">
       <b-button
         variant="link"
         :to="{ path: '/login' }"
         class="home-button">
-        <img src="../assets/btn_login.png" alt="Button 1">
+        <img src="../assets/btn_login.png" alt="Link to Login to OSTS" height="20%" style="height:22vh">
       </b-button>
 
       <b-button
         variant="link"
         :to="{ path: '/register' }"
         class="home-button">
-        <img src="../assets/btn_register.png" alt="Button 1">
+        <img src="../assets/btn_register.png" alt="Link to register new OSTS user" style="height:22vh">
       </b-button>
 
       <b-button
@@ -20,7 +20,7 @@
         href="https://bit.ly/ostsv2"
         target="_blank"
         class="home-button">
-        <img src="../assets/btn_about.png" alt="Button 1">
+        <img src="../assets/btn_about.png" alt="About OSTS" height="20%" style="height:22vh">
       </b-button>
 
 
@@ -52,7 +52,7 @@ export default {
   background-size: cover;
 }
 
-.vertical-menu {
+.home-menu {
   position: fixed;
   top: 5%;
   right: 0;
@@ -62,7 +62,4 @@ export default {
   padding: 20px;
 }
 
-.vertical-menu-button {
-  margin-bottom: 10px;
-}
 </style>
