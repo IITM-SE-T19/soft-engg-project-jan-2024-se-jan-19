@@ -7,7 +7,7 @@
 
 import hashlib
 import time
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 from flask_restful import Api, Resource
 from application.logger import logger
 from application.common_utils import (
@@ -20,13 +20,13 @@ from application.common_utils import (
     get_encoded_file_details,
 )
 from application.views.user_utils import UserUtils
+from application.views.discourse_bp import DiscourseUtils
 from application.responses import *
 from application.models import *
 from copy import deepcopy
 from application.globals import *
-from application.notifications import send_email, send_card_message, send_chat_message # Team 19 - MJ (import for gchat notifications)
-# Team 19 - MJ
-from application.views.discourse_bp import DiscourseUtils
+from application.notifications import send_email
+from application.views.discourse_bp import DiscourseUtils # Team 19 - MJ
 
 # --------------------  Code  --------------------
 
@@ -351,6 +351,7 @@ class TicketAPI(Resource):
 
             ticket_id = ticket_utils.generate_ticket_id(details["title"], user_id)
             details["ticket_id"] = ticket_id
+            print(ticket_id)
             details["created_by"] = user_id
             details["created_on"] = int(time.time())
             ticket = Ticket(**details)
@@ -358,6 +359,7 @@ class TicketAPI(Resource):
             try:
                 db.session.add(ticket)
                 db.session.commit()
+
             except Exception as e:
                 logger.error(
                     f"TicketAPI->post : Error occured while creating a new ticket : {e}"
@@ -372,6 +374,13 @@ class TicketAPI(Resource):
                 status, message = ticket_utils.save_ticket_attachments(
                     attachments, ticket_id, user_id, operation="create_ticket"
                 )
+                # Team 19 / RP
+                discourse_status = DiscourseUtils.post(ticket.ticket_id)
+                if discourse_status == 200:
+                    print("Discourse Ticket Created")
+                else:
+                    logger.error("Discourse Ticket not created")
+                    exit(1)
                 raise Success_200(status_msg=f"Ticket created successfully. {message}")
 
     @token_required
@@ -509,7 +518,8 @@ class TicketAPI(Resource):
 
                     db.session.add(ticket)
                     db.session.commit()
-
+                    # Team 19 - RP
+                    DiscourseUtils.solve_ticket(ticket_id, sol)
                     # send notification to user who created as well as voted
                     try:
                         _from = user.email
@@ -600,6 +610,7 @@ class TicketAPI(Resource):
                     # delete ticket
                     db.session.delete(ticket)
                     db.session.commit()
+                    DiscourseUtils.delete_post(ticket_id)
                     raise Success_200(status_msg="Ticket deleted successfully")
                 else:
                     raise PermissionDenied(
@@ -607,16 +618,6 @@ class TicketAPI(Resource):
                     )
             else:
                 raise NotFoundError(status_msg="Ticket does not exists")
-            
-     # Add a search method to TicketAPI class
-    def search(self):
-        query = request.args.get('query', '')
-        if query:
-            tickets = Ticket.search(query)
-            return jsonify([ticket_utils.convert_ticket_to_dict(ticket) for ticket in tickets]), 200
-        else:
-            return jsonify({"message": "No query provided"}), 400
-
 
 
 class AllTicketsAPI(Resource):
@@ -667,17 +668,13 @@ class AllTicketsAPI(Resource):
         for ticket in tickets:
             tick = ticket_utils.convert_ticket_to_dict(ticket)
             all_tickets.append(tick)
-        discourseutils = DiscourseUtils()
-        discourse_response = discourseutils.search_discourse_topics("ticket",[""],"",12)
-        if 'error' not in discourse_response[0]:
-            all_tickets = all_tickets+discourse_response
 
         all_tickets = ticket_utils.tickets_filter_sort(all_tickets, args)
 
         logger.info(f"All tickets found : {len(all_tickets)}")
+
         return success_200_custom(data=all_tickets)
-    
-   
+
 
 class AllTicketsUserAPI(Resource):
     @token_required
@@ -723,6 +720,7 @@ class AllTicketsUserAPI(Resource):
                 all_tickets.append(tick)
             if 'error' not in discourse_response.keys:
                 all_tickets = all_tickets+discourse_response
+            
 
         if role == "support":
             # support : all tickets resolvedby him/her
@@ -754,9 +752,8 @@ class AllTicketsUserAPI(Resource):
                 all_tickets.append(tick)
             discourseutils = DiscourseUtils()
             discourse_response = discourseutils.search_discourse_topics("ticket",[""],"",12)
-        
-        if 'error' not in discourse_response[0]:
-            all_tickets = all_tickets+discourse_response
+            if 'error' not in discourse_response.keys:
+                all_tickets = all_tickets+discourse_response
 
         all_tickets = ticket_utils.tickets_filter_sort(all_tickets, args)
         logger.info(f"All tickets found : {len(all_tickets)}")
@@ -764,20 +761,12 @@ class AllTicketsUserAPI(Resource):
         return success_200_custom(data=all_tickets)
 
 
-# You should add the endpoint for search as a separate class method
-# and not as a separate resource to avoid the conflict.
-ticket_api.add_resource(TicketAPI, 
-                        "/<string:ticket_id>/<string:user_id>",
-                        endpoint='ticketapi_with_ids') # path is /api/v1/ticket
-ticket_api.add_resource(TicketAPI, 
-                        "/<string:user_id>",
-                        endpoint='ticketapi_with_user')
-# Team 19 - SM
-# ticket_api.add_resource(TicketAPI, 
-#                         "/search",
-#                         endpoint='ticketapi_search',
-#                         methods=['GET'])
 
+ticket_api.add_resource(
+    TicketAPI,
+    "/<string:ticket_id>/<string:user_id>",
+    "/<string:user_id>",
+)  # path is /api/v1/ticket
 ticket_api.add_resource(AllTicketsAPI, "/all-tickets")
 ticket_api.add_resource(AllTicketsUserAPI, "/all-tickets/<string:user_id>")
 

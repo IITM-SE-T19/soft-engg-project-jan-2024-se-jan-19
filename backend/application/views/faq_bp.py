@@ -23,6 +23,9 @@ from application.views.user_utils import UserUtils
 from application.responses import *
 from application.models import *
 from application.globals import *
+import requests
+from application.globals import DISCOURSE_FAQ_CATEGORY_ID
+from application.notifications import send_card_message
 
 # --------------------  Code  --------------------
 
@@ -162,6 +165,23 @@ class FAQAPI(Resource):
     @token_required
     @users_required(users=["admin"])
     def post(self):
+        """
+        Create a new FAQ post.
+
+        This function is used to create a new FAQ post. It takes the form data from the request,
+        validates the required fields, generates a unique FAQ ID, and saves the FAQ post to the database.
+        If the 'post_to_discourse' field is set to 'post_to_discourse', it also creates a post on Discourse
+        using the '/create-post' endpoint.
+
+        Returns:
+            If the FAQ post is created successfully, it returns a Success_200 response with a success message.
+            If there is an error during the creation process, it raises an InternalServerError with an error message.
+
+        Raises:
+            BadRequest: If the 'question' or 'tag_1' field is missing or empty.
+            InternalServerError: If there is an error while getting the form data, creating the FAQ post,
+                or creating a post on Discourse.
+        """
         details = {
             "question": "",
             "solution": "",
@@ -169,6 +189,7 @@ class FAQAPI(Resource):
             "tag_2": "",
             "tag_3": "",
             "created_by": "",
+            "post_to_discourse": "" # SE Team 19 - SV
         }
         try:
             form = request.get_json()
@@ -179,7 +200,7 @@ class FAQAPI(Resource):
                     value = ""
                 details[key] = value
         except Exception as e:
-            logger.error(f"FAQAPI->post : Error occured while getting form data : {e}")
+            logger.error(f"FAQAPI->post : Error occurred while getting form data : {e}")
             raise InternalServerError
         else:
             if details["question"] == "" or details["tag_1"] == "":
@@ -189,17 +210,59 @@ class FAQAPI(Resource):
             faq_id = faq_util.generate_faq_id(details["question"])
             details["faq_id"] = faq_id
             # details["created_by"] = user_id
-            faq = FAQ(**details)
-            try:
-                db.session.add(faq)
-                db.session.commit()
+            faq = FAQ(**{key: details[key] for key in ["faq_id","question", "solution", "tag_1", "tag_2", "tag_3", "created_by"]})
+            error_message="Error occurred while creating a new faq"
+            try:                
+                # SE Team 19 - SV
+                # if post_to_discourse is equal to post_to_discourse then create a post on discourse using the /create-faq-topic endpoint
+                if details["post_to_discourse"] == "post_to_discourse":
+                    # create a post on discourse using the /create-faq-topic endpoint
+                    api_url = f"{BASE}/api/v1/discourse/create-faq-topic"
+                    request_body = {
+                        "title": details["question"],
+                        "raw": details["solution"],
+                        "category_id": DISCOURSE_FAQ_CATEGORY_ID,
+                        "tags": [details["tag_1"], details["tag_2"], details["tag_3"]]
+                    }
+                    response = requests.post(api_url, json=request_body)
+                    # If created, add the topic_id to the FAQ object
+                    if response.status_code == 201:
+                        # Post created successfully
+                        topic_id = response.json().get('topic_id')
+                        faq.topic_id = topic_id
+                        db.session.add(faq)
+                        db.session.commit()
+                        # Send a card message to GChat
+                        message=f"New FAQ created : {faq.question} - Click the button below to view the FAQ."
+                        DISCOURSE_FAQ_URL=f"{BASE_DISCOURSE}/t/{topic_id}"
+                        OSTS_FAQ_URL=f"{BASE_APP}/common-faqs"
+                        send_card_message(message, DISCOURSE_FAQ_URL, OSTS_FAQ_URL)
+                        logger.info("FAQ created successfully on Discourse.")
+                    # If received 500 from discourse, use the error message from discourse and raise InternalServerError
+                    elif response.status_code == 500:
+                        # Handle error
+                        errors = response.json().get("error", {}).get("errors", [])
+                        error_message = ", ".join(errors)
+                        error_message="Discourse Error: "+error_message
+                        raise InternalServerError(
+                                status_msg="Discourse Error: "+error_message
+                            )
+                    # For any other status code, raise InternalServerError and use the default error message
+                    else:
+                        raise InternalServerError(
+                                status_msg="Error occurred while creating a post on Discourse."+str(response.status_code)
+                            )    
+                else:
+                    db.session.add(faq)
+                    db.session.commit()
+                 
             except Exception as e:
                 logger.error(
-                    f"FAQAPI->post : Error occured while creating a new faq : {e}"
+                    f"FAQAPI->post : Error occurred while creating a new faq : {e}"
                 )
 
                 raise InternalServerError(
-                    status_msg="Error occured while creating a new faq"
+                    status_msg=error_message
                 )
             else:
                 logger.info("FAQ created successfully.")

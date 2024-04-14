@@ -161,6 +161,9 @@ export default {
               if (this.user_role == "support") {
                 this.$emit("ticketResolved");
               }
+              // if (this.user_role == "student"){
+              //   this.$router.go()
+              // }
             }
             if (data.category == "error") {
               this.flashMessage.error({
@@ -185,6 +188,9 @@ export default {
       this.solution = "";
       this.form.attachments = [];
       this.form.tags = [];
+      this.form.tag_1 = "";
+      this.form.tag_2 = "";
+      this.form.tag_3 = "";
       this.show = false;
       this.$nextTick(() => {
         this.show = true;

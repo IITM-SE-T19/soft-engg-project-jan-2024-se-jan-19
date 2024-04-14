@@ -73,7 +73,6 @@ class SupportAPI(Resource):
                     support_dict[
                         "n_total_unresolved_tickets"
                     ] = n_total_unresolved_tickets
-
                     return success_200_custom(data=support_dict)
                 else:
                     raise BadRequest(status_msg="User must be a support staff.")

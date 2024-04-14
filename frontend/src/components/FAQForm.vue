@@ -34,12 +34,22 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
+      <b-form-checkbox
+      id="checkbox-post_to_discourse"
+      v-model="form.post_to_discourse"
+      name="checkbox-post_to_discourse"
+      value="post_to_discourse"
+      unchecked-value="do_not_post_to_discourse"
+    >
+       Post to discourse and send alert on G Chat <!-- SE Team 19 - SV -->
+    </b-form-checkbox>
+
       <Tagging @tags_changed="onTagsChanged"></Tagging>
 
       <FileUpload @file_uploading="onFileUpload"></FileUpload>
 
       <br />
-
+      <b-alert v-if="form.post_to_discourse === 'post_to_discourse' && loading" show variant="primary">Posting to Discourse... <b-spinner small></b-spinner></b-alert>
       <br />
       <b-button style="margin: 10px" type="submit" variant="primary">Submit</b-button>
       <b-button style="margin: 10px" type="reset" variant="danger">Reset</b-button>
@@ -72,9 +82,11 @@ export default {
         tag_3: "",
         attachments: [],
         created_by: "",
+        post_to_discourse: "do_not_post_to_discourse"  // SE Team 19 - SV
       },
       show: true,
       user_id: this.$store.getters.get_user_id,
+      loading: false,
     };
   },
   created() {},
@@ -103,6 +115,8 @@ export default {
 
         this.form.created_by = this.user_id.toString();
 
+        this.loading = true;
+
         fetch(common.FAQ_API, {
           method: "POST",
           headers: {
@@ -115,18 +129,21 @@ export default {
           .then((response) => response.json())
           .then((data) => {
             if (data.category == "success") {
+              this.loading = false;
               this.flashMessage.success({
                 message: data.message,
               });
               this.onReset();
             }
             if (data.category == "error") {
+              this.loading = false;
               this.flashMessage.error({
                 message: data.message,
               });
             }
           })
           .catch((error) => {
+            this.loading = false;
             this.$log.error(`Error : ${error}`);
             this.flashMessage.error({
               message: "Internal Server Error",
