@@ -15,6 +15,9 @@ from application.globals import *
 import base64
 from application.database import db
 import time
+# Team 19 - MJ
+import json
+from application.models import Ticket
 
 # --------------------  Code  --------------------
 
@@ -189,5 +192,102 @@ def get_encoded_file_details(file_base64: str):
     file_type, file_format = encoding_metadata.split("/")[:2]
     return file_type, file_format, encoded_data
 
+# Team 19 - MJ (function to convert discourse response to ticket data in OSTS)
+# left to add solution details conversion
+def convert_discourse_response_to_ticket_details(discourse_response: str):
+    discourse_ticket_data = []
+    json_data = discourse_response.json()
+    logger.info("jSON DATA ==========")
+    logger.info(json_data)
+    if 'topics' in json_data.keys():
+        for i in json_data['topics']:
+            ticket_data = {}
+            topic_id = i['id']
+            for j in json_data['posts']:
+                if j['topic_id'] == topic_id:
+                    priority, status, tag_1, tag_2, tag_3 = split_discourse_tags(i['tags'])
+                    if i['liked'] == False:
+                        votes = j['like_count']
+                    else:
+                        votes = j['like_count'] - 1
+                    create_date, _, _, _ = get_timestamps_for_specific_date_discourse(date1=i['created_at'])
+                    ticket_data = {
+                        'ticket_id': topic_id,
+                        'title':i['title'],
+                        'description':j['blurb'], 
+                        'priority': priority, 
+                        'tag_1':tag_1, 
+                        'tag_2': tag_2, 
+                        'tag_3' : tag_3, 
+                        'status' : status, 
+                        'votes' : votes, 
+                        'created_by' : "Discourse - "+ j['username'], 
+                        'created_on': create_date,
+                        'solution': 'solution'
+                        }
+                    discourse_ticket_data.append(ticket_data)
+    logger.info("discourse_ticket_data==========")
+    logger.info(discourse_ticket_data)
+    return discourse_ticket_data
 
+# Team 19 - MJ (function to split discourse tags in accordance with requirement)
+def split_discourse_tags(tags: list):
+    priority = ""
+    status = ""
+    tag_1 = ""
+    tag_2 = ""
+    tag_3 = ""
+    if len(tags) != 0:
+        for i in tags:
+            if i in discourse_priority_tags.__members__.values():
+                priority = discourse_priority_tags
+            elif i in status_tags.__members__.values():
+                status = i
+            else:
+                if tag_1 == "":
+                    tag_1 = i
+                elif tag_2 == "":
+                    tag_2 = i
+                else:
+                    tag_3 = i
+    return priority, status, tag_1, tag_2, tag_3
+
+# Team 19 - MJ (function to convert discourse date to ticket date in OSTS)
+from datetime import datetime
+from dateutil import parser
+def get_timestamps_for_specific_date_discourse(date1):
+        date_format = "%Y-%m-%d %H:%M:%S"
+        per_day_seconds = 24 * 60 * 60
+        
+        datetime_obj = parser.parse(date1)
+        current_date = datetime_obj
+        current_day = current_date.day
+        current_month = current_date.month
+        current_year = current_date.year
+        current_weekday = current_date.isoweekday()  # monday = 1
+
+        current_timestamp = datetime.timestamp(current_date)
+
+        this_day_start = datetime.strptime(
+            f"{current_year}-{str(current_month).zfill(2)}-{str(current_day).zfill(2)} 00:00:00",
+            date_format,
+        )
+        this_day_start_timestamp = datetime.timestamp(this_day_start)
+
+        this_week_start_timestamp = current_timestamp - (
+            (current_timestamp - this_day_start_timestamp)
+            + (per_day_seconds * (current_weekday - 1))
+        )
+
+        this_month_start = datetime.strptime(
+            f"{current_year}-{str(current_month).zfill(2)}-{str(1).zfill(2)} 00:00:00",
+            date_format,
+        )
+        this_month_start_timestamp = datetime.timestamp(this_month_start)
+        return (
+            current_timestamp,
+            this_day_start_timestamp,
+            this_week_start_timestamp,
+            this_month_start_timestamp,
+        )
 # --------------------  END  --------------------

@@ -17,6 +17,9 @@ from application.globals import *
 from application.notifications import send_email
 
 from application.models import Auth, Ticket
+# Team 19 - MJ
+from application.common_utils import convert_discourse_response_to_ticket_details
+from application.logger import logger
 
 
 
@@ -40,16 +43,19 @@ class DiscourseUtils():
             # If there was an error with the request
             return {'error': 'Resource not found'}, 404
     
-
-    # Add a new method to search Discourse topics
-    def search_discourse_topics(self, query):
+    # Team 19 - SM, MJ: Search Discourse topics with category and username
+    def search_discourse_topics(self, query: str, tags = [""], username = "", category = 12):
         api_url = f"{DISCOURSE_URL}/search.json"
-        params = {'q': query}
+        tags_data = ""
+        if tags != [""]:
+            for i in tags:
+                tags_data += i + ","
+        params = {'q': f"{query} @{username} #{category}",'tags': tags_data}
         response = requests.get(api_url, headers=DISCOURSE_HEADERS, params=params)
         if response.status_code == 200:
-            return response.json()['topics'], 200
+            return convert_discourse_response_to_ticket_details(response)
         else:
-            return {'error': 'Failed to fetch topics from Discourse'}, response.status_code
+            return [{'error': 'Failed to fetch topics from Discourse'}]
 
 
     def generate_ticket_id(self, title: str) -> str:
@@ -153,21 +159,26 @@ class DiscourseUser(Resource):
         discourseUser = Discourse_utils.search_discourse_user_by_username(username)
         return(discourseUser)
         
+# Team 19 - SM, MJ: Search discourse api handler
 # Create a new resource for searching Discourse topics
 class SearchDiscourseTopics(Resource):
-    def get(self):
-        query = request.args.get('query', '')
-        if not query:
+    def get(self, q=""):
+        if nq:
             return {"message": "Query parameter 'query' is required"}, 400
-        return Discourse_utils.search_discourse_topics(query)
-
+        else: 
+            headers = request.headers
+            if headers['tags'] is not None:
+                tags = list(headers['tags'])
+            username = headers['username']
+            if headers['category'] is not None:
+                category = int(headers['category'])
+        return Discourse_utils.search_discourse_topics(q, tags, username, category)
 
 # Register the resources with unique endpoints
 # TEAM 19 / PB: API RESOURCE ENDPOINTS
 discourse_api.add_resource(DiscourseTicketAPI, "/posts", endpoint='discourse_ticket_api')
 discourse_api.add_resource(DiscourseUser, "/user/<string:username>", endpoint='discourse_user_api')
-discourse_api.add_resource(SearchDiscourseTopics, "/search_topics", endpoint='search_discourse_topics')
-
-
+# Team 19 - SM, MJ: API RESOURCE ENDPOINTS
+discourse_api.add_resource(SearchDiscourseTopics, "/search_topics/<string:q>", endpoint='search_discourse_topics')
 
 # - - - - - -   E N D   - - - - - - -

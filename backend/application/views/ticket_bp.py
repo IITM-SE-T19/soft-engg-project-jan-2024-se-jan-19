@@ -25,6 +25,8 @@ from application.models import *
 from copy import deepcopy
 from application.globals import *
 from application.notifications import send_email, send_card_message, send_chat_message # Team 19 - MJ (import for gchat notifications)
+# Team 19 - MJ
+from application.views.discourse_bp import DiscourseUtils
 
 # --------------------  Code  --------------------
 
@@ -665,11 +667,14 @@ class AllTicketsAPI(Resource):
         for ticket in tickets:
             tick = ticket_utils.convert_ticket_to_dict(ticket)
             all_tickets.append(tick)
+        discourseutils = DiscourseUtils()
+        discourse_response = discourseutils.search_discourse_topics("ticket",[""],"",12)
+        if 'error' not in discourse_response[0]:
+            all_tickets = all_tickets+discourse_response
 
         all_tickets = ticket_utils.tickets_filter_sort(all_tickets, args)
 
         logger.info(f"All tickets found : {len(all_tickets)}")
-
         return success_200_custom(data=all_tickets)
     
    
@@ -707,6 +712,8 @@ class AllTicketsUserAPI(Resource):
             upvoted_ticket_ids = TicketVote.query.filter_by(user_id=user.user_id).all()
             upvoted_ticket_ids = [elem.ticket_id for elem in upvoted_ticket_ids]
             user_tickets = Ticket.query.filter_by(created_by=user.user_id).all()
+            discourseutils = DiscourseUtils()
+            discourse_response = discourseutils.search_discourse_topics("ticket",[""],"",12) # REplace it with discourse username
             for ticket in user_tickets:
                 tick = ticket_utils.convert_ticket_to_dict(ticket)
                 all_tickets.append(tick)
@@ -714,6 +721,8 @@ class AllTicketsUserAPI(Resource):
                 ticket = Ticket.query.filter_by(ticket_id=ticket_id).first()
                 tick = ticket_utils.convert_ticket_to_dict(ticket)
                 all_tickets.append(tick)
+            if 'error' not in discourse_response.keys:
+                all_tickets = all_tickets+discourse_response
 
         if role == "support":
             # support : all tickets resolvedby him/her
@@ -728,9 +737,13 @@ class AllTicketsUserAPI(Resource):
                 user_tickets = Ticket.query.filter_by(status="pending").all()
             else:
                 user_tickets = []
+            discourseutils = DiscourseUtils()
+            discourse_response = discourseutils.search_discourse_topics("ticket",[""],"",12)
             for ticket in user_tickets:
                 tick = ticket_utils.convert_ticket_to_dict(ticket)
                 all_tickets.append(tick)
+            if 'error' not in discourse_response.keys:
+                all_tickets = all_tickets+discourse_response
 
         if role == "admin":
             # admin : get all tickets resolved globally (for creating faq)
@@ -739,6 +752,11 @@ class AllTicketsUserAPI(Resource):
             for ticket in user_tickets:
                 tick = ticket_utils.convert_ticket_to_dict(ticket)
                 all_tickets.append(tick)
+            discourseutils = DiscourseUtils()
+            discourse_response = discourseutils.search_discourse_topics("ticket",[""],"",12)
+        
+        if 'error' not in discourse_response[0]:
+            all_tickets = all_tickets+discourse_response
 
         all_tickets = ticket_utils.tickets_filter_sort(all_tickets, args)
         logger.info(f"All tickets found : {len(all_tickets)}")
@@ -754,10 +772,11 @@ ticket_api.add_resource(TicketAPI,
 ticket_api.add_resource(TicketAPI, 
                         "/<string:user_id>",
                         endpoint='ticketapi_with_user')
-ticket_api.add_resource(TicketAPI, 
-                        "/search",
-                        endpoint='ticketapi_search',
-                        methods=['GET'])
+# Team 19 - SM
+# ticket_api.add_resource(TicketAPI, 
+#                         "/search",
+#                         endpoint='ticketapi_search',
+#                         methods=['GET'])
 
 ticket_api.add_resource(AllTicketsAPI, "/all-tickets")
 ticket_api.add_resource(AllTicketsUserAPI, "/all-tickets/<string:user_id>")
