@@ -350,7 +350,6 @@ class TicketAPI(Resource):
 
             ticket_id = ticket_utils.generate_ticket_id(details["title"], user_id)
             details["ticket_id"] = ticket_id
-            print(ticket_id)
             details["created_by"] = user_id
             details["created_on"] = int(time.time())
             ticket = Ticket(**details)
@@ -376,7 +375,7 @@ class TicketAPI(Resource):
                 # Team 19 / RP
                 discourse_status = DiscourseUtils.post(ticket.ticket_id)
                 if discourse_status == 200:
-                    print("Discourse Ticket Created")
+                    logger.info("Discourse Ticket Created")
                 else:
                     logger.error("Discourse Ticket not created")
                     exit(1)
