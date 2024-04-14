@@ -537,6 +537,8 @@ class TicketAPI(Resource):
                             _from=_from,
                             sub="Your ticket is resolved",
                         )
+
+
                     except Exception as e:
                         logger.error(
                             f"TicketAPI->send mail : Error occured while sending notification : {e}"
