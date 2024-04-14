@@ -48,7 +48,7 @@ class DiscourseUtils():
         ticket_id = hashlib.md5(string.encode()).hexdigest()
         return ticket_id
 
-    # TEAM 19 / RP ----------------------------START----------------------
+    # TEAM 19 / RP Posting ticket to discourse----------------------------START----------------------
     def post(ticketid):
         print("DATA: ", ticketid)
         apiURL = f"{DISCOURSE_URL}/posts.json"
@@ -59,7 +59,7 @@ class DiscourseUtils():
             json = {"title": ticket_data.title, 
             "raw": f"ATTACHMENT: {ticket_data.description} ![image]({uploaded_attachment})", 
             "category": DISCOURSE_TICKET_CATEGORY_ID, 
-            "tags": ["priority_" + ticket_data.priority, ticket_data.tag_1, ticket_data.tag_2, ticket_data.tag_3]
+            "tags": ["priority_" + ticket_data.priority, ticket_data.tag_1, ticket_data.tag_2, ticket_data.tag_3] 
             }
         else:
             json = {
@@ -76,6 +76,8 @@ class DiscourseUtils():
             return 200
         else:
             return {'error': 'Resource not found'}, 404
+
+    # TEAM 19 / RP
     def upload_attachment(ticketid, attachment):
         apiURL = f"{DISCOURSE_URL}/uploads.json"
         json = {
@@ -91,6 +93,7 @@ class DiscourseUtils():
         else:
             return {'error': 'Resource not found'}, 404
 
+    # TEAM 19 / RP
     def delete_post(ticketid):
         id = Ticket.query.filter_by(ticket_id=ticketid).first().discourse_ticket_id
         apiURL = f"{DISCOURSE_URL}/t/{id}.json"
@@ -101,6 +104,7 @@ class DiscourseUtils():
         else:
             return {'error': 'Resource not found'}, 404
 
+    # TEAM 19 / RP
     def solve_ticket(ticketid, solution):
         apiURL = f"{DISCOURSE_URL}/posts.json"
         ticket_data = Ticket.query.filter_by(ticket_id=ticketid).first()
