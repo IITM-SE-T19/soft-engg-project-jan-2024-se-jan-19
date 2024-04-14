@@ -6,6 +6,7 @@
 # --------------------  Imports  --------------------
 
 import hashlib
+import logging
 import time
 from flask import Blueprint, request
 from flask_restful import Api, Resource
@@ -26,6 +27,7 @@ from application.globals import *
 import requests
 from application.globals import DISCOURSE_FAQ_CATEGORY_ID
 from application.notifications import send_card_message
+from application.views.discourse_bp import DiscourseUtils
 
 # --------------------  Code  --------------------
 
@@ -128,7 +130,7 @@ class FAQUtils(UserUtils):
 faq_bp = Blueprint("faq_bp", __name__)
 faq_api = Api(faq_bp)
 faq_util = FAQUtils()
-
+discourse_util = DiscourseUtils()
 
 class FAQAPI(Resource):
     @token_required
@@ -216,6 +218,49 @@ class FAQAPI(Resource):
                 # SE Team 19 - SV
                 # if post_to_discourse is equal to post_to_discourse then create a post on discourse using the /create-faq-topic endpoint
                 if details["post_to_discourse"] == "post_to_discourse":
+
+                    db.session.add(faq)
+                    db.session.commit()
+
+                    # add attachments now
+                    status, message = faq_util.save_faq_attachments(
+                        attachments, faq_id, operation="create_faq"
+                    )
+
+                    # Get attachments for the given faq_id
+                    attachments = FAQAttachment.query.filter_by(faq_id=faq_id).all()
+
+                    # Upload each attachment to Discourse and store the returned URL
+                    attachment_urls = []
+                    
+                    
+                    for attachment in attachments:
+                        # print(attachment.attachment_loc)
+                        # attachment_url = discourse_util.upload_attachment()
+                        # attachment_url = DiscourseUtils.upload_attachment()
+                        apiURL = f"{DISCOURSE_URL}/uploads.json"
+                        file_path = attachment.attachment_loc
+                        
+                        with open(file_path, 'rb') as file:
+                            files = {'file': (file_path, file, 'image/jpeg')}
+                            payload = {
+                                "type": "composer",
+                                "synchronous": "true"
+                            }
+
+                            response = requests.post(apiURL, headers=DISCOURSE_HEADERS, data=payload, files=files)
+                            if response.status_code == 200:
+                                logging.info("Attachment uploaded successfully")
+                                attachment_url = response.json()['url']
+                                print(attachment_url)
+                                attachment_urls.append(attachment_url)
+                            else:
+                                return {'error': 'Resource not found'}, 404
+                    
+                    # Append attachment URLs to details["solution"]
+                    for attachment_url in attachment_urls:
+                        details["solution"] += f"\n![image]({attachment_url})"
+
                     # create a post on discourse using the /create-faq-topic endpoint
                     api_url = f"{BASE}/api/v1/discourse/create-faq-topic"
                     request_body = {
@@ -227,16 +272,18 @@ class FAQAPI(Resource):
                     response = requests.post(api_url, json=request_body)
                     # If created, add the topic_id to the FAQ object
                     if response.status_code == 201:
-                        # Post created successfully
+                        # Post created successfully add topic_id to DB
                         topic_id = response.json().get('topic_id')
                         faq.topic_id = topic_id
                         db.session.add(faq)
                         db.session.commit()
+
                         # Send a card message to GChat
-                        message=f"New FAQ created : {faq.question} - Click the button below to view the FAQ."
+                        GChatmessage=f"New FAQ created : \"Title\" - \"{faq.question}\" \n Click the button below to view the FAQ."
                         DISCOURSE_FAQ_URL=f"{BASE_DISCOURSE}/t/{topic_id}"
                         OSTS_FAQ_URL=f"{BASE_APP}/common-faqs"
-                        send_card_message(message, DISCOURSE_FAQ_URL, OSTS_FAQ_URL)
+                        send_card_message(GChatmessage, DISCOURSE_FAQ_URL, OSTS_FAQ_URL)
+
                         logger.info("FAQ created successfully on Discourse.")
                     # If received 500 from discourse, use the error message from discourse and raise InternalServerError
                     elif response.status_code == 500:
@@ -255,6 +302,10 @@ class FAQAPI(Resource):
                 else:
                     db.session.add(faq)
                     db.session.commit()
+                    # add attachments now
+                    status, message = faq_util.save_faq_attachments(
+                        attachments, faq_id, operation="create_faq"
+                    )
                  
             except Exception as e:
                 logger.error(
@@ -265,12 +316,9 @@ class FAQAPI(Resource):
                     status_msg=error_message
                 )
             else:
-                logger.info("FAQ created successfully.")
+                logger.info("FAQ created successfully.")            
 
-                # add attachments now
-                status, message = faq_util.save_faq_attachments(
-                    attachments, faq_id, operation="create_faq"
-                )
+
                 raise Success_200(status_msg=f"FAQ created successfully. {message}")
 
 

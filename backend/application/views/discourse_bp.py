@@ -1,6 +1,7 @@
 # Online Support Ticket Application V2
 # Puneet Bhagat : 21f1004363
 # File Info: This is Discourse webhooks blueprint.
+import datetime
 import logging
 import os
 import base64
@@ -108,7 +109,7 @@ class DiscourseUtils():
     def delete_post(ticketid):
         id = Ticket.query.filter_by(ticket_id=ticketid).first().discourse_ticket_id
         apiURL = f"{DISCOURSE_URL}/t/{id}.json"
-        response = requests.delete(apiURL, headers=DISCOURSE_HEADERS, json={"force_destroy": true})
+        response = requests.delete(apiURL, headers=DISCOURSE_HEADERS, json={"force_destroy": True})
         if response.status_code == 200:
             logging.info("Ticket deleted successfully")
             return 200
@@ -353,12 +354,16 @@ class CategoryTags(Resource):
         api_url = f"{BASE_DISCOURSE}/tags/filter/search.json?q=&categoryId={category_id}&filterForInput=true"
         # https://t19support.cs3001.site/tags/filter/search?q=&limit=5&categoryId=5&filterForInput=true
         response = requests.get(api_url, headers=DISCOURSE_HEADERS)
+        # print(DISCOURSE_HEADERS)
         if response.status_code == 200:
             try:                
                 tags = response.json()["results"]
                 tag_names = [tag["name"] for tag in tags]
+                
+                # Remove the priority tags
+                filtered_tags = [tag for tag in tag_names if not tag.startswith('priority_')]
 
-                return tag_names
+                return filtered_tags, 200
             except Exception as e:
                 return {"error": str(e)}, 500
 
