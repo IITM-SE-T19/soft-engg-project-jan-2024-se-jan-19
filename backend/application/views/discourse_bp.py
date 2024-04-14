@@ -3,7 +3,8 @@
 # File Info: This is Discourse webhooks blueprint.
 import logging
 import os
-
+import base64
+import json as jsonassign
 # --------------------  Imports  --------------------
 from flask import Blueprint, request
 import requests
@@ -20,6 +21,7 @@ from application.notifications import send_email
 
 from application.models import Auth, Ticket
 
+from application.common_utils import convert_img_to_base64
 
 # --------------------  Code  --------------------
 # TEAM 19 / PB: INTERNAL FUNCTIONS
@@ -48,18 +50,26 @@ class DiscourseUtils():
         ticket_id = hashlib.md5(string.encode()).hexdigest()
         return ticket_id
 
-    # TEAM 19 / RP ----------------------------START----------------------
+    # TEAM 19 / RP Posting ticket to discourse----------------------------START----------------------
     def post(ticketid):
         print("DATA: ", ticketid)
         apiURL = f"{DISCOURSE_URL}/posts.json"
+        
         ticket_data = Ticket.query.filter_by(ticket_id=ticketid).first()
+        user = Auth.query.filter_by(user_id=ticket_data.created_by).first()
+        head = DISCOURSE_HEADERS
+        print(head)
+        head['Api-Username'] = user.discourse_username
+        print(head)
         if TicketAttachment.query.filter_by(ticket_id=ticketid).first():
             attachment_loc = TicketAttachment.query.filter_by(ticket_id=ticketid).first().attachment_loc
             uploaded_attachment = DiscourseUtils.upload_attachment(ticketid, attachment_loc)
-            json = {"title": ticket_data.title, 
-            "raw": f"ATTACHMENT: {ticket_data.description} ![image]({uploaded_attachment})", 
+            print("Your Window: ", uploaded_attachment)
+            json = {
+            "title": ticket_data.title, 
+            "raw": f"ATTACHMENT:{ticket_data.description} ![image]({uploaded_attachment})", 
             "category": DISCOURSE_TICKET_CATEGORY_ID, 
-            "tags": ["priority_" + ticket_data.priority, ticket_data.tag_1, ticket_data.tag_2, ticket_data.tag_3]
+            "tags": ["priority_" + ticket_data.priority, ticket_data.tag_1, ticket_data.tag_2, ticket_data.tag_3] 
             }
         else:
             json = {
@@ -68,7 +78,8 @@ class DiscourseUtils():
             "category": DISCOURSE_TICKET_CATEGORY_ID, 
             "tags": ["priority_" + ticket_data.priority, ticket_data.tag_1, ticket_data.tag_2, ticket_data.tag_3]
             }
-        response = requests.post(apiURL, headers=DISCOURSE_HEADERS, json=json)
+        response = requests.post(apiURL, headers=head, json=json)
+        print(response.json())
         if response.status_code == 200:
             logging.info("Discourse post created successfully")
             ticket_data.discourse_ticket_id = response.json()['topic_id']
@@ -76,21 +87,30 @@ class DiscourseUtils():
             return 200
         else:
             return {'error': 'Resource not found'}, 404
+
+    # TEAM 19 / RP
     def upload_attachment(ticketid, attachment):
         apiURL = f"{DISCOURSE_URL}/uploads.json"
-        json = {
-            "type": "composer",
-            "user_id": 1,
-            "file": attachment,
-        }
-        print("ATTACHMENT location: ", json['file'])
-        response = requests.post(apiURL, headers=DISCOURSE_HEADERS, json=json)
-        if response.status_code == 200:
-            logging.info("Attachment uploaded successfully")
-            return response.json()['url']
-        else:
-            return {'error': 'Resource not found'}, 404
+        file_path = attachment
+        
+        with open(file_path, 'rb') as file:
+            files = {'file': (file_path, file, 'image/jpeg')}
+            payload = {
+                "type": "composer",
+                "synchronous": "true"
+            }
 
+            response = requests.post(apiURL, headers=DISCOURSE_HEADERS, data=payload, files=files)
+
+            print(response.json())
+            if response.status_code == 200:
+                logging.info("Attachment uploaded successfully")
+                return response.json()['url']
+            else:
+                return {'error': 'Resource not found'}, 404
+
+
+    # TEAM 19 / RP
     def delete_post(ticketid):
         id = Ticket.query.filter_by(ticket_id=ticketid).first().discourse_ticket_id
         apiURL = f"{DISCOURSE_URL}/t/{id}.json"
@@ -101,6 +121,7 @@ class DiscourseUtils():
         else:
             return {'error': 'Resource not found'}, 404
 
+    # TEAM 19 / RP
     def solve_ticket(ticketid, solution):
         apiURL = f"{DISCOURSE_URL}/posts.json"
         ticket_data = Ticket.query.filter_by(ticket_id=ticketid).first()
