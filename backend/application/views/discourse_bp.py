@@ -61,10 +61,10 @@ class DiscourseUtils():
         head['Api-Username'] = user.discourse_username
         if TicketAttachment.query.filter_by(ticket_id=ticketid).first():
             attachment_loc = TicketAttachment.query.filter_by(ticket_id=ticketid).first().attachment_loc
-            uploaded_attachment = DiscourseUtils.upload_attachment(ticketid, attachment_loc)
+            uploaded_attachment = DiscourseUtils.upload_attachment(attachment_loc)
             json = {
             "title": ticket_data.title, 
-            "raw": f"ATTACHMENT:{ticket_data.description} ![image]({uploaded_attachment})", 
+            "raw": f"{ticket_data.description} ![image]({uploaded_attachment})", 
             "category": DISCOURSE_TICKET_CATEGORY_ID, 
             "tags": ["priority_" + ticket_data.priority, ticket_data.tag_1, ticket_data.tag_2, ticket_data.tag_3] 
             }
@@ -85,7 +85,7 @@ class DiscourseUtils():
             return {'error': 'Resource not found'}, 404
 
     # TEAM 19 / RP
-    def upload_attachment(ticketid, attachment):
+    def upload_attachment(attachment):
         apiURL = f"{DISCOURSE_URL}/uploads.json"
         file_path = attachment
         
