@@ -41,7 +41,7 @@
       value="post_to_discourse"
       unchecked-value="do_not_post_to_discourse"
     >
-       Post to discourse <!-- SE Team 19 - SV -->
+       Post to discourse and send alert on G Chat <!-- SE Team 19 - SV -->
     </b-form-checkbox>
 
       <Tagging @tags_changed="onTagsChanged"></Tagging>

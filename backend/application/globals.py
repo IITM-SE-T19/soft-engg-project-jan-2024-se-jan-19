@@ -32,6 +32,7 @@ FAQ_ATTACHMENTS_PATH = os.path.join(
 
 BASE = f"http://{HOST}:{PORT}"
 BASE_DISCOURSE = "https://t19support.cs3001.site"
+BASE_APP = f"http://{HOST}:{8080}"
 
 # TEAM 19 - MJ
 GCHAT_WEBHOOKS = "https://chat.googleapis.com/v1/spaces/AAAAkq1KEsM/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=A_UdVqn5bmNXirnCMCzkH1TirPAZ3hrR4SfL5ZNPWfk"

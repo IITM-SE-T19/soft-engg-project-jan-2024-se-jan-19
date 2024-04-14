@@ -25,6 +25,7 @@ from application.models import *
 from application.globals import *
 import requests
 from application.globals import DISCOURSE_FAQ_CATEGORY_ID
+from application.notifications import send_card_message
 
 # --------------------  Code  --------------------
 
@@ -231,6 +232,11 @@ class FAQAPI(Resource):
                         faq.topic_id = topic_id
                         db.session.add(faq)
                         db.session.commit()
+                        # Send a card message to GChat
+                        message=f"New FAQ created : {faq.question} - Click the button below to view the FAQ."
+                        DISCOURSE_FAQ_URL=f"{BASE_DISCOURSE}/t/{topic_id}"
+                        OSTS_FAQ_URL=f"{BASE_APP}/common-faqs"
+                        send_card_message(message, DISCOURSE_FAQ_URL, OSTS_FAQ_URL)
                         logger.info("FAQ created successfully on Discourse.")
                     # If received 500 from discourse, use the error message from discourse and raise InternalServerError
                     elif response.status_code == 500:
