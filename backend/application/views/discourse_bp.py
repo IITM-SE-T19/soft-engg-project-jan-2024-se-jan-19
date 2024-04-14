@@ -58,13 +58,10 @@ class DiscourseUtils():
         ticket_data = Ticket.query.filter_by(ticket_id=ticketid).first()
         user = Auth.query.filter_by(user_id=ticket_data.created_by).first()
         head = DISCOURSE_HEADERS
-        print(head)
         head['Api-Username'] = user.discourse_username
-        print(head)
         if TicketAttachment.query.filter_by(ticket_id=ticketid).first():
             attachment_loc = TicketAttachment.query.filter_by(ticket_id=ticketid).first().attachment_loc
             uploaded_attachment = DiscourseUtils.upload_attachment(ticketid, attachment_loc)
-            print("Your Window: ", uploaded_attachment)
             json = {
             "title": ticket_data.title, 
             "raw": f"ATTACHMENT:{ticket_data.description} ![image]({uploaded_attachment})", 
@@ -79,7 +76,6 @@ class DiscourseUtils():
             "tags": ["priority_" + ticket_data.priority, ticket_data.tag_1, ticket_data.tag_2, ticket_data.tag_3]
             }
         response = requests.post(apiURL, headers=head, json=json)
-        print(response.json())
         if response.status_code == 200:
             logging.info("Discourse post created successfully")
             ticket_data.discourse_ticket_id = response.json()['topic_id']
@@ -101,8 +97,6 @@ class DiscourseUtils():
             }
 
             response = requests.post(apiURL, headers=DISCOURSE_HEADERS, data=payload, files=files)
-
-            print(response.json())
             if response.status_code == 200:
                 logging.info("Attachment uploaded successfully")
                 return response.json()['url']
@@ -125,7 +119,6 @@ class DiscourseUtils():
     def solve_ticket(ticketid, solution):
         apiURL = f"{DISCOURSE_URL}/posts.json"
         ticket_data = Ticket.query.filter_by(ticket_id=ticketid).first()
-        print(ticket_data)
         json = {
             "raw": solution,
             "topic_id": ticket_data.discourse_ticket_id,
@@ -189,8 +182,8 @@ class DiscourseTicketAPI(Resource):
             event_type = request.headers.get('X-Discourse-Event')
 
             post_number = DiscourseTopic['post']['post_number']
-            print("event_type:",event_type)
-            print("post_number:", post_number)
+            logging.info("event_type:",event_type)
+            logging.info("post_number:", post_number)
             if event_type == 'post_created' and post_number == 1:
                 print("001")
                 title = DiscourseTopic['post']['topic_title']
@@ -199,8 +192,8 @@ class DiscourseTicketAPI(Resource):
                 topic_id= DiscourseTopic['post']['id']
                 topic_createDT = datetime.strptime(DiscourseTopic['post']['created_at'], '%Y-%m-%dT%H:%M:%S.%fZ')
 
-                print("TITLE:", title)
-                print("BODY:", description)
+                logging.info("TITLE:", title)
+                logging.info("BODY:", description)
                 tags = DiscourseTopic.get('tags', [])
 
                 # Generate a unique ticket ID
@@ -214,7 +207,7 @@ class DiscourseTicketAPI(Resource):
             else:
                  return {"message": "Not as expected."}, 401
         except Exception as e:
-            print(e)
+            logging.info(e)
             return {"error": str(e)}, 500
 
 # - - - - - - - - - - - - - - - - - - - - -
@@ -222,7 +215,7 @@ class DiscourseTicketAPI(Resource):
 class DiscourseUser(Resource):
     def get(self, username=""):
         # tickets retrieved based on user role.
-        print("SEARCH EMAIL:", username)
+        logging.info("SEARCH EMAIL:", username)
         if username=="":
             raise BadRequest(status_msg="Email ID is missing.")
         
@@ -297,7 +290,7 @@ class CreateFAQTopic(Resource):
                 return {"error": response.json()}, 500
             
         except Exception as e:
-            print(e)
+            logging.info(e)
             return {"error": str(e)}, 500
 
 # SE Team 19 - SV
