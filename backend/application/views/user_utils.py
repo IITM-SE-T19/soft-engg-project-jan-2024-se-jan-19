@@ -178,7 +178,7 @@ class UserUtils:
 
 
             #TEAM19-AJ
-            print(details)
+            # print(details)
 
         except Exception as e:
             logger.error(f"UserUtils : Error occured while getting form data : {e}")

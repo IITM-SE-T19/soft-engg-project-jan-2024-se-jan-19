@@ -517,7 +517,8 @@ class TicketAPI(Resource):
                     db.session.add(ticket)
                     db.session.commit()
                     # Team 19 - RP
-                    DiscourseUtils.solve_ticket(ticket_id, sol)
+                    DiscourseUtils.solve_ticket(ticket_id, user_id, sol)
+
                     # send notification to user who created as well as voted
                     try:
                         _from = user.email
@@ -608,7 +609,9 @@ class TicketAPI(Resource):
                     # delete ticket
                     db.session.delete(ticket)
                     db.session.commit()
+                    print("Ticket id", ticket_id)
                     DiscourseUtils.delete_post(ticket_id)
+
                     raise Success_200(status_msg="Ticket deleted successfully")
                 else:
                     raise PermissionDenied(

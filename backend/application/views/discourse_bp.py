@@ -1,7 +1,7 @@
 # Online Support Ticket Application V2
 # Puneet Bhagat : 21f1004363
 # File Info: This is Discourse webhooks blueprint.
-import datetime
+from datetime import datetime
 import logging
 import os
 import base64
@@ -12,8 +12,11 @@ import requests
 from flask_restful import Api, Resource
 import hashlib
 import time
-# from datetime import datetime
 
+from application.common_utils import (
+    token_required,
+    users_required,)
+from application.logger import logger
 from application.responses import *
 from application.models import *
 from copy import deepcopy
@@ -23,6 +26,7 @@ from application.notifications import send_email
 from application.models import Auth, Ticket
 
 from application.common_utils import convert_img_to_base64
+
 
 # --------------------  Code  --------------------
 # TEAM 19 / PB: INTERNAL FUNCTIONS
@@ -42,6 +46,8 @@ class DiscourseUtils():
             # If there was an error with the request
             return {'error': 'Resource not found'}, 404
 
+    # @token_required
+    # @users_required(users=["student", "support", "admin"])
     def generate_ticket_id(self, title: str) -> str:
         """
         Generate a unique ticket ID based on the title and current timestamp.
@@ -52,14 +58,55 @@ class DiscourseUtils():
         return ticket_id
 
     # TEAM 19 / RP Posting ticket to discourse----------------------------START----------------------
+    def get_tags_from_topic(self, topic_id):
+        apiURL = f"{DISCOURSE_URL}/t/{topic_id}.json"
+        response = requests.get(apiURL, headers=DISCOURSE_HEADERS)
+        if response.status_code == 200:
+            topic_data = response.json()
+            tags = topic_data['tags']
+            tags += ['']*(4-len(tags))
+            # If the user with the email is not found
+            return tags
+        else:
+            # If there was an error with the request
+            return None
+
+    # TEAM / 19 RP
+    @token_required
+    @users_required(users=["student", "support", "admin"])
+    def upload_attachment(attachment):
+        apiURL = f"{DISCOURSE_URL}/uploads.json"
+        file_path = attachment
+        
+        with open(file_path, 'rb') as file:
+            files = {'file': (file_path, file, 'image/jpeg')}
+            payload = {
+                "type": "composer",
+                "synchronous": "true"
+            }
+
+            response = requests.post(apiURL, headers=DISCOURSE_HEADERS, data=payload, files=files)
+            if response.status_code == 200:
+                logger.info("Attachment uploaded successfully")
+                return response.json()['url']
+            else:
+                return {'error': 'Resource not found'}, 404
+
+
+    # TEAM 19 / RP
+    # @token_required
+    # @users_required(users=["student", "support", "admin"])
     def post(ticketid):
         print("DATA: ", ticketid)
         apiURL = f"{DISCOURSE_URL}/posts.json"
         
         ticket_data = Ticket.query.filter_by(ticket_id=ticketid).first()
         user = Auth.query.filter_by(user_id=ticket_data.created_by).first()
-        head = DISCOURSE_HEADERS
-        head['Api-Username'] = user.discourse_username
+        header = {
+            "Api-Key": DISCOURSE_HEADERS["Api-Key"],
+            "Api-Username": user.discourse_username
+        }
+        print(header)
         if TicketAttachment.query.filter_by(ticket_id=ticketid).first():
             attachment_loc = TicketAttachment.query.filter_by(ticket_id=ticketid).first().attachment_loc
             uploaded_attachment = DiscourseUtils.upload_attachment(attachment_loc)
@@ -76,9 +123,9 @@ class DiscourseUtils():
             "category": DISCOURSE_TICKET_CATEGORY_ID, 
             "tags": ["priority_" + ticket_data.priority, ticket_data.tag_1, ticket_data.tag_2, ticket_data.tag_3]
             }
-        response = requests.post(apiURL, headers=head, json=json)
+        response = requests.post(apiURL, headers=header, json=json)
         if response.status_code == 200:
-            logging.info("Discourse post created successfully")
+            logger.info("Discourse post created successfully")
             ticket_data.discourse_ticket_id = response.json()['topic_id']
             db.session.commit()
             return 200
@@ -86,45 +133,22 @@ class DiscourseUtils():
             return {'error': 'Resource not found'}, 404
 
     # TEAM 19 / RP
-    def upload_attachment(attachment):
-        apiURL = f"{DISCOURSE_URL}/uploads.json"
-        file_path = attachment
-        
-        with open(file_path, 'rb') as file:
-            files = {'file': (file_path, file, 'image/jpeg')}
-            payload = {
-                "type": "composer",
-                "synchronous": "true"
-            }
-
-            response = requests.post(apiURL, headers=DISCOURSE_HEADERS, data=payload, files=files)
-            if response.status_code == 200:
-                logging.info("Attachment uploaded successfully")
-                return response.json()['url']
-            else:
-                return {'error': 'Resource not found'}, 404
-
-
-    # TEAM 19 / RP
-    def delete_post(ticketid):
-        id = Ticket.query.filter_by(ticket_id=ticketid).first().discourse_ticket_id
-        apiURL = f"{DISCOURSE_URL}/t/{id}.json"
-        response = requests.delete(apiURL, headers=DISCOURSE_HEADERS, json={"force_destroy": True})
-        if response.status_code == 200:
-            logging.info("Ticket deleted successfully")
-            return 200
-        else:
-            return {'error': 'Resource not found'}, 404
-
-    # TEAM 19 / RP
-    def solve_ticket(ticketid, solution):
+    # @token_required
+    # @users_required(users=["support", "admin"])
+    def solve_ticket(ticketid, user_id, solution):
         apiURL = f"{DISCOURSE_URL}/posts.json"
         ticket_data = Ticket.query.filter_by(ticket_id=ticketid).first()
+        user_data = Auth.query.filter_by(user_id=user_id).first()
+        print(ticket_data)
         json = {
             "raw": solution,
             "topic_id": ticket_data.discourse_ticket_id,
         }
-        response = requests.post(apiURL, headers=DISCOURSE_HEADERS, json=json)
+        header = {
+            "Api-Key": DISCOURSE_HEADERS["Api-Key"],
+            "Api-Username": user_data.discourse_username
+        }
+        response = requests.post(apiURL, headers=header, json=json)
         if response.status_code == 200:
             logging.info("Solution sent to Discourse successfully")
         else:
@@ -133,10 +157,22 @@ class DiscourseUtils():
                     "status": "closed",
                     "enabled": "true"
                 }
-        url = f"{DISCOURSE_URL}/t/{ticket_data.discourse_ticket_id}/status"
+        url = f"{DISCOURSE_URL}/t/{ticket_data.discourse_ticket_id}/status.json"
         close_topic = requests.put(url, headers=DISCOURSE_HEADERS, json=payload)
         if close_topic.status_code == 200:
             logging.info("Topic closed on Discourse.")
+            return 200
+        else:
+            return {'error': 'Resource not found'}, 404
+
+
+    # TEAM 19 / RP
+    def delete_post(ticketid):
+        ticket_data = Ticket.query.filter_by(ticket_id=ticketid).first()
+        apiURL = f"{DISCOURSE_URL}/t/{ticket_data.discourse_ticket_id}.json"
+        response = requests.delete(apiURL, headers=DISCOURSE_HEADERS, json={"force_destroy": True})
+        if response.status_code == 200:
+            logger.info("Ticket deleted successfully")
             return 200
         else:
             return {'error': 'Resource not found'}, 404
@@ -178,37 +214,40 @@ class DiscourseTicketAPI(Resource):
         Success message if the ticket is successfully created.
         """
         try:
-
             DiscourseTopic = request.json
             event_type = request.headers.get('X-Discourse-Event')
 
             post_number = DiscourseTopic['post']['post_number']
-            logging.info("event_type:",event_type)
-            logging.info("post_number:", post_number)
             if event_type == 'post_created' and post_number == 1:
-                print("001")
+                category_id = DiscourseTopic['post']['category_id']
+                if category_id != 13:
+                    return {"message": "Category id out of scope"}, 400 #to be fixed
+                discourse_username = DiscourseTopic['post']['username']
                 title = DiscourseTopic['post']['topic_title']
                 description = DiscourseTopic['post']['raw']
-                category = DiscourseTopic['post']['category_id']
-                topic_id= DiscourseTopic['post']['id']
-                topic_createDT = datetime.strptime(DiscourseTopic['post']['created_at'], '%Y-%m-%dT%H:%M:%S.%fZ')
-
-                logging.info("TITLE:", title)
-                logging.info("BODY:", description)
-                tags = DiscourseTopic.get('tags', [])
+                post_id= DiscourseTopic['post']['id']
+                topic_id = DiscourseTopic['post']['topic_id']
+                dt = datetime.fromisoformat(DiscourseTopic['post']['created_at'][:-1]) 
+                timestamp = int(dt.timestamp())
+                tags = Discourse_utils.get_tags_from_topic(topic_id)
 
                 # Generate a unique ticket ID
-                ticket_id = self.generate_ticket_id(title)
-                new_ticket = Ticket(title=title, description=description, created_by="4aae1d9fc4c6fbdf61b018dcff38a62b", tag_1="Help", created_on=topic_createDT, discourse_category=category, votes=0)
-
-                # Save the ticket to the tockets model with the information
-
-
+                ticket_id = Discourse_utils.generate_ticket_id(title)
+                print("before calling suerid")
+                user_data = Auth.query.filter_by(discourse_username=discourse_username).first()
+                print(user_data)
+                if user_data:
+                    new_ticket = Ticket(ticket_id=ticket_id, title=title, description=description, created_by=user_data.user_id, discourse_ticket_id=topic_id, tag_1=tags[0], tag_2=tags[1], tag_3=tags[2], created_on=timestamp, discourse_category=category_id, votes=0)
+                else:
+                    return {"message": "User not found on OSTSv2"}, 403
+                db.session.add(new_ticket)
+                db.session.commit()
+                logger.info("Ticket created")
                 return {"message": "Ticket created successfully."}, 201
             else:
                  return {"message": "Not as expected."}, 401
         except Exception as e:
-            logging.info(e)
+            logger.info(e)
             return {"error": str(e)}, 500
 
 # - - - - - - - - - - - - - - - - - - - - -
@@ -216,7 +255,7 @@ class DiscourseTicketAPI(Resource):
 class DiscourseUser(Resource):
     def get(self, username=""):
         # tickets retrieved based on user role.
-        logging.info("SEARCH EMAIL:", username)
+        logger.info("SEARCH EMAIL:", username)
         if username=="":
             raise BadRequest(status_msg="Email ID is missing.")
         
@@ -291,7 +330,7 @@ class CreateFAQTopic(Resource):
                 return {"error": response.json()}, 500
             
         except Exception as e:
-            logging.info(e)
+            logger.info(e)
             return {"error": str(e)}, 500
 
 # SE Team 19 - SV
@@ -373,6 +412,8 @@ discourse_api.add_resource(CategoryTags, "/category/<string:category_id>/tags") 
 
 discourse_api.add_resource(CreateFAQTopic, "/create-faq-topic") # SE Team 19 - SV
 discourse_api.add_resource(DiscourseUser, "/user/<string:username>")
+
+discourse_api.add_resource(DiscourseTicketAPI, "/create-ticket") # RP
 
 
 
