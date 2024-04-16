@@ -373,7 +373,7 @@ class TicketAPI(Resource):
                     attachments, ticket_id, user_id, operation="create_ticket"
                 )
                 # Team 19 / RP
-                discourse_status = DiscourseUtils.post(ticket.ticket_id)
+                discourse_status = DiscourseUtils.post(ticket.ticket_id) # Posting the ticket to discourse
                 if discourse_status == 200:
                     logger.info("Discourse Ticket Created")
                 else:
@@ -515,8 +515,8 @@ class TicketAPI(Resource):
 
                     db.session.add(ticket)
                     db.session.commit()
-                    # Team 19 - RP
-                    DiscourseUtils.solve_ticket(ticket_id, user_id, sol)
+                    # Team 19 / RP
+                    DiscourseUtils.solve_ticket(ticket_id, user_id, sol) # Sending the solution to discourse and locking the topic
 
                     # send notification to user who created as well as voted
                     try:
@@ -610,7 +610,9 @@ class TicketAPI(Resource):
                     db.session.delete(ticket)
                     db.session.commit()
                     print("Ticket id", ticket_id)
-                    DiscourseUtils.delete_post(discourse_ticket_id)
+
+                    # Team 19 / RP
+                    DiscourseUtils.delete_post(discourse_ticket_id) # Deleting the post on discourse
 
                     raise Success_200(status_msg="Ticket deleted successfully")
                 else:
