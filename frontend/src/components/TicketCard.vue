@@ -28,6 +28,14 @@
                 ><b>Description: </b>{{ description.slice(0, 200) }}</b-col
               >
             </b-row>
+            <b-row class="row">
+              <div v-if="(from_discourse == 1)">
+                <p>Link to Topic in Discourse:</p>
+                  <a :href="'https://t19support.cs3001.site/t/' + ticket_id" target="_blank">{{
+                  "https://t19support.cs3001.site/t/" + topic_id
+                  }}</a>
+              </div>
+            </b-row>
           </b-col>
           <b-col class="col" cols="12" sm="2" lg="1">
             <b-row class="row">
