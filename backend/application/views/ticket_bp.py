@@ -377,9 +377,8 @@ class TicketAPI(Resource):
                 if discourse_status == 200:
                     logger.info("Discourse Ticket Created")
                 else:
-                    logger.error("Discourse Ticket not created")
                     exit(1)
-                raise Success_200(status_msg=f"Ticket created successfully. {message}")
+                raise Success_200(status_msg=f"Ticket created successfully on OSTSv2. {message}")
 
     @token_required
     @users_required(users=["student", "support"])
@@ -581,6 +580,7 @@ class TicketAPI(Resource):
         # check if ticket exists and it is created by user_id
         try:
             ticket = Ticket.query.filter_by(ticket_id=ticket_id).first()
+            discourse_ticket_id = ticket.discourse_ticket_id
         except Exception as e:
             logger.error(
                 f"TicketAPI->delete : Error occured while fetching ticket data : {e}"
@@ -610,7 +610,7 @@ class TicketAPI(Resource):
                     db.session.delete(ticket)
                     db.session.commit()
                     print("Ticket id", ticket_id)
-                    DiscourseUtils.delete_post(ticket_id)
+                    DiscourseUtils.delete_post(discourse_ticket_id)
 
                     raise Success_200(status_msg="Ticket deleted successfully")
                 else:

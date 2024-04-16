@@ -106,7 +106,7 @@ class DiscourseUtils():
             "Api-Key": DISCOURSE_HEADERS["Api-Key"],
             "Api-Username": user.discourse_username
         }
-        print(header)
+        # print(header)
         if TicketAttachment.query.filter_by(ticket_id=ticketid).first():
             attachment_loc = TicketAttachment.query.filter_by(ticket_id=ticketid).first().attachment_loc
             uploaded_attachment = DiscourseUtils.upload_attachment(attachment_loc)
@@ -123,14 +123,15 @@ class DiscourseUtils():
             "category": DISCOURSE_TICKET_CATEGORY_ID, 
             "tags": ["priority_" + ticket_data.priority, ticket_data.tag_1, ticket_data.tag_2, ticket_data.tag_3]
             }
+        # print(json)
         response = requests.post(apiURL, headers=header, json=json)
+        # print(response.json())
         if response.status_code == 200:
             logger.info("Discourse post created successfully")
             ticket_data.discourse_ticket_id = response.json()['topic_id']
             db.session.commit()
             return 200
-        else:
-            return {'error': 'Resource not found'}, 404
+        return {'error': 'Discourse server failed to create the ticket.'}, response.status_code
 
     # TEAM 19 / RP
     # @token_required
@@ -139,7 +140,7 @@ class DiscourseUtils():
         apiURL = f"{DISCOURSE_URL}/posts.json"
         ticket_data = Ticket.query.filter_by(ticket_id=ticketid).first()
         user_data = Auth.query.filter_by(user_id=user_id).first()
-        print(ticket_data)
+        # print(ticket_data)
         json = {
             "raw": solution,
             "topic_id": ticket_data.discourse_ticket_id,
@@ -167,15 +168,14 @@ class DiscourseUtils():
 
 
     # TEAM 19 / RP
-    def delete_post(ticketid):
-        ticket_data = Ticket.query.filter_by(ticket_id=ticketid).first()
-        apiURL = f"{DISCOURSE_URL}/t/{ticket_data.discourse_ticket_id}.json"
-        response = requests.delete(apiURL, headers=DISCOURSE_HEADERS, json={"force_destroy": True})
+    def delete_post(discourse_ticket_id):
+        apiURL = f"{DISCOURSE_URL}/t/{discourse_ticket_id}.json"
+        response = requests.delete(apiURL, headers=DISCOURSE_HEADERS)
         if response.status_code == 200:
-            logger.info("Ticket deleted successfully")
+            logger.info("Ticket deleted successfully on Discourse.")
             return 200
         else:
-            return {'error': 'Resource not found'}, 404
+            return {'error': 'Failed to delete Discourse ticket'}, response.status_code
             
 
 # TEAM 19 / RP---------------- END-------------------
