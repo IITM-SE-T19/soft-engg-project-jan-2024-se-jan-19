@@ -50,32 +50,8 @@ SENDER_ADDRESS = "osts_group_14@gmail.com"  # dummy mail and password
 SENDER_PASSWORD = "1234"
 DISCOURSE_URL="https://t19support.cs3001.site"
 
-# Team 19 - MJ (Tags values)
-
-from enum import Enum
-class discourse_priority_tags(Enum):
-    priority_high = 'priority_high'
-    priority_medium = 'priority_medium'
-    priority_low = 'priority_low'
-
-class priority_tags(Enum):
-    priority_high = 'high'
-    priority_medium = 'medium'
-    priority_low = 'low'
 
 
-class status_tags(Enum):
-    Pending = 'pending'
-    Resolved = 'resolved'
-
-class issue_tags(Enum):
-    AQ = 'activity-question'
-    GA = 'graded-assignment'
-    Help = 'help'
-    NotSubmitted = 'not-submitted'
-    OPPE = 'oppe'
-    PortalDown = 'portal-down'
-    SECourse = 'se-course'
 
 #END Team 19 - MJ
 

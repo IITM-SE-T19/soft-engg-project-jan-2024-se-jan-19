@@ -11,7 +11,6 @@ import requests
 from flask_restful import Api, Resource
 import hashlib
 import time
-# from datetime import datetime
 
 from application.responses import *
 from application.models import *
@@ -25,7 +24,7 @@ from application.common_utils import convert_discourse_response_to_ticket_detail
 from application.logger import logger
 
 from application.common_utils import convert_img_to_base64
-
+from datetime import datetime
 # --------------------  Code  --------------------
 # TEAM 19 / PB: INTERNAL FUNCTIONS
 
@@ -45,7 +44,7 @@ class DiscourseUtils():
             return {'error': 'Resource not found'}, 404
     
     # Team 19 - SM, MJ: Search Discourse topics with category and username
-    def search_discourse_topics(self, query: str, tags = [""], username = "", category = 12):
+    def search_discourse_topics(self, query: str, tags = [""], username = "", category = DISCOURSE_TICKET_CATEGORY_ID):
         api_url = f"{DISCOURSE_URL}/search.json"
         tags_data = ""
         if tags != [""]:
@@ -56,7 +55,7 @@ class DiscourseUtils():
         if response.status_code == 200:
             return convert_discourse_response_to_ticket_details(response)
         else:
-            return [{'error': 'Failed to fetch topics from Discourse'}]
+            return []
 
 
     def generate_ticket_id(self, title: str) -> str:
@@ -265,15 +264,17 @@ class DiscourseUser(Resource):
 # Create a new resource for searching Discourse topics
 class SearchDiscourseTopics(Resource):
     def get(self, q=""):
-        if nq:
-            return {"message": "Query parameter 'query' is required"}, 400
-        else: 
-            headers = request.headers
-            if headers['tags'] is not None:
-                tags = list(headers['tags'])
-            username = headers['username']
-            if headers['category'] is not None:
-                category = int(headers['category'])
+        
+        headers = request.headers
+        if headers['tags'] is not None:
+            tags = list(headers['tags'])
+        else:
+            tags = []
+        username = headers['username']
+        if headers['category'] is not None:
+            category = int(headers['category'])
+        else:
+            category = 0
         return Discourse_utils.search_discourse_topics(q, tags, username, category)
 
 # SE Team 19 - SV

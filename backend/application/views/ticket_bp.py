@@ -126,7 +126,53 @@ class TicketUtils(UserUtils):
             True,
             f"Total {num_successful_attachments} / {total_attachments} attchements are valid and added successfully.",
         )
+    
+    # Team 19 - MJ (Function to filter OSTS and discourse tickets)
+    def li_ticket_ids(self, tickets):
+        li = []
+        for ticket in tickets:
+            id = ticket['discourse_ticket_id']
+            if id is not None:
+                li.append(id)
+        logger.info("li:::", li)
+        return li
+    
+    # Team 19 - MJ
+    def tickets_unique_discourse(self, osts_tickets, discourse_tickets):
+        ids = self.li_ticket_ids(osts_tickets)
+        discourse_unique_tickets = []
+        for ticket in discourse_tickets:
+            if ticket['ticket_id'] in ids:
+                discourse_unique_tickets.append(ticket)
+        logger.info("discourse_unique_tickets:::", len(discourse_unique_tickets))
+        return discourse_unique_tickets
+    
+    # Team 19 - MJ
+    # def tickets_filter_by_discourse(self, all_tickets, args):
+    #     discourseutils = DiscourseUtils()
+    #     query = ""
+    #     tags = []
+    #     username = ""
+    #     if args["query"] is not None:
+    #         query = str(args["query"])
+    #     if args["tags"] is not None:
+    #         tags = tags + list(args["tags"])
+    #     if args["status"] is not None:
+    #         tags.append(str(args["status"]))
+    #     if args["priority"] is not None:
+    #         priority = str(args["priority"])
+    #         for key, value in discourse_priority_tags.items():
+    #             if value == priority:
+    #                 tags.append(key)
+    #     logger.info("Discourse tags::::", tags, query)
+    #     discourse_response = discourseutils.search_discourse_topics(query,tags,username,DISCOURSE_TICKET_CATEGORY_ID)
+    #     if len(discourse_response) != 0:
+    #         discourse_unique_tickets = self.tickets_unique_discourse(all_tickets, discourse_response) 
+    #         logger.info("Discourse filter HERE", len(discourse_unique_tickets))
+    #         all_tickets = all_tickets + discourse_unique_tickets
+    #     return all_tickets
 
+    # Team 19 - MJ / Edited to add discourse tickets
     def tickets_filter_by_query(self, all_tickets, query=""):
         # match tickets with query
         filtered_tickets = []
@@ -217,6 +263,9 @@ class TicketUtils(UserUtils):
 
         # filter by priority (if present)
         all_tickets = self.tickets_filter_by_priority(all_tickets, args["priority"])
+
+        # filter from discourse (according to discourse) (if present)
+        all_tickets = self.tickets_filter_by_discourse(all_tickets, args)
 
         # sort (if present)
         all_tickets = self.tickets_sort(all_tickets, args["sortby"], args["sortdir"])
@@ -709,8 +758,6 @@ class AllTicketsUserAPI(Resource):
             upvoted_ticket_ids = TicketVote.query.filter_by(user_id=user.user_id).all()
             upvoted_ticket_ids = [elem.ticket_id for elem in upvoted_ticket_ids]
             user_tickets = Ticket.query.filter_by(created_by=user.user_id).all()
-            discourseutils = DiscourseUtils()
-            discourse_response = discourseutils.search_discourse_topics("ticket",[""],"",12) # REplace it with discourse username
             for ticket in user_tickets:
                 tick = ticket_utils.convert_ticket_to_dict(ticket)
                 all_tickets.append(tick)
@@ -718,8 +765,6 @@ class AllTicketsUserAPI(Resource):
                 ticket = Ticket.query.filter_by(ticket_id=ticket_id).first()
                 tick = ticket_utils.convert_ticket_to_dict(ticket)
                 all_tickets.append(tick)
-            if 'error' not in discourse_response.keys:
-                all_tickets = all_tickets+discourse_response
             
 
         if role == "support":
@@ -735,13 +780,9 @@ class AllTicketsUserAPI(Resource):
                 user_tickets = Ticket.query.filter_by(status="pending").all()
             else:
                 user_tickets = []
-            discourseutils = DiscourseUtils()
-            discourse_response = discourseutils.search_discourse_topics("ticket",[""],"",12)
             for ticket in user_tickets:
                 tick = ticket_utils.convert_ticket_to_dict(ticket)
                 all_tickets.append(tick)
-            if 'error' not in discourse_response.keys:
-                all_tickets = all_tickets+discourse_response
 
         if role == "admin":
             # admin : get all tickets resolved globally (for creating faq)
@@ -750,12 +791,8 @@ class AllTicketsUserAPI(Resource):
             for ticket in user_tickets:
                 tick = ticket_utils.convert_ticket_to_dict(ticket)
                 all_tickets.append(tick)
-            discourseutils = DiscourseUtils()
-            discourse_response = discourseutils.search_discourse_topics("ticket",[""],"",12)
-            if 'error' not in discourse_response.keys:
-                all_tickets = all_tickets+discourse_response
 
-        all_tickets = ticket_utils.tickets_filter_sort(all_tickets, args)
+        all_tickets = ticket_utils.tickets_filter_sort(all_tickets, args, discourse_username)
         logger.info(f"All tickets found : {len(all_tickets)}")
 
         return success_200_custom(data=all_tickets)
