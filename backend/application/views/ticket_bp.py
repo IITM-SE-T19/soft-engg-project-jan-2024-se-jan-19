@@ -1,6 +1,8 @@
 # Online Support Ticket Application
 # Tushar Supe : 21f1003637
 # Vaidehi Agarwal: 21f1003880
+# Team 19 - Rishabh Prakash: 21f1001626 - Jan 2024
+# Team 19 - Garima Sikka: 21f1005923 - Jan 2024
 # File Info: This is Ticket Blueprint file.
 
 # --------------------  Imports  --------------------
@@ -26,6 +28,8 @@ from application.models import *
 from copy import deepcopy
 from application.globals import *
 from application.notifications import send_email
+
+from application.notifications import send_card_message, send_chat_message # TEAM 19 - GS
 
 # --------------------  Code  --------------------
 
@@ -353,11 +357,14 @@ class TicketAPI(Resource):
             details["created_by"] = user_id
             details["created_on"] = int(time.time())
             ticket = Ticket(**details)
+            ticket_priority = ticket.priority
 
             try:
                 db.session.add(ticket)
                 db.session.commit()
-
+                if (ticket_priority == "high"):
+                    message = "High priority ticket received."
+                    send_chat_message(message)
             except Exception as e:
                 logger.error(
                     f"TicketAPI->post : Error occured while creating a new ticket : {e}"
@@ -373,9 +380,11 @@ class TicketAPI(Resource):
                     attachments, ticket_id, user_id, operation="create_ticket"
                 )
                 # Team 19 / RP
-                discourse_status = DiscourseUtils.post(ticket.ticket_id) # Posting the ticket to discourse
-                if discourse_status == 200:
+                ticket_priority = ticket.priority
+                response = DiscourseUtils.post(ticket.ticket_id) # Posting the ticket to discourse
+                if response == 200:
                     logger.info("Discourse Ticket Created")
+                    # TEAM 19 - GS : Ticket created by student                
                 else:
                     exit(1)
                 raise Success_200(status_msg=f"Ticket created successfully on OSTSv2. {message}")
@@ -516,8 +525,8 @@ class TicketAPI(Resource):
                     db.session.add(ticket)
                     db.session.commit()
                     # Team 19 / RP
-                    DiscourseUtils.solve_ticket(ticket_id, user_id, sol) # Sending the solution to discourse and locking the topic
-
+                    response = DiscourseUtils.solve_ticket(ticket_id, user_id, sol) # Sending the solution to discourse and locking the topic
+                    print(response)
                     # send notification to user who created as well as voted
                     try:
                         _from = user.email

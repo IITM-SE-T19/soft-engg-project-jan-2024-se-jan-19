@@ -21,12 +21,11 @@ from application.responses import *
 from application.models import *
 from copy import deepcopy
 from application.globals import *
-from application.notifications import send_email
+from application.notifications import send_email, send_card_message, send_chat_message # TEAM 19 - GS
 
 from application.models import Auth, Ticket
 
 from application.common_utils import convert_img_to_base64
-
 
 # --------------------  Code  --------------------
 # TEAM 19 / PB: INTERNAL FUNCTIONS
@@ -150,8 +149,17 @@ class DiscourseUtils():
             logger.info("Discourse post created successfully")
             ticket_data.discourse_ticket_id = response.json()['topic_id']
             db.session.commit()
+            # Team 19 - GS
+            try:
+                discourse_ticket_url=f"{DISCOURSE_URL}/t/{ticket_data.discourse_ticket_id}"
+                message = f"Dear {user.first_name} {user.last_name}, we have received your request for {ticket_data.title} and our team is currently reviewing it. We will get back to you as soon as possible."
+                print(message, discourse_ticket_url)
+                send_card_message(message, discourse_ticket_url)
+                logger.info("Ticket created successfully.")
+            except Exception as e:
+                logger.error(e)
             return 200
-        return {'error': 'Discourse server failed to create the ticket.'}, response.status_code
+        return {"error": f"Discourse server failed to create the ticket. {response.json()['errors']}" }, response.status_code
 
     # TEAM 19 / RP
     # @token_required
@@ -188,9 +196,16 @@ class DiscourseUtils():
         close_topic = requests.put(url, headers=DISCOURSE_HEADERS, json=payload) # System close/locks the topic
         if close_topic.status_code == 200:
             logging.info("Topic closed on Discourse.")
+            # TEAM 19 - GS & RP : Ticket resolved by support team
+            try:
+                discourse_ticket_url=f"{DISCOURSE_URL}/t/{ticket_data.discourse_ticket_id}"
+                message = f"Dear {user_data.first_name} {user_data.last_name}, Your support ticket {ticket_data.title} has been successfully resolved and closed by our team. If you have any further issues or questions, feel free to open a new ticket. Click the button to view the solution on Discourse."
+                send_card_message(message, discourse_ticket_url)
+                logger.info("Ticket resolved successfully.")
+            except Exception as e:
+                logger.error(e)
             return 200
-        else:
-            return {'error': 'Topic not closed on Discourse.'}, response.status_code
+        return {'error': f'Topic not closed on Discourse. {close_topic.json()["errors"]}'}, response.status_code
 
 
     # TEAM 19 / RP
@@ -211,7 +226,6 @@ class DiscourseUtils():
             
 
 # TEAM 19 / RP - - - - - - - END - - - - - - -
-
 
 discourse_bp = Blueprint("discourse_bp", __name__)
 discourse_api = Api(discourse_bp)
