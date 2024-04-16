@@ -267,14 +267,17 @@ class DiscourseTicketAPI(Resource):
             if event_type == 'post_created' and post_number == 1:
                 category_id = DiscourseTopic['post']['category_id']
                 if category_id != 13:
-                    return {"message": "Category id out of scope"}, 400 #to be fixed
+                    return {"message": "Category id out of scope"}, 400
+                topic_id = DiscourseTopic['post']['topic_id']
+                new_topic_exists = Ticket.query.filter_by(discourse_ticket_id = topic_id).first()
+                if new_topic_exists:
+                    return {"message": "Topic exists on origin"}, 401
                 discourse_username = DiscourseTopic['post']['username']
                 title = DiscourseTopic['post']['topic_title']
                 description = DiscourseTopic['post']['raw']
                 post_id= DiscourseTopic['post']['id']
-                topic_id = DiscourseTopic['post']['topic_id']
-                dt = datetime.fromisoformat(DiscourseTopic['post']['created_at'][:-1]) 
-                timestamp = int(dt.timestamp())
+                dt = datetime.fromisoformat(DiscourseTopic['post']['created_at'][:-1])
+                timestamp = int(dt.timestamp()) + 19800
                 tags = Discourse_utils.get_tags_from_topic(topic_id)
 
                 # Generate a unique ticket ID
@@ -293,21 +296,7 @@ class DiscourseTicketAPI(Resource):
         except Exception as e:
             logger.info(e)
             return {"error": str(e)}, 500
-        #         topic_list = [Ticket.discourse_ticket_id for discourse_ticket_id in Ticket.query.all()]
-        #         if user_data and topic_id not in topic_list:
-        #             new_ticket = Ticket(ticket_id=ticket_id, title=title, description=description, created_by=user_data.user_id, discourse_ticket_id=topic_id, tag_1=tags[0], tag_2=tags[1], tag_3=tags[2], created_on=timestamp, discourse_category=category_id, votes=0)
-        #         else:
-        #             return {"message": "User not found on OSTSv2 or Ticket already exists"}, 403
-        #         db.session.add(new_ticket)
-        #         db.session.commit()
-        #         logger.info("Ticket created")
-        #         return {"message": "Ticket created successfully."}, 201
-        #     else:
-        #          return {"message": "Not as expected."}, 401
-        # except Exception as e:
-        #     logger.info(e)
-        #     return {"error": str(e)}, 500
-                
+               
 
 
 # - - - - - - - - - - - - - - - - - - - - -

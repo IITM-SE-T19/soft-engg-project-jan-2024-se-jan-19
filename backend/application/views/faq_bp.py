@@ -282,7 +282,7 @@ class FAQAPI(Resource):
                         GChatmessage=f"New FAQ created : \"Title\" - \"{faq.question}\" \n Click the button below to view the FAQ."
                         DISCOURSE_FAQ_URL=f"{BASE_DISCOURSE}/t/{topic_id}"
                         OSTS_FAQ_URL=f"{BASE_APP}/common-faqs"
-                        send_card_message(GChatmessage, DISCOURSE_FAQ_URL, OSTS_FAQ_URL)
+                        send_card_message(GChatmessage, DISCOURSE_FAQ_URL)
 
                         logger.info("FAQ created successfully on Discourse.")
                     # If received 500 from discourse, use the error message from discourse and raise InternalServerError

@@ -84,6 +84,7 @@
           :delete_disabled="delete_disabled"
           :edit_disabled="edit_disabled"
           :is_resolved="ticket.status == 'resolved'"
+          :discourse_ticket_id="ticket.discourse_ticket_id"
         ></TicketCard>
       </div>
     </div>
