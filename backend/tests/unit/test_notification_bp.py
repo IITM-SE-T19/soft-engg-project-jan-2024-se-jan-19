@@ -1,6 +1,7 @@
 # Online Support Ticket Application v2
 # Team 19 - Muskan Jindal: 21f1005072 - Jan 2024
 # File Info: This is testing file for auth endpoints.
+from tests.conftest import admin_user_id
 
 def test_post_gchat_message_post(test_client):
     """
@@ -12,7 +13,7 @@ def test_post_gchat_message_post(test_client):
     #HEADERS
     headers = {
         "Content-type": "application/json",
-        "user_id": "ajksjdjjdii379838udjij93033"
+        "user_id": admin_user_id
     } 
 
     #INPUTS
@@ -27,7 +28,7 @@ def test_post_gchat_message_post(test_client):
 
     #EXPECTED OUTPUT - STATUS CODE: 200, SUCCESS MESSAGE: "success"
     response = response.get_json() #GETTING RESPONSE
-    assert response["status"] == 200 #CHECKING FOR SUCCESS (ACTUAL OUTPUT)
+    assert response["message"] == "Message sent successfully!" #CHECKING FOR SUCCESS (ACTUAL OUTPUT)
 
 def test_post_gchat_card_post(test_client):
     """
@@ -38,7 +39,7 @@ def test_post_gchat_card_post(test_client):
     #HEADERS
     headers = {
         "Content-type": "application/json",
-        "user_id": "ajksjdjjdii379838udjij93033"
+        "user_id": admin_user_id
     }
     #INPUTS
     card_data = {
@@ -52,4 +53,4 @@ def test_post_gchat_card_post(test_client):
 
     #EXPECTED OUTPUT - STATUS CODE: 200, SUCCESS MESSAGE: "success"
     response = response.get_json() #GETTING RESPONSE
-    assert response["status"] == 200 #CHECKING FOR SUCCESS (ACTUAL OUTPUT)
+    assert response["message"] == "Message sent successfully!" #CHECKING FOR SUCCESS (ACTUAL OUTPUT)

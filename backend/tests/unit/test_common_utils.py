@@ -6,7 +6,7 @@
 # --------------------  Imports  --------------------
 
 from application.globals import API_VERSION
-from conftest import (
+from tests.conftest import (
     admin_user_id,
     admin_web_token,
 )
