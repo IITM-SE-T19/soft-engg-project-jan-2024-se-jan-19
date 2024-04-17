@@ -271,8 +271,9 @@ class Register(Resource):
 
                     # TEAM 19 - GS : User registration               
                     try:
-                        message = f"Dear {user.first_name} {user.last_name}, your registration is almost complete. We will send you a notification after your account is verified."
-                        send_chat_message(message)
+                        if user.role != "admin":
+                            message = f"Dear {user.first_name} {user.last_name}, your registration is almost complete. We will send you a notification after your account is verified."
+                            send_chat_message(message)
                     except Exception as e:
                         logger.error(e)
 
