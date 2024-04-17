@@ -79,7 +79,7 @@ npm run serve
 ```
 ---
 #### Setting up ngrok 
-MailHog is an Open Source email testing tool with a fake SMTP server underneath. It allows you to configure your application to send mail to MailHog instead of to your default SMTP server. MailHog catches all mail sent to it and stores them for display in a web-based user interface for you to view. For more information: https://github.com/mailhog/MailHog.
+MailHog is an Open Source email testing tool with a fake SMTP server underneath. It allows you to configure your application to send mail to MailHog instead of to your default SMTP server. MailHog catches all mail sent to it and stores them for display in a web-based user interface for you to view. For more information: https://github.com/mailhog/MailHog.<br>
 Version used: 1.0.1
 
 Start your third terminal
@@ -95,8 +95,8 @@ yay mailhog
 ---
 #### Discourse instance
 
-Discourse is a third-party application for online forums. You can find more information at discourse.org.
-Version used: 
+Discourse is a third-party application for online forums. You can find more information at discourse.org.<br>
+Version used: 3.3.0.beta2-dev
 ```
 We have cloud hosted our Discourse installation at 
 https://t19support.cs3001.site/
