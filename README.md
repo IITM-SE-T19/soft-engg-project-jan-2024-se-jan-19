@@ -43,7 +43,7 @@ The project files are organised as follows.
 The application backend consists of the server side application, the database and the API interfaces. The backend is hosted using Flask on port 5000.
 
 Start your first terminal
-- Create environement (We recommend using python 3.9)
+- Create environment (We recommend using python 3.9)
 ```
 cd ./backend
 python3 -m venv env
@@ -54,7 +54,7 @@ source ./env/bin/activate
 ```
 - Install requirements
 ```
-pip install -r requirement.txt
+pip3 install -r requirement.txt
 ```
 - Start flask server
 ```
@@ -63,13 +63,13 @@ python3 app.py
 ---
 
 #### Setting up Frontend
-The frontend uses VueJS to serve the web based user interfaces of the application. The frontend is deployed usinf node.js server on port 8080. npm is a package manager for Node.js with abundant packages. It is being used for is automated dependency and package management for Node.js. 
+The frontend uses VueJS to serve the web based user interfaces of the application. The frontend is deployed using node.js server on port 8080. npm is a package manager for Node.js with abundant packages. It is being used for is automated dependency and package management for Node.js. 
 
 Start your second terminal
 ```
 cd ./frontend
 ```
-- Install node dependencies (we recommend node stable and npm => 10.5)
+- Install node dependencies (we recommend nodejs => 21 and npm => 10.5)
 ```
 npm install
 ```
