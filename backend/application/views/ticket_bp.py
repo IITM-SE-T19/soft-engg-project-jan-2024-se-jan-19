@@ -30,7 +30,7 @@ from application.globals import *
 from application.notifications import send_email
 import requests # Team 19 - MJ
 from application.models import Auth # Team 19 - MJ
-from application.notifications import send_card_message, send_chat_message # TEAM 19 - GS
+from application.notifications import send_chat_message # TEAM 19 - GS
 
 # --------------------  Code  --------------------
 

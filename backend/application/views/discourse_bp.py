@@ -3,9 +3,6 @@
 # File Info: This is Discourse webhooks blueprint.
 from datetime import datetime
 import logging
-import os
-import base64
-import json as jsonassign
 # --------------------  Imports  --------------------
 from flask import Blueprint, request
 import requests
@@ -21,7 +18,7 @@ from application.responses import *
 from application.models import *
 from copy import deepcopy
 from application.globals import *
-from application.notifications import send_email, send_card_message, send_chat_message # TEAM 19 - GS
+from application.notifications import send_card_message # TEAM 19 - GS
 
 from application.models import Auth, Ticket
 from application.common_utils import users_required # Team 19 - MJ
