@@ -64,7 +64,7 @@ class SendCardMessage(Resource):
 
         JSON
         ----------
-        JSON payload containing the message details(message, discourse, osts).
+        JSON payload containing the message details(message, discourse).
 
         Returns
         -------
@@ -86,10 +86,9 @@ class SendCardMessage(Resource):
             elif len(message) > 4096:
                 message = message[:4096]
             discourse_link = json_data["discourse"]
-            osts_link = json_data["osts"]
-            if not(is_valid_link(discourse_link) and is_valid_link(osts_link)):
+            if not(is_valid_link(discourse_link)):
                 return {"message": "Links are invalid"}, 400
-            return send_card_message(message, discourse_link, osts_link)
+            return send_card_message(message, discourse_link)
         except Exception as e:
             logging.info(e)
             return {"message": str(e)}, 500
