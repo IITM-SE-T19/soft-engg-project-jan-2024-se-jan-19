@@ -5,8 +5,8 @@
 
 # --------------------  Imports  --------------------
 
-from application import create_app
 import pytest
+from application import create_app
 from application.logger import logger
 
 # --------------------  Constants  --------------------
@@ -14,23 +14,25 @@ from application.logger import logger
 # Please set following required constants to mimic a specific user role.
 
 # STUDENT
-student_user_id = "ccec26f5a52560cd22a2965287dc4ad9"
-student_web_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJvdHVzaGFyMjNAZ21haWwuY29tIiwiZXhwaXJ5IjoxNjc5NTY2MzU3LjkxOTg4Mzd9.CQNw31kdMXbJ3O2lWkNkb_EDC5wayIgdreU-6Tgoims"
+student_user_id = "0daff43cb54ee3506caf5bbddba890af"
+student_web_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN0dWRlbnRfMUBnbWFpbC5jb20iLCJleHBpcnkiOjE3MTczNDE5NDR9.BKkxD3fD0p4kSEJNtmKK2cr3-JqybHxdlDRm7vdWDVw"
  
 # SUPPORT
 support_user_id = "a5997f803b4dfbdb0a7f17b012ca1697"
 support_web_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJvdHVzaGFyMjNAZ21haWwuY29tIiwiZXhwaXJ5IjoxNjc5NTY2MzU3LjkxOTg4Mzd9.CQNw31kdMXbJ3O2lWkNkb"
 
 # ADMIN
-admin_user_id = "3ad51db3c4defba9c7f1ca7549712e25"
-admin_web_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RlZkBlbWFpbC5jb20iLCJleHBpcnkiOjE2Nzg0Mzc0NTQuOTc1MjAwN30.IaIPV8Ps_AxN_YiCkAVm7p1hPEgi5hYvqV17B0EeFRc"
+admin_user_id = "10d1c757654f4c60d53360deaa631f6b"
+admin_web_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluXzFAZ21haWwuY29tIiwiZXhwaXJ5IjoxNzE3NjE2MTc3fQ.ff1zrhR41YdX7w72OED6nQ7aVwCsI3tvsnFgbILdP_c"
 
+# Team 19 - MJ
+discourse_username = "javeed"
 # --------------------  Code  --------------------
 
 # before testing set current dir to `\code\backend`
 @pytest.fixture(scope='module')
 def test_client():
-    flask_app = create_app(env_type="test")
+    flask_app = create_app(env_type="dev")
     logger.info("Testing fixture set.")
     
     # Create a test client using the Flask application configured for testing

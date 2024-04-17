@@ -517,38 +517,6 @@ class DiscourseTicketSearch(Resource):
             logging.info(e)
             return {"message": str(e)}, 500
 
-# Team 19 - MJ (Function to handle api call to delete topic from discourse)
-class DiscourseTicketDelete(Resource):
-
-    @users_required(users=["student", "support", "admin"])
-    def delete(self, discourse_ticket_id):
-        """
-        Delete the post from discourse for a given Topic ID.
-
-        Header
-        --------
-        JSON payload containing the user details(user_id)
-
-        JSON Data
-        --------
-        JSON payload containing the message details(q, tags, username, categoryid)
-
-        Returns
-        -------
-        Success message
-
-        Raises
-        ------
-        Exception
-            If an error occurs while deleting ticket from discourse.
-
-        """
-        try:
-            response = DiscourseUtils.delete_post(discourse_ticket_id)
-            return response
-        except Exception as e:
-            logger.error({"error": e}) 
-
 
 #  - - - - - - - - ENDPOINTS - - - - - - - - 
 discourse_api.add_resource(AddTagToTopic, "/topic/<string:topic_id>/tag/<string:tag_id>") # SE Team 19 - SV
@@ -559,7 +527,6 @@ discourse_api.add_resource(DiscourseUser, "/user/<string:username>")
 discourse_api.add_resource(DiscourseTicketSearch, "/search") # Team 19 - MJ
 
 discourse_api.add_resource(DiscourseTicketAPI, "/create-ticket") # Team 19 / RP ----  endpoint to expose system endpoint to receive post requests from discourse via ngrok or any other proxy
-discourse_api.add_resource(DiscourseTicketDelete,"/delete/<int:discourse_ticket_id>") # Team 19 - MJ
 
 # - - - - - -   E N D   - - - - - - -
 

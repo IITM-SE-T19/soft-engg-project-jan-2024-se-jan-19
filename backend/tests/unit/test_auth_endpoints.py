@@ -7,9 +7,10 @@
 
 from application.globals import API_VERSION
 import time
-from conftest import (
+from tests.conftest import (
     admin_user_id,
     admin_web_token,
+    test_client
 )
 
 # --------------------  Tests  --------------------
@@ -60,17 +61,16 @@ def test_register_page_with_fixture_post_200_success(test_client):
     THEN check that the response is 200 i.e. the account is created successfully
     """
 
-    random_email = f"tushar{str(int(time.time()))}@gmail.com"
-
     response = test_client.post(
         f"/api/{API_VERSION}/auth/register",
         json={
-            "first_name": "tushar",
-            "last_name": "",
-            "email": random_email,
+            "first_name": "T19",
+            "last_name": "Test user1",
+            "email": "t19_testuser@gmail.com",
             "password": "1234",
             "retype_password": "1234",
             "role": "student",
+            "discourse_username": "IITM_Student"
         },
         headers=headers,
     )
@@ -88,12 +88,13 @@ def test_register_page_with_fixture_post_409_email_exists(test_client):
     response = test_client.post(
         f"/api/{API_VERSION}/auth/register",
         json={
-            "first_name": "tushar",
+            "first_name": "Muskan",
             "last_name": "",
-            "email": "tushar@gmail.com",
+            "email": "muskan@student.com",
             "password": "1234",
             "retype_password": "1234",
             "role": "student",
+            "discourse_username": "IITM_Student"
         },
         headers=headers,
     )
@@ -111,12 +112,13 @@ def test_register_page_with_fixture_post_400_invalid_data(test_client):
     response = test_client.post(
         f"/api/{API_VERSION}/auth/register",
         json={
-            "first_name": "tushar",
+            "first_name": "",
             "last_name": "",
-            "email": "tushar@gmail.com",
+            "email": "t19_testuser@gmail.com",
             "password": "12345",
             "retype_password": "1234",
             "role": "student",
+            "discourse_username": "IITM_Student"
         },
         headers=headers,
     )
@@ -134,7 +136,7 @@ def test_login_page_with_fixture_post_400_missing_data(test_client):
     response = test_client.post(
         f"/api/{API_VERSION}/auth/login",
         json={
-            "email": "tushar@gmail.com",
+            "email": "muskan@student.com",
             "password": "",
         },
         headers=headers,
@@ -154,7 +156,7 @@ def test_login_page_with_fixture_post_401_unauthenticated(test_client):
     response = test_client.post(
         f"/api/{API_VERSION}/auth/login",
         json={
-            "email": "tushar@gmail.com",
+            "email": "muskan@student.com",
             "password": "1234567",
         },
         headers=headers,
@@ -173,7 +175,7 @@ def test_login_page_with_fixture_post_404_user_not_exist(test_client):
     response = test_client.post(
         f"/api/{API_VERSION}/auth/login",
         json={
-            "email": "tushar12345678@gmail.com",
+            "email": "t19_test123345@gmail.com",
             "password": "1234",
         },
         headers=headers,
@@ -192,14 +194,14 @@ def test_login_page_with_fixture_post_200_success(test_client):
     response = test_client.post(
         f"/api/{API_VERSION}/auth/login",
         json={
-            "email": "tushar_dummy@gmail.com",
-            "password": "1234",
+            "email": "muskan@student.com",
+            "password": "MTIzNA==",
         },
         headers=headers,
     )
     response = response.get_json()
     assert response["status"] == 200
-    assert response["message"]["first_name"] == "dummy"
+    assert response["message"]["first_name"] == "Muskan"
 
 
 def test_newusers_page_with_fixture_get_200(test_client):
