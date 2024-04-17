@@ -45,8 +45,6 @@ class DiscourseUtils():
             # If there was an error with the request
             return {'error': 'Resource not found'}, 404
 
-    # @token_required
-    # @users_required(users=["student", "support", "admin"])
     def generate_ticket_id(self, title: str) -> str:
         """
         Generates a unique ticket ID based on the title and current timestamp.
@@ -107,8 +105,6 @@ class DiscourseUtils():
 
 
     # TEAM 19 / RP
-    # @token_required
-    # @users_required(users=["student", "support", "admin"])
     def post(ticketid):
         """
         Use: Posts the tickets created on OSTSv2 to Discourse
@@ -159,8 +155,6 @@ class DiscourseUtils():
         return {"error": f"Discourse server failed to create the ticket. {response.json()['errors']}" }, response.status_code
 
     # TEAM 19 / RP
-    # @token_required
-    # @users_required(users=["support", "admin"])
     def solve_ticket(ticketid, user_id, solution):
         """
         Use: Replies the final solution of the ticket to the post on discourse and closes it.
