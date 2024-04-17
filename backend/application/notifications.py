@@ -119,7 +119,7 @@ def send_card_message(message, discourselink):
       "header": {
         "title": "Team 19 Ticket System Alert",
         "subtitle": message,
-        "imageUrl": "https://t19support.cs3001.site/uploads/default/original/1X/0e8a7027d9e53cbdbaab79eda388078533315ce5.png1",
+        "imageUrl": "https://t19support.cs3001.site/uploads/default/original/1X/0195916d379344b1441b21e417ca6005e34fa1c5.png",
         "imageStyle": "IMAGE"
       },
       "sections": [
