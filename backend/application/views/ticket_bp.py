@@ -1,6 +1,8 @@
 # Online Support Ticket Application
 # Tushar Supe : 21f1003637
 # Vaidehi Agarwal: 21f1003880
+# Team 19 - Rishabh Prakash: 21f1001626 - Jan 2024
+# Team 19 - Garima Sikka: 21f1005923 - Jan 2024
 # File Info: This is Ticket Blueprint file.
 
 # --------------------  Imports  --------------------
@@ -28,6 +30,8 @@ from application.globals import *
 from application.notifications import send_email
 import requests # Team 19 - MJ
 from application.models import Auth # Team 19 - MJ
+from application.notifications import send_card_message, send_chat_message # TEAM 19 - GS
+
 # --------------------  Code  --------------------
 
 
@@ -396,11 +400,14 @@ class TicketAPI(Resource):
             details["created_by"] = user_id
             details["created_on"] = int(time.time())
             ticket = Ticket(**details)
+            ticket_priority = ticket.priority
 
             try:
                 db.session.add(ticket)
                 db.session.commit()
-
+                if (ticket_priority == "high"):
+                    message = "High priority ticket received."
+                    send_chat_message(message)
             except Exception as e:
                 logger.error(
                     f"TicketAPI->post : Error occured while creating a new ticket : {e}"
@@ -416,13 +423,14 @@ class TicketAPI(Resource):
                     attachments, ticket_id, user_id, operation="create_ticket"
                 )
                 # Team 19 / RP
-                discourse_status = DiscourseUtils.post(ticket.ticket_id)
-                if discourse_status == 200:
+                ticket_priority = ticket.priority
+                response = DiscourseUtils.post(ticket.ticket_id) # Posting the ticket to discourse
+                if response == 200:
                     logger.info("Discourse Ticket Created")
+                    # TEAM 19 - GS : Ticket created by student                
                 else:
-                    logger.error("Discourse Ticket not created")
                     exit(1)
-                raise Success_200(status_msg=f"Ticket created successfully. {message}")
+                raise Success_200(status_msg=f"Ticket created successfully on OSTSv2. {message}")
 
     @token_required
     @users_required(users=["student", "support"])
@@ -559,8 +567,9 @@ class TicketAPI(Resource):
 
                     db.session.add(ticket)
                     db.session.commit()
-                    # Team 19 - RP
-                    DiscourseUtils.solve_ticket(ticket_id, sol)
+                    # Team 19 / RP
+                    response = DiscourseUtils.solve_ticket(ticket_id, user_id, sol) # Sending the solution to discourse and locking the topic
+                    print(response)
                     # send notification to user who created as well as voted
                     try:
                         _from = user.email
@@ -623,6 +632,7 @@ class TicketAPI(Resource):
         # check if ticket exists and it is created by user_id
         try:
             ticket = Ticket.query.filter_by(ticket_id=ticket_id).first()
+            discourse_ticket_id = ticket.discourse_ticket_id
         except Exception as e:
             logger.error(
                 f"TicketAPI->delete : Error occured while fetching ticket data : {e}"
@@ -651,7 +661,11 @@ class TicketAPI(Resource):
                     # delete ticket
                     db.session.delete(ticket)
                     db.session.commit()
-                    DiscourseUtils.delete_post(ticket_id)
+                    print("Ticket id", ticket_id)
+
+                    # Team 19 / RP
+                    DiscourseUtils.delete_post(discourse_ticket_id) # Deleting the post on discourse
+
                     raise Success_200(status_msg="Ticket deleted successfully")
                 else:
                     raise PermissionDenied(
