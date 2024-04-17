@@ -109,4 +109,4 @@ https://t19support.cs3001.site/
 - Mailhog
 - Discourse
 
-For more info you can check out our [website](https://sites.google.com/ds.study.iitm.ac.in/se-t19/osts-v2) or send mail to iitm.se.t19@gmail.com
+For more info you can check out our [website](https://bit.ly/t19cc) or send mail to iitm.se.t19@gmail.com
