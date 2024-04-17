@@ -176,10 +176,6 @@ class UserUtils:
                 details[key] = value
             user = Auth.query.filter_by(user_id=user_id).first()
 
-
-            #TEAM19-AJ
-            print(details)
-
         except Exception as e:
             logger.error(f"UserUtils : Error occured while getting form data : {e}")
             raise InternalServerError
@@ -240,7 +236,7 @@ class UserUtils:
 
             #TEAM-19 AJ
             user.discourse_username = details["discourse_username"]
-            print(f"Updated discourse_username: {user.discourse_username}") 
+            logger.info(f"Updated discourse_username: {user.discourse_username}") 
 
 
             try:

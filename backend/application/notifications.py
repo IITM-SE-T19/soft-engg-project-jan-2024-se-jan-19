@@ -1,20 +1,13 @@
 # Online Support Ticket Application
 # Tushar Supe : 21f1003637
 # Vaidehi Agarwal: 21f1003880
+# Team 19 - Muskan Jindal: 21f1005072 - Jan 2024
 # File Info: This file contains notifications methods to send mail to users.
 
 # --------------------  Imports  --------------------
-
-from werkzeug.exceptions import HTTPException
-from flask import make_response, jsonify
 from application.logger import logger
 from jinja2 import Template
-from flask import render_template, request, redirect, flash, url_for
-import pandas as pd
 import requests
-from datetime import datetime
-import os
-import json
 import smtplib
 import socket
 from email.mime.multipart import MIMEMultipart
@@ -110,12 +103,14 @@ def send_chat_message(message):
 
     if response.status_code == 200:
         logger.info("Message sent successfully!")
+        return {"sucess":"Message sent successfully!"}, 200
     else:
         error_response = response.text
-        logger.info(error_response)
+        logger.error(error_response)
+        return {"message": error_response}, response.status_code
 
 # Team 19 - MJ (send chat card function to gchat)
-def send_card_message(message, discourselink, ostslink):
+def send_card_message(message, discourselink):
 
     card_data = {
   "text": "",
@@ -124,7 +119,7 @@ def send_card_message(message, discourselink, ostslink):
       "header": {
         "title": "Team 19 Ticket System Alert",
         "subtitle": message,
-        "imageUrl": "http://localhost:5050/static/_logo.png",
+        "imageUrl": "https://t19support.cs3001.site/uploads/default/original/1X/0e8a7027d9e53cbdbaab79eda388078533315ce5.png1",
         "imageStyle": "IMAGE"
       },
       "sections": [
@@ -147,16 +142,6 @@ def send_card_message(message, discourselink, ostslink):
                     }
                   }
                 },
-                {
-                  "textButton": {
-                    "text": "View on OSTS",
-                    "onClick": {
-                      "openLink": {
-                        "url": ostslink
-                      }
-                    }
-                  }
-                }
               ]
             }
           ]
@@ -174,9 +159,12 @@ def send_card_message(message, discourselink, ostslink):
 
     if response.status_code == 200:
         logger.info("Message sent successfully!")
+        return {"sucess":"Message sent successfully!"}, 200
     else:
         error_response = response.text
-        logger.info(error_response)
+        logger.error(error_response)
+        return {"message": error_response}, response.status_code
+
 
 
 # --------------------  END  --------------------

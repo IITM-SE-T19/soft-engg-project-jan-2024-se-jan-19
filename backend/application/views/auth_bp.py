@@ -1,6 +1,8 @@
 # Online Support Ticket Application
 # Tushar Supe : 21f1003637
 # Vaidehi Agarwal: 21f1003880
+# Team 19 - Garima Sikka: 21f1005923 - Jan 2024
+# Team 19 - Javeed Ahmed: 21f1000453 - Jan 2024
 # File Info: This file contains Login/Logout/Register API.
 
 # --------------------  Imports  --------------------
@@ -21,6 +23,9 @@ from application.common_utils import (
     convert_img_to_base64,
     is_img_path_valid,
 )
+
+from application.notifications import send_chat_message # TEAM 19 - GS
+
 
 # --------------------  Code  --------------------
 
@@ -264,10 +269,17 @@ class Register(Resource):
                     #TEAM-19 AJ
                     db.session.commit()
 
+                    # TEAM 19 - GS : User registration               
+                    try:
+                        if user.role != "admin":
+                            message = f"Dear {user.first_name} {user.last_name}, your registration is almost complete. We will send you a notification after your account is verified."
+                            send_chat_message(message)
+                    except Exception as e:
+                        logger.error(e)
 
                     logger.info("New account created")
                     raise Success_200(
-                        status_msg="Account created successfully. Now please login."
+                        status_msg="Account created successfully. Please Login now."
                     )
 
             else:
@@ -356,6 +368,12 @@ class NewUsers(Resource):
             if user:
                 # user exists , proceed to update
                 user = auth_utils.update_auth_table(details=details)
+                # TEAM 19 - GS : User verified               
+                try:
+                    message = f"Welcome to OSTS v2 platform, {user.first_name} {user.last_name}! You have been successfully registered. Start exploring now!"
+                    send_chat_message(message)
+                except Exception as e:
+                    logger.error(e)
                 raise Success_200(status_msg="User verified and updated in database.")
             else:
                 raise NotFoundError(status_msg="User does not exists.")

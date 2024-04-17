@@ -15,7 +15,8 @@
           <b-col class="col" cols="12" lg="5" sm="12"
             ><i>Id: </i>{{ ticket_id.slice(0, 15) }}</b-col
           >
-          <b-col class="col" cols="12" lg="5" sm="8"><i>Created On: </i>{{ created_on }}</b-col>
+          <!-- Team 19 - MJ -->
+          <b-col class="col" cols="12" lg="5" sm="8"><i>Created On: </i>{{ convertTime(created_on) }}</b-col> 
           <b-col class="col" cols="12" lg="2" sm="4"><i>Votes: </i>{{ votes }}</b-col>
         </b-row>
         <b-row class="row">
@@ -28,6 +29,13 @@
                 ><b>Description: </b>{{ description.slice(0, 200) }}</b-col
               >
             </b-row>
+            <!-- Team 19 - MJ (Added discourse_ticket_id) -->
+            <b-row class = "row" v-if="discourse_ticket_id != null">
+              <b-col class="col" cols="12">
+                <p>Link to Topic in Discourse:</p>
+                <a :href="'https://t19support.cs3001.site/t/' + discourse_ticket_id" target="_blank">{{"https://t19support.cs3001.site/t/" + discourse_ticket_id}}</a>
+              </b-col>
+              </b-row>
           </b-col>
           <b-col class="col" cols="12" sm="2" lg="1">
             <b-row class="row">
@@ -139,7 +147,8 @@
           </tr>
           <tr>
             <td>Created on:</td>
-            <td>{{ Date(created_on).toLocaleString() }}</td>
+            <!-- Team 19 - MJ -->
+            <td>{{ convertTime(created_on) }}</td>
           </tr>
           <tr>
             <td>Created by:</td>
@@ -151,7 +160,8 @@
           </tr>
           <tr>
             <td>Resolved on:</td>
-            <td>{{ resolved_on == 0 ? "" : Date(resolved_on).toLocaleString() }}</td>
+            <!-- Team 19 - MJ -->
+            <td>{{ resolved_on == 0 ? "" : convertTime(resolved_on) }}</td>
           </tr>
           <tr>
             <td>Solution:</td>
@@ -238,6 +248,7 @@ export default {
     "delete_disabled",
     "edit_disabled",
     "is_resolved",
+    "discourse_ticket_id", // Team 19 - MJ (Added discourse_ticket_id)
   ],
   components: { TicketForm },
   data() {
@@ -393,6 +404,23 @@ export default {
             message: "Internal Server Error",
           });
         });
+    },
+    // Team 19 - MJ (Function to convert time in seconds to date format)
+    convertTime(timeInSeconds) {
+      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+      const dateObj = new Date((timeInSeconds)*1000);
+      const year = dateObj.getFullYear();
+      const month = monthNames[dateObj.getMonth()];
+      const day = String(dateObj.getDate()).padStart(2, '0');
+      const hours = String(dateObj.getHours()).padStart(2, '0');
+      const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+      const seconds = String(dateObj.getSeconds()).padStart(2, '0');
+
+      const weekday = dateObj.toLocaleDateString('en-US', { weekday: 'short' });
+
+      return `${weekday} ${month} ${day} ${year} ${hours}:${minutes}:${seconds}`;
     },
   },
   computed: {},

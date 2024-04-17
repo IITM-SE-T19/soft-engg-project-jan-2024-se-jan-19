@@ -42,7 +42,7 @@ class Ticket(db.Model):
         db.String, nullable=False, default="low"
     )  # low (default), medium, high
     discourse_category = db.Column(db.Integer, nullable=False, default=6)
-    discourse_username = db.Column(db.String, nullable=False)
+    discourse_username = db.Column(db.String, nullable=True)
     discourse_ticket_id = db.Column(db.Integer, nullable=True)
     tag_1 = db.Column(db.String, nullable=False)
     tag_2 = db.Column(db.String, nullable=True, default="")
