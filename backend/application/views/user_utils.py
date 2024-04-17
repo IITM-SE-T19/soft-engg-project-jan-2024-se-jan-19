@@ -178,7 +178,7 @@ class UserUtils:
 
 
             #TEAM19-AJ
-            print(details)
+            logger.info(details)
 
         except Exception as e:
             logger.error(f"UserUtils : Error occured while getting form data : {e}")
@@ -240,7 +240,7 @@ class UserUtils:
 
             #TEAM-19 AJ
             user.discourse_username = details["discourse_username"]
-            print(f"Updated discourse_username: {user.discourse_username}") 
+            logger.info(f"Updated discourse_username: {user.discourse_username}") 
 
 
             try:

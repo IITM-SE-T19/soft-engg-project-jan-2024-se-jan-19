@@ -26,7 +26,8 @@ from application.models import *
 from copy import deepcopy
 from application.globals import *
 from application.notifications import send_email
-
+import requests # Team 19 - MJ
+from application.models import Auth # Team 19 - MJ
 # --------------------  Code  --------------------
 
 
@@ -188,6 +189,45 @@ class TicketUtils(UserUtils):
 
             return filtered_tickets
 
+    # Team 19 - MJ (Function retrieve discourse only tickets)
+    def tickets_unique_discourse(self, osts_tickets, discourselist):
+        discourse_unique_tickets = []
+        for ticket in osts_tickets:
+            if ticket['discourse_ticket_id'] in discourselist:
+                discourse_unique_tickets.append(ticket)
+        return discourse_unique_tickets
+    
+    # Team 19 - MJ (Function to call search api of OSTS )
+    def ticket_filter_for_discourse(self, all_tickets, args):
+        tickets = deepcopy(all_tickets)
+        try:
+            query = args["query"]
+            tags = args["tags"] + list(args["status"]) + list(f'priority_{args["priority"]}')
+            discourse_username = ""
+            if not self.is_blank(args["discourse_username"]):
+                discourse_username = args["discourse_username"]
+            url = f"{BASE}/api/{API_VERSION}/discourse/search"
+            header = {
+                "user_id": args["user_id"]
+            }
+            request_body = {
+                "q": query,
+                "tags" : tags,
+                "discourse_username": discourse_username,
+                "categoryid": DISCOURSE_TICKET_CATEGORY_ID
+            }
+            response = requests.get(url,headers=header, json=request_body)
+            if response.status_code == 200:
+                all_tickets += self.tickets_unique_discourse(all_tickets, response.json())
+                return all_tickets
+            else:
+                logger.error({"error": response.text}, response.status_code)
+                return(tickets)
+
+        except Exception as e:
+            logger.error({"error": str(e)}, 500)
+            return(tickets)
+
     def tickets_sort(self, all_tickets, sortby="", sortdir=""):
         # sort (if present)
         if sortby:
@@ -217,9 +257,12 @@ class TicketUtils(UserUtils):
         # filter by priority (if present)
         all_tickets = self.tickets_filter_by_priority(all_tickets, args["priority"])
 
+        # Team 19 - MJ (Filter for discourse tickets)
+        #filter for discourse (if present)
+        all_tickets = self.ticket_filter_for_discourse(all_tickets, args)
+
         # sort (if present)
         all_tickets = self.tickets_sort(all_tickets, args["sortby"], args["sortdir"])
-
         return all_tickets
 
     def get_args_from_query(self, args):
@@ -739,7 +782,9 @@ class AllTicketsUserAPI(Resource):
             for ticket in user_tickets:
                 tick = ticket_utils.convert_ticket_to_dict(ticket)
                 all_tickets.append(tick)
-
+        # Team 19 - MJ
+        args['discourse_username'] = user.discourse_username 
+        args['user_id'] = user_id
         all_tickets = ticket_utils.tickets_filter_sort(all_tickets, args)
         logger.info(f"All tickets found : {len(all_tickets)}")
 

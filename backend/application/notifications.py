@@ -110,9 +110,11 @@ def send_chat_message(message):
 
     if response.status_code == 200:
         logger.info("Message sent successfully!")
+        return {"sucess":"Message sent successfully!"}, 200
     else:
         error_response = response.text
-        logger.info(error_response)
+        logger.error(error_response)
+        return {"message": error_response}, response.status_code
 
 # Team 19 - MJ (send chat card function to gchat)
 def send_card_message(message, discourselink, ostslink):
@@ -174,9 +176,12 @@ def send_card_message(message, discourselink, ostslink):
 
     if response.status_code == 200:
         logger.info("Message sent successfully!")
+        return {"sucess":"Message sent successfully!"}, 200
     else:
         error_response = response.text
-        logger.info(error_response)
+        logger.error(error_response)
+        return {"message": error_response}, response.status_code
+
 
 
 # --------------------  END  --------------------

@@ -12,7 +12,6 @@ import requests
 from flask_restful import Api, Resource
 import hashlib
 import time
-# from datetime import datetime
 
 from application.responses import *
 from application.models import *
@@ -21,7 +20,7 @@ from application.globals import *
 from application.notifications import send_email
 
 from application.models import Auth, Ticket
-
+from application.common_utils import users_required # Team 19 - MJ
 from application.common_utils import convert_img_to_base64
 
 # --------------------  Code  --------------------
@@ -139,16 +138,31 @@ class DiscourseUtils():
             logging.info("Topic closed on Discourse.")
             return 200
         else:
-            return {'error': 'Resource not found'}, 404
-            
+            return {'error': 'Resource not found'}, 404 
 
+    # Team 19 - MJ (function to filter discourse ticket ids from response)    
+    def convert_discourse_response_to_ids(self, discourseresponse):
+        discourse_ticket_ids = []
+        if 'topics' in discourseresponse.keys():
+            for i in discourseresponse['topics']:
+                discourse_ticket_ids.append(i['id'])
+        return discourse_ticket_ids
+    
+    # Team - 19 ( Function to make list as str)
+    def list_to_str(self, tags):
+        tags_data = ""
+        try: 
+            for i in tags:
+                tags_data += i + ","
+        except:
+            return tags_data
+        
 # TEAM 19 / RP---------------- END-------------------
 
 
 discourse_bp = Blueprint("discourse_bp", __name__)
 discourse_api = Api(discourse_bp)
 Discourse_utils = DiscourseUtils()
-
 
 # - - - - - - - - - - - - - - - - - - - - -
 # TEAM 19 / PB: API IMPLEMENTATION
@@ -209,7 +223,7 @@ class DiscourseTicketAPI(Resource):
                  return {"message": "Not as expected."}, 401
         except Exception as e:
             logging.info(e)
-            return {"error": str(e)}, 500
+            return {"message": str(e)}, 500
 
 # - - - - - - - - - - - - - - - - - - - - -
 # API: DiscourseUser
@@ -288,11 +302,11 @@ class CreateFAQTopic(Resource):
                     return {"message": "Topic creation error","error": lock_response.json()}, 500
                 
             else:
-                return {"error": response.json()}, 500
+                return {"message": response.json()}, 500
             
         except Exception as e:
             logging.info(e)
-            return {"error": str(e)}, 500
+            return {"message": str(e)}, 500
 
 # SE Team 19 - SV
 class AddTagToTopic(Resource):
@@ -352,9 +366,7 @@ class CategoryTags(Resource):
 
         """
         api_url = f"{BASE_DISCOURSE}/tags/filter/search.json?q=&categoryId={category_id}&filterForInput=true"
-        # https://t19support.cs3001.site/tags/filter/search?q=&limit=5&categoryId=5&filterForInput=true
         response = requests.get(api_url, headers=DISCOURSE_HEADERS)
-        # print(DISCOURSE_HEADERS)
         if response.status_code == 200:
             try:                
                 tags = response.json()["results"]
@@ -365,7 +377,58 @@ class CategoryTags(Resource):
 
                 return filtered_tags, 200
             except Exception as e:
-                return {"error": str(e)}, 500
+                return {"message": str(e)}, 500
+            
+# Team 19 - MJ (Search tickets on discourse)         
+class DiscourseTicketSearch(Resource):
+
+    @users_required(users=["student", "support", "admin"])
+    def get(self):
+        """
+        Get the tags for a given category ID.
+
+        Header
+        --------
+        JSON payload containing the user details(user_id)
+
+        JSON Data
+        --------
+        JSON payload containing the message details(q, tags, username, categoryid)
+
+        Returns
+        -------
+        List[tickets]
+
+        Raises
+        ------
+        Exception
+            If an error occurs while retrieving the tickets.
+
+        """
+        try: 
+            json_data = request.get_json()
+
+            query = json_data['q']
+            tags = json_data['tags']
+            discourse_username = json_data['discourse_username']
+            category_id = json_data['categoryid']
+
+            api_url = f"{DISCOURSE_URL}/search.json"
+            tags_data = Discourse_utils.list_to_str(tags)
+                
+            params = {'q': f"{query} @{discourse_username} #{category_id}",'tags': tags_data}
+            response = requests.get(api_url, headers=DISCOURSE_HEADERS, params=params)
+            if response.status_code == 200:
+                json_data = response.json()
+                print("DIScourse data:::::", json_data)
+                data = Discourse_utils.convert_discourse_response_to_ids(json_data)
+                return {"data": data}, 200
+            else:
+                return 
+        except Exception as e:
+            logging.info(e)
+            return {"message": str(e)}, 500
+
 
 
 discourse_api.add_resource(AddTagToTopic, "/topic/<string:topic_id>/tag/<string:tag_id>") # SE Team 19 - SV
@@ -373,8 +436,7 @@ discourse_api.add_resource(CategoryTags, "/category/<string:category_id>/tags") 
 
 discourse_api.add_resource(CreateFAQTopic, "/create-faq-topic") # SE Team 19 - SV
 discourse_api.add_resource(DiscourseUser, "/user/<string:username>")
-
-
+discourse_api.add_resource(DiscourseTicketSearch, "/search") # Team 19 - MJ
 
 # - - - - - -   E N D   - - - - - - -
 
