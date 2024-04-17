@@ -9,7 +9,7 @@ extra
 __pycache__
 *.pyc
 /dist
-venv
+t19venv
 backend/env
 
 # local env files

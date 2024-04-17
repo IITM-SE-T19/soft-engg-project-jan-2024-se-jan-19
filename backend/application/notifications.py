@@ -5,9 +5,17 @@
 # File Info: This file contains notifications methods to send mail to users.
 
 # --------------------  Imports  --------------------
+
+from werkzeug.exceptions import HTTPException
+from flask import make_response, jsonify
 from application.logger import logger
 from jinja2 import Template
+from flask import render_template, request, redirect, flash, url_for
+import pandas as pd
 import requests
+from datetime import datetime
+import os
+import json
 import smtplib
 import socket
 from email.mime.multipart import MIMEMultipart
@@ -103,11 +111,9 @@ def send_chat_message(message):
 
     if response.status_code == 200:
         logger.info("Message sent successfully!")
-        return {"sucess":"Message sent successfully!"}, 200
     else:
         error_response = response.text
-        logger.error(error_response)
-        return {"message": error_response}, response.status_code
+        logger.info(error_response)
 
 # Team 19 - MJ (send chat card function to gchat)
 def send_card_message(message, discourselink):
@@ -159,12 +165,9 @@ def send_card_message(message, discourselink):
 
     if response.status_code == 200:
         logger.info("Message sent successfully!")
-        return {"sucess":"Message sent successfully!"}, 200
     else:
         error_response = response.text
-        logger.error(error_response)
-        return {"message": error_response}, response.status_code
-
+        logger.info(error_response)
 
 
 # --------------------  END  --------------------

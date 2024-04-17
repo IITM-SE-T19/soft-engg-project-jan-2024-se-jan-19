@@ -24,7 +24,7 @@ from application.common_utils import (
     is_img_path_valid,
 )
 
-from application.notifications import send_chat_message # TEAM 19 - GS
+from application.notifications import send_card_message, send_chat_message # TEAM 19 - GS
 
 
 # --------------------  Code  --------------------
@@ -271,9 +271,8 @@ class Register(Resource):
 
                     # TEAM 19 - GS : User registration               
                     try:
-                        if user.role != "admin":
-                            message = f"Dear {user.first_name} {user.last_name}, your registration is almost complete. We will send you a notification after your account is verified."
-                            send_chat_message(message)
+                        message = f"Dear {user.first_name} {user.last_name}, your registration is almost complete. We will send you a notification after your account is verified."
+                        send_chat_message(message)
                     except Exception as e:
                         logger.error(e)
 

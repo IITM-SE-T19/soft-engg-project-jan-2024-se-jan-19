@@ -3,6 +3,9 @@
 # File Info: This is Discourse webhooks blueprint.
 from datetime import datetime
 import logging
+import os
+import base64
+import json as jsonassign
 # --------------------  Imports  --------------------
 from flask import Blueprint, request
 import requests
@@ -18,10 +21,10 @@ from application.responses import *
 from application.models import *
 from copy import deepcopy
 from application.globals import *
-from application.notifications import send_card_message # TEAM 19 - GS
+from application.notifications import send_email, send_card_message, send_chat_message # TEAM 19 - GS
 
 from application.models import Auth, Ticket
-from application.common_utils import users_required # Team 19 - MJ
+
 from application.common_utils import convert_img_to_base64
 
 # --------------------  Code  --------------------
@@ -203,23 +206,6 @@ class DiscourseUtils():
                 logger.error(e)
             return 200
         return {'error': f'Topic not closed on Discourse. {close_topic.json()["errors"]}'}, response.status_code
-    
-    # Team 19 - MJ (function to filter discourse ticket ids from response)    
-    def convert_discourse_response_to_ids(self, discourseresponse):
-        discourse_ticket_ids = []
-        if 'topics' in discourseresponse.keys():
-            for i in discourseresponse['topics']:
-                discourse_ticket_ids.append(i['id'])
-        return discourse_ticket_ids
-    
-    # Team - 19 ( Function to make list as str)
-    def list_to_str(self, tags):
-        tags_data = ""
-        try: 
-            for i in tags:
-                tags_data += i + ","
-        except:
-            return tags_data
 
 
     # TEAM 19 / RP
@@ -244,6 +230,7 @@ class DiscourseUtils():
 discourse_bp = Blueprint("discourse_bp", __name__)
 discourse_api = Api(discourse_bp)
 Discourse_utils = DiscourseUtils()
+
 
 # - - - - - - - - - - - - - - - - - - - - -
 # TEAM 19 / PB: API IMPLEMENTATION
@@ -390,7 +377,7 @@ class CreateFAQTopic(Resource):
                     return {"message": "Topic creation error","error": lock_response.json()}, 500
                 
             else:
-                return {"message": response.json()}, 500
+                return {"error": response.json()}, 500
             
         except Exception as e:
             logger.info(e)
@@ -465,89 +452,7 @@ class CategoryTags(Resource):
 
                 return filtered_tags, 200
             except Exception as e:
-                return {"message": str(e)}, 500
-            
-# Team 19 - MJ (Search tickets on discourse)         
-class DiscourseTicketSearch(Resource):
-
-    @users_required(users=["student", "support", "admin"])
-    def get(self):
-        """
-        Get the tags for a given category ID.
-
-        Header
-        --------
-        JSON payload containing the user details(user_id)
-
-        JSON Data
-        --------
-        JSON payload containing the message details(q, tags, username, categoryid)
-
-        Returns
-        -------
-        List[tickets]
-
-        Raises
-        ------
-        Exception
-            If an error occurs while retrieving the tickets.
-
-        """
-        try: 
-            json_data = request.get_json()
-
-            query = json_data['q']
-            tags = json_data['tags']
-            discourse_username = json_data['discourse_username']
-            category_id = json_data['categoryid']
-
-            api_url = f"{DISCOURSE_URL}/search.json"
-            tags_data = Discourse_utils.list_to_str(tags)
-                
-            params = {'q': f"{query} @{discourse_username} #{category_id}",'tags': tags_data}
-            response = requests.get(api_url, headers=DISCOURSE_HEADERS, params=params)
-            if response.status_code == 200:
-                json_data = response.json()
-                print("DIScourse data:::::", json_data)
-                data = Discourse_utils.convert_discourse_response_to_ids(json_data)
-                return {"data": data}, 200
-            else:
-                return 
-        except Exception as e:
-            logging.info(e)
-            return {"message": str(e)}, 500
-
-# Team 19 - MJ (Function to handle api call to delete topic from discourse)
-class DiscourseTicketDelete(Resource):
-
-    @users_required(users=["student", "support", "admin"])
-    def delete(self, discourse_ticket_id):
-        """
-        Delete the post from discourse for a given Topic ID.
-
-        Header
-        --------
-        JSON payload containing the user details(user_id)
-
-        JSON Data
-        --------
-        JSON payload containing the message details(q, tags, username, categoryid)
-
-        Returns
-        -------
-        Success message
-
-        Raises
-        ------
-        Exception
-            If an error occurs while deleting ticket from discourse.
-
-        """
-        try:
-            response = DiscourseUtils.delete_post(discourse_ticket_id)
-            return response
-        except Exception as e:
-            logger.error({"error": e}) 
+                return {"error": str(e)}, 500
 
 
 #  - - - - - - - - ENDPOINTS - - - - - - - - 
@@ -556,10 +461,10 @@ discourse_api.add_resource(CategoryTags, "/category/<string:category_id>/tags") 
 
 discourse_api.add_resource(CreateFAQTopic, "/create-faq-topic") # SE Team 19 - SV
 discourse_api.add_resource(DiscourseUser, "/user/<string:username>")
-discourse_api.add_resource(DiscourseTicketSearch, "/search") # Team 19 - MJ
 
 discourse_api.add_resource(DiscourseTicketAPI, "/create-ticket") # Team 19 / RP ----  endpoint to expose system endpoint to receive post requests from discourse via ngrok or any other proxy
-discourse_api.add_resource(DiscourseTicketDelete,"/delete/<int:discourse_ticket_id>") # Team 19 - MJ
+
+
 
 # - - - - - -   E N D   - - - - - - -
 

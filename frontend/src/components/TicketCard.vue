@@ -15,8 +15,7 @@
           <b-col class="col" cols="12" lg="5" sm="12"
             ><i>Id: </i>{{ ticket_id.slice(0, 15) }}</b-col
           >
-          <!-- Team 19 - MJ -->
-          <b-col class="col" cols="12" lg="5" sm="8"><i>Created On: </i>{{ convertTime(created_on) }}</b-col> 
+          <b-col class="col" cols="12" lg="5" sm="8"><i>Created On: </i>{{ convertTime(created_on) }}</b-col>
           <b-col class="col" cols="12" lg="2" sm="4"><i>Votes: </i>{{ votes }}</b-col>
         </b-row>
         <b-row class="row">
@@ -29,7 +28,6 @@
                 ><b>Description: </b>{{ description.slice(0, 200) }}</b-col
               >
             </b-row>
-            <!-- Team 19 - MJ (Added discourse_ticket_id) -->
             <b-row class = "row" v-if="discourse_ticket_id != null">
               <b-col class="col" cols="12">
                 <p>Link to Topic in Discourse:</p>
@@ -147,7 +145,6 @@
           </tr>
           <tr>
             <td>Created on:</td>
-            <!-- Team 19 - MJ -->
             <td>{{ convertTime(created_on) }}</td>
           </tr>
           <tr>
@@ -160,7 +157,6 @@
           </tr>
           <tr>
             <td>Resolved on:</td>
-            <!-- Team 19 - MJ -->
             <td>{{ resolved_on == 0 ? "" : convertTime(resolved_on) }}</td>
           </tr>
           <tr>
@@ -248,7 +244,7 @@ export default {
     "delete_disabled",
     "edit_disabled",
     "is_resolved",
-    "discourse_ticket_id", // Team 19 - MJ (Added discourse_ticket_id)
+    "discourse_ticket_id",
   ],
   components: { TicketForm },
   data() {
@@ -405,7 +401,6 @@ export default {
           });
         });
     },
-    // Team 19 - MJ (Function to convert time in seconds to date format)
     convertTime(timeInSeconds) {
       const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

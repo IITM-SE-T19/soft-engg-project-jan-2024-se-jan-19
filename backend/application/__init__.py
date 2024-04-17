@@ -17,7 +17,6 @@ from application.views.admin_bp import admin_bp
 from application.views.faq_bp import faq_bp
 from application.views.ticket_bp import ticket_bp
 from application.views.discourse_bp import discourse_bp # Team 19 - PB
-from application.views.notification_bp import notification_bp # Team 19 - MJ
 from flask_cors import CORS
 
 
@@ -44,7 +43,6 @@ def create_app(env_type="dev"):
     app.register_blueprint(ticket_bp, url_prefix=f"/api/{API_VERSION}/ticket")
     app.register_blueprint(faq_bp, url_prefix=f"/api/{API_VERSION}/faq")
     app.register_blueprint(discourse_bp, url_prefix=f"/api/{API_VERSION}/discourse") # TEAM19/PB: Added
-    app.register_blueprint(notification_bp, url_prefix=f"/api/{API_VERSION}/notification") # Team 19 - MJ
 
     app.app_context().push()
     db.create_all()

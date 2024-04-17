@@ -15,7 +15,6 @@ from application.globals import *
 import base64
 from application.database import db
 import time
-from urllib.parse import urlparse # Team 19 - MJ
 
 # --------------------  Code  --------------------
 
@@ -137,13 +136,6 @@ def is_img_path_valid(img_path: str) -> str:
         logger.info(f"File path is not valid: {img_path}")
     return False
 
-# Team 19 - MJ (Function to check whether a link is valid or not)
-def is_valid_link(url: str):
-    parsed_url = urlparse(url)
-    if parsed_url.scheme and parsed_url.netloc:
-        return True
-    logger.error({"error":"Links passed are not correct"})
-    return False
 
 def convert_img_to_base64(img_path: str) -> str:
     try:
