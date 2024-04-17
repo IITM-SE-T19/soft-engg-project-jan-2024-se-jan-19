@@ -85,7 +85,7 @@
           :edit_disabled="edit_disabled"
           :is_resolved="ticket.status == 'resolved'"
           :discourse_ticket_id="ticket.discourse_ticket_id"
-        ></TicketCard>
+        ></TicketCard> <!-- Team 19 - MJ (Added discourse_ticket_id) -->
       </div>
     </div>
   </div>
