@@ -108,5 +108,6 @@ https://t19support.cs3001.site/
 - Bootstrap
 - Mailhog
 - Discourse
+- Legacy Code (OSTS) - [Tushar Supe](https://www.linkedin.com/in/tushar-supe/) and [Vaidehi Agarwal](https://www.linkedin.com/in/vaidehi-agarwal-2646061b7/)
 
 For more info you can check out our [website](https://bit.ly/t19cc) or send mail to iitm.se.t19@gmail.com
