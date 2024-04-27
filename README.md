@@ -2,7 +2,7 @@
 
 # OSTS v2
 
-## _One stop all solution for your ticket management system powered by Discourse_
+## _One stop solution for your ticket management system powered by Discourse_
 
 This document extends the V1 document available in the same folder.
 
