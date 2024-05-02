@@ -12,7 +12,7 @@ import os
 
 
 BACKEND_ROOT_PATH = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
-HOST = "127.0.0.1"
+HOST = "host"
 PORT = 5000
 DEBUG = True
 ENV_TYPE = "dev"  # "test"
@@ -31,16 +31,16 @@ FAQ_ATTACHMENTS_PATH = os.path.join(
 )
 
 BASE = f"http://{HOST}:{PORT}"
-BASE_DISCOURSE = "https://t19support.cs3001.site"
-BASE_APP = f"http://{HOST}:{8080}"
+BASE_DISCOURSE = "discourse-host-url"
+BASE_APP = "backend-server-url"
 
 # TEAM 19 - MJ
-GCHAT_WEBHOOKS = "https://chat.googleapis.com/v1/spaces/AAAAkq1KEsM/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=A_UdVqn5bmNXirnCMCzkH1TirPAZ3hrR4SfL5ZNPWfk"
+GCHAT_WEBHOOKS = "create-in-gchat"
 
 # TEAM 19 / PB: Discourse API 
 DISCOURSE_HEADERS = {
-    "Api-Key": "3030e413d91e5c7b3df76b994fe35f75bbf507e3701e7e7375881bc414a1454b",
-    "Api-Username": "System"
+    "Api-Key": "secret",
+    "Api-Username": "admin"
 }
 
 # Mailhog runs at http://127.0.0.1:8025/
